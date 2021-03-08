@@ -1,0 +1,1341 @@
+<manifest alg="2" build="2018.1.1.386" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive,cachebuster,textStyling" exportTarget="other" domain="guias.com" resolutions="1x" timestamp="1614728998977">
+  <folder name="css">
+    <file name="site_global.css" crc="398114523"/>
+    <file name="master_a-p_g_-maestra.css" crc="4025041751" ref="muestra-medica:zyter-beta:inicio:zyter-alfabeta:monolatan-alfa:ojo-seco:monolatan:monolatan-beta:thealoz-duo-alfa:blephaclean:monolatan-alfabeta:thealoz-duo-beta:zyter:monolatangamma:thealoz-duo-alfabeta:zyter-gamma:zaditen:zaditen-alfa:hyabak-alfa:thealoz:zaditen-beta:hyabak-beta:index:zaditen-alfabeta:hyabak-alfabeta:alfa-blephaclean:zaditen-gamma:thealoz--alfa:beta-blephaclean:hyabak:thealoz-beta:alfabeta-blephacelan:thealoz-duo:thealoz-alfabeta:zyter-alfa:gamma-blephaclean"/>
+    <file name="muestra-medica.css" crc="3804924569" ref="muestra-medica"/>
+    <file name="zyter-beta.css" crc="239244375" ref="zyter-beta"/>
+    <file name="inicio.css" crc="443789106" ref="inicio"/>
+    <file name="zyter-alfabeta.css" crc="357747328" ref="zyter-alfabeta"/>
+    <file name="monolatan-alfa.css" crc="3758203616" ref="monolatan-alfa"/>
+    <file name="ojo-seco.css" crc="4238957709" ref="ojo-seco"/>
+    <file name="monolatan.css" crc="353019992" ref="monolatan"/>
+    <file name="monolatan-beta.css" crc="3843237022" ref="monolatan-beta"/>
+    <file name="thealoz-duo-alfa.css" crc="4122592136" ref="thealoz-duo-alfa"/>
+    <file name="blephaclean.css" crc="259249193" ref="blephaclean"/>
+    <file name="monolatan-alfabeta.css" crc="376079260" ref="monolatan-alfabeta"/>
+    <file name="thealoz-duo-beta.css" crc="174341309" ref="thealoz-duo-beta"/>
+    <file name="zyter.css" crc="3950439150" ref="zyter"/>
+    <file name="monolatangamma.css" crc="4040297961" ref="monolatangamma"/>
+    <file name="thealoz-duo-alfabeta.css" crc="4188709190" ref="thealoz-duo-alfabeta"/>
+    <file name="zyter-gamma.css" crc="346909554" ref="zyter-gamma"/>
+    <file name="zaditen.css" crc="4036437064" ref="zaditen"/>
+    <file name="zaditen-alfa.css" crc="3987692514" ref="zaditen-alfa"/>
+    <file name="hyabak-alfa.css" crc="170953504" ref="hyabak-alfa"/>
+    <file name="thealoz.css" crc="520855384" ref="thealoz"/>
+    <file name="zaditen-beta.css" crc="4055546519" ref="zaditen-beta"/>
+    <file name="hyabak-beta.css" crc="462351057" ref="hyabak-beta"/>
+    <file name="index.css" crc="3923976333" ref="index"/>
+    <file name="zaditen-alfabeta.css" crc="4142926139" ref="zaditen-alfabeta"/>
+    <file name="hyabak-alfabeta.css" crc="284281510" ref="hyabak-alfabeta"/>
+    <file name="alfa-blephaclean.css" crc="283310350" ref="alfa-blephaclean"/>
+    <file name="zaditen-gamma.css" crc="486290622" ref="zaditen-gamma"/>
+    <file name="thealoz--alfa.css" crc="4005321014" ref="thealoz--alfa"/>
+    <file name="beta-blephaclean.css" crc="358167196" ref="beta-blephaclean"/>
+    <file name="hyabak.css" crc="263200571" ref="hyabak"/>
+    <file name="thealoz-beta.css" crc="4159510142" ref="thealoz-beta"/>
+    <file name="alfabeta-blephacelan.css" crc="4084265238" ref="alfabeta-blephacelan"/>
+    <file name="thealoz-duo.css" crc="3791167331" ref="thealoz-duo"/>
+    <file name="thealoz-alfabeta.css" crc="212491657" ref="thealoz-alfabeta"/>
+    <file name="zyter-alfa.css" crc="4119871626" ref="zyter-alfa"/>
+    <file name="gamma-blephaclean.css" crc="78719693" ref="gamma-blephaclean"/>
+  </folder>
+  <folder name="assets">
+    <file name="22.mov" crc="444261225" seo="true" mt="1606233996000"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="209076791" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="museutils.js" crc="3939489907" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="whatinput.js" crc="86476730" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="museconfig.js" crc="3936894949" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="jquery.musemenu.js" crc="4139692962" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="jquery.watch.js" crc="522499760" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="html5shiv.js" crc="4241844378" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="require.js" crc="4177726516" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="85124417" ref="monolatan:blephaclean:zyter:zaditen:thealoz:hyabak:thealoz-duo"/>
+    <file name="webpro.js" crc="3856315280" ref="alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="musewpslideshow.js" crc="244150766" ref="alfa-blephaclean:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="jquery.museoverlay.js" crc="3877667098" ref="alfa-blephaclean:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="touchswipe.js" crc="3888935200" ref="alfa-blephaclean:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="musewpdisclosure.js" crc="4294234138" ref="alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+  </folder>
+  <folder name="images">
+    <file name="svg-pegado-2221944x1982.svg" crc="224951765" seo="true" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta">
+      <caption webpage="alfabeta-blephacelan" alt=""/>
+      <caption webpage="beta-blephaclean" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="zyter" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+      <caption webpage="zaditen-beta" alt=""/>
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="monolatan" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+      <caption webpage="gamma-blephaclean" alt=""/>
+      <caption webpage="monolatangamma" alt=""/>
+      <caption webpage="zaditen-alfa" alt=""/>
+      <caption webpage="zyter-alfabeta" alt=""/>
+      <caption webpage="blephaclean" alt=""/>
+      <caption webpage="monolatan-alfabeta" alt=""/>
+      <caption webpage="zaditen" alt=""/>
+      <caption webpage="zaditen-alfabeta" alt=""/>
+      <caption webpage="hyabak-beta" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="zyter-alfa" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="alfa-blephaclean" alt=""/>
+      <caption webpage="zyter-gamma" alt=""/>
+      <caption webpage="thealoz-alfabeta" alt=""/>
+      <caption webpage="hyabak-alfabeta" alt=""/>
+      <caption webpage="monolatan-beta" alt=""/>
+      <caption webpage="thealoz--alfa" alt=""/>
+      <caption webpage="zyter-beta" alt=""/>
+      <caption webpage="monolatan-alfa" alt=""/>
+      <caption webpage="inicio" alt=""/>
+      <caption webpage="zaditen-gamma" alt=""/>
+      <caption webpage="thealoz-beta" alt=""/>
+      <caption webpage="hyabak-alfa" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+    </file>
+    <file name="svg pegado 2221944x1982_poster_.png" crc="25128856" ref="ojo-seco"/>
+    <file name="svg-pegado-382x633.svg" crc="4139804743" seo="true" ref="ojo-seco:monolatan:blephaclean:zyter:zaditen:thealoz:index:alfa-blephaclean:beta-blephaclean:alfabeta-blephacelan:gamma-blephaclean:muestra-medica:inicio:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:hyabak:thealoz-duo:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta">
+      <caption webpage="alfabeta-blephacelan" alt=""/>
+      <caption webpage="beta-blephaclean" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="zyter" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+      <caption webpage="zaditen-beta" alt=""/>
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="monolatan" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+      <caption webpage="gamma-blephaclean" alt=""/>
+      <caption webpage="monolatangamma" alt=""/>
+      <caption webpage="zaditen-alfa" alt=""/>
+      <caption webpage="zyter-alfabeta" alt=""/>
+      <caption webpage="blephaclean" alt=""/>
+      <caption webpage="monolatan-alfabeta" alt=""/>
+      <caption webpage="zaditen" alt=""/>
+      <caption webpage="zaditen-alfabeta" alt=""/>
+      <caption webpage="hyabak-beta" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="zyter-alfa" alt=""/>
+      <caption webpage="index" alt=""/>
+      <caption webpage="alfa-blephaclean" alt=""/>
+      <caption webpage="zyter-gamma" alt=""/>
+      <caption webpage="thealoz-alfabeta" alt=""/>
+      <caption webpage="hyabak-alfabeta" alt=""/>
+      <caption webpage="monolatan-beta" alt=""/>
+      <caption webpage="thealoz--alfa" alt=""/>
+      <caption webpage="zyter-beta" alt=""/>
+      <caption webpage="monolatan-alfa" alt=""/>
+      <caption webpage="inicio" alt=""/>
+      <caption webpage="zaditen-gamma" alt=""/>
+      <caption webpage="thealoz-beta" alt=""/>
+      <caption webpage="hyabak-alfa" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+    </file>
+    <file name="svg pegado 382x633_poster_.png" crc="4279321930" ref="ojo-seco"/>
+    <file name="arrowmenudown.png" crc="262559161" ref="ojo-seco">
+      <caption webpage="ojo-seco" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+    </file>
+    <file name="blank.gif" crc="4208392903" ref="ojo-seco:alfa-blephaclean:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="svg-pegado-248863x70.svg" crc="4082569785" seo="true" ref="ojo-seco:index:inicio:thealoz-duo">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+    </file>
+    <file name="svg pegado 248863x70_poster_.png" crc="3936147744" ref="ojo-seco"/>
+    <file name="svg-pegado-254133x61.svg" crc="248189103" seo="true" ref="ojo-seco:index:inicio:hyabak">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+    </file>
+    <file name="svg pegado 254133x61_poster_.png" crc="445354481" ref="ojo-seco"/>
+    <file name="svg-pegado-266293x72.svg" crc="3962356920" seo="true" ref="ojo-seco:thealoz:index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="ojo-seco" alt=""/>
+    </file>
+    <file name="svg pegado 266293x72_poster_.png" crc="321511981" ref="ojo-seco"/>
+    <file name="av corta dic 20-07.jpg" crc="71044244" ref="monolatan:zaditen:thealoz:hyabak:thealoz-duo">
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="zaditen" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="monolatan" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+    </file>
+    <file name="av corta dic 20-08.jpg" crc="282085565" ref="monolatan:blephaclean:zyter:thealoz:hyabak:thealoz-duo">
+      <caption webpage="blephaclean" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="monolatan" alt=""/>
+      <caption webpage="zyter" alt=""/>
+    </file>
+    <file name="av corta dic 20-09.jpg" crc="237459151" ref="monolatan:blephaclean:zaditen:thealoz:hyabak:thealoz-duo">
+      <caption webpage="blephaclean" alt=""/>
+      <caption webpage="zaditen" alt=""/>
+      <caption webpage="thealoz" alt=""/>
+      <caption webpage="thealoz-duo" alt=""/>
+      <caption webpage="monolatan" alt=""/>
+      <caption webpage="hyabak" alt=""/>
+    </file>
+    <file name="av corta dic 20-10.jpg" crc="4165532434" ref="blephaclean:zyter:zaditen">
+      <caption webpage="blephaclean" alt=""/>
+      <caption webpage="zyter" alt=""/>
+      <caption webpage="zaditen" alt=""/>
+    </file>
+    <file name="svg-pegado-250325x46.svg" crc="128018581" seo="true" ref="index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+    </file>
+    <file name="svg pegado 250325x46_poster_.png" crc="415288926" ref="index"/>
+    <file name="svg-pegado-243226x70.svg" crc="3982553740" seo="true" ref="index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+    </file>
+    <file name="svg pegado 243226x70_poster_.png" crc="193974936" ref="index"/>
+    <file name="svg-pegado-271935x81.svg" crc="19944181" seo="true" ref="index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+    </file>
+    <file name="svg pegado 271935x81_poster_.png" crc="3841556397" ref="index"/>
+    <file name="svg-pegado-270211x37.svg" crc="3919418350" seo="true" ref="index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+    </file>
+    <file name="svg pegado 270211x37_poster_.png" crc="197188188" ref="index"/>
+    <file name="svg-pegado-44064x303.svg" crc="4171551806" seo="true" ref="index:inicio">
+      <caption webpage="index" alt=""/>
+      <caption webpage="inicio" alt=""/>
+    </file>
+    <file name="svg pegado 44064x303_poster_.png" crc="3789524015" ref="index"/>
+    <file name="blepha render2-crop-u44263.jpg" crc="185413583" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="render 4-2--01-crop-u44283.jpg" crc="214855238" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u33772.jpg" crc="265139185" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u33977.jpg" crc="432357001" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u33997.jpg" crc="4043521646" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u34017.jpg" crc="4096419484" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u34037.jpg" crc="3968192337" seo="true" ref="alfa-blephaclean">
+      <caption webpage="alfa-blephaclean" alt=""/>
+    </file>
+    <file name="loading.gif" crc="3815509949" ref="alfa-blephaclean:gamma-blephaclean:monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma:zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma:zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma:thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:hyabak-alfa:hyabak-beta:hyabak-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta"/>
+    <file name="blepha render2-crop-u44293.jpg" crc="185413583" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="render 4-2--01-crop-u44295.jpg" crc="214855238" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u34322.jpg" crc="265139185" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u34324.jpg" crc="432357001" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u34326.jpg" crc="4043521646" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u34320.jpg" crc="4096419484" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u34318.jpg" crc="3968192337" seo="true" ref="gamma-blephaclean">
+      <caption webpage="gamma-blephaclean" alt=""/>
+    </file>
+    <file name="svg-pegado-399.svg" crc="4294563391" seo="true" ref="muestra-medica">
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+      <caption webpage="muestra-medica" alt=""/>
+    </file>
+    <file name="svg pegado 399_poster_.png" crc="50586363" ref="muestra-medica"/>
+    <file name="pag2-crop-u39728.jpg" crc="4100110950" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="boton.jpg" crc="4053979545" seo="true" ref="monolatan-alfa:monolatan-beta:monolatan-alfabeta">
+      <caption webpage="monolatan-beta" alt=""/>
+      <caption webpage="monolatan-alfabeta" alt=""/>
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="bolsa.jpg" crc="371131957" seo="true" ref="monolatan-alfa:monolatan-beta:monolatan-alfabeta">
+      <caption webpage="monolatan-beta" alt=""/>
+      <caption webpage="monolatan-alfabeta" alt=""/>
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="microsoftteams-image.jpg" crc="3919028071" seo="true" ref="monolatan-alfa:monolatan-beta:monolatan-alfabeta:monolatangamma">
+      <caption webpage="monolatan-beta" alt=""/>
+      <caption webpage="monolatan-alfabeta" alt=""/>
+      <caption webpage="monolatangamma" alt=""/>
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u11155.jpg" crc="3915881435" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u35546.jpg" crc="303965498" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u35566.jpg" crc="4058548272" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u35586.jpg" crc="99002624" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u35606.jpg" crc="4189717646" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u35626.jpg" crc="37657078" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u35646.jpg" crc="4193478277" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u35666.jpg" crc="441576045" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u35686.jpg" crc="4100110711" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u35706.jpg" crc="40310678" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u35726.jpg" crc="150665782" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u35746.jpg" crc="4294108081" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u35766.jpg" crc="275322717" seo="true" ref="monolatan-alfa">
+      <caption webpage="monolatan-alfa" alt=""/>
+    </file>
+    <file name="8b620c8e-977c-432e-8e2c-25945f9fd6ff-crop-u11473.jpg" crc="4250956629" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u35830.jpg" crc="3915881435" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u35814.jpg" crc="303965498" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u35806.jpg" crc="4058548272" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u35818.jpg" crc="99002624" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u35810.jpg" crc="4189717646" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u35822.jpg" crc="37657078" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u35820.jpg" crc="4193478277" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u35812.jpg" crc="441576045" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u35826.jpg" crc="4100110711" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u35808.jpg" crc="40310678" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u35824.jpg" crc="150665782" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u35828.jpg" crc="4294108081" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u35816.jpg" crc="275322717" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u26643.jpg" crc="3915881435" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u26623.jpg" crc="303965498" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u26627.jpg" crc="4058548272" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u26633.jpg" crc="99002624" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u26583.jpg" crc="4189717646" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u26647.jpg" crc="37657078" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u26587.jpg" crc="4193478277" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u26617.jpg" crc="441576045" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u26645.jpg" crc="4100110711" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u26635.jpg" crc="40310678" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u26607.jpg" crc="150665782" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u26655.jpg" crc="4294108081" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u26591.jpg" crc="275322717" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u26621.jpg" crc="3915881435" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u26601.jpg" crc="303965498" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u26585.jpg" crc="4058548272" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u26593.jpg" crc="99002624" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u26619.jpg" crc="4189717646" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u26611.jpg" crc="37657078" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u26597.jpg" crc="4193478277" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u26653.jpg" crc="441576045" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u26605.jpg" crc="4100110711" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u26595.jpg" crc="40310678" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u26609.jpg" crc="150665782" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u26637.jpg" crc="4294108081" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u26599.jpg" crc="275322717" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u26629.jpg" crc="303965498" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u26581.jpg" crc="3945507309" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u26615.jpg" crc="280049999" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u26613.jpg" crc="370753748" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u26589.jpg" crc="526902041" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u26641.jpg" crc="376310628" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u26631.jpg" crc="359474046" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u26603.jpg" crc="100543108" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u26625.jpg" crc="4018170279" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u26649.jpg" crc="3778876745" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u26651.jpg" crc="78397427" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u26639.jpg" crc="466018499" seo="true" ref="monolatan-beta">
+      <caption webpage="monolatan-beta" alt=""/>
+    </file>
+    <file name="8b620c8e-977c-432e-8e2c-25945f9fd6ff-crop-u11832.jpg" crc="4132430987" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u36084.jpg" crc="3915881435" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u36068.jpg" crc="303965498" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u36060.jpg" crc="4058548272" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u36072.jpg" crc="99002624" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u36064.jpg" crc="4189717646" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u36076.jpg" crc="37657078" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u36074.jpg" crc="4193478277" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u36066.jpg" crc="441576045" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u36080.jpg" crc="4100110711" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u36062.jpg" crc="40310678" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u36078.jpg" crc="150665782" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u36082.jpg" crc="4294108081" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u36070.jpg" crc="275322717" seo="true" ref="monolatan-alfabeta">
+      <caption webpage="monolatan-alfabeta" alt=""/>
+    </file>
+    <file name="8b620c8e-977c-432e-8e2c-25945f9fd6ff.jpg" crc="179754173" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u36338.jpg" crc="3915881435" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u36322.jpg" crc="303965498" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u36314.jpg" crc="4058548272" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u36326.jpg" crc="99002624" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u36318.jpg" crc="4189717646" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u36330.jpg" crc="37657078" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u36328.jpg" crc="4193478277" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u36320.jpg" crc="441576045" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u36334.jpg" crc="4100110711" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u36316.jpg" crc="40310678" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u36332.jpg" crc="150665782" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u36336.jpg" crc="4294108081" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u36324.jpg" crc="275322717" seo="true" ref="monolatangamma">
+      <caption webpage="monolatangamma" alt=""/>
+    </file>
+    <file name="imagen pegada 537x486.jpg" crc="244064062" seo="true" ref="zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+      <caption webpage="zaditen-alfabeta" alt=""/>
+      <caption webpage="zaditen-beta" alt=""/>
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="imagen pegada 420x200.jpg" crc="51771617" seo="true" ref="zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+      <caption webpage="zaditen-alfabeta" alt=""/>
+      <caption webpage="zaditen-beta" alt=""/>
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diálogo sugerido zaditen-1- - solo lectura.jpg" crc="4190166563" seo="true" ref="zaditen-alfa:zaditen-beta:zaditen-alfabeta:zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+      <caption webpage="zaditen-alfabeta" alt=""/>
+      <caption webpage="zaditen-beta" alt=""/>
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u29442.jpg" crc="3958524079" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u29462.jpg" crc="4073672922" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u29482.jpg" crc="391737009" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u29502.jpg" crc="3903329551" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u29522.jpg" crc="245239134" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u29542.jpg" crc="340027250" seo="true" ref="zaditen-alfa">
+      <caption webpage="zaditen-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u40466.jpg" crc="3958524079" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u40472.jpg" crc="4073672922" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u40464.jpg" crc="391737009" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u40474.jpg" crc="3903329551" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u40462.jpg" crc="245239134" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u40468.jpg" crc="340027250" seo="true" ref="zaditen-beta">
+      <caption webpage="zaditen-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u40770.jpg" crc="3958524079" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u40776.jpg" crc="4073672922" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u40768.jpg" crc="391737009" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u40778.jpg" crc="3903329551" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u40766.jpg" crc="245239134" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u40772.jpg" crc="340027250" seo="true" ref="zaditen-alfabeta">
+      <caption webpage="zaditen-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u40922.jpg" crc="3958524079" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u40928.jpg" crc="4073672922" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u40920.jpg" crc="391737009" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u40930.jpg" crc="3903329551" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u40918.jpg" crc="245239134" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u40924.jpg" crc="340027250" seo="true" ref="zaditen-gamma">
+      <caption webpage="zaditen-gamma" alt=""/>
+    </file>
+    <file name="imagen pegada 542x418.jpg" crc="3940711384" seo="true" ref="zyter-alfa:zyter-beta:zyter-alfabeta:zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+      <caption webpage="zyter-beta" alt=""/>
+      <caption webpage="zyter-alfa" alt=""/>
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u30737.jpg" crc="40947527" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u30757.jpg" crc="314164955" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u30777.jpg" crc="4259117918" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u30797.jpg" crc="176128371" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u30817.jpg" crc="384877182" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u30837.jpg" crc="3882911155" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u30857.jpg" crc="331101869" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u30877.jpg" crc="256693286" seo="true" ref="zyter-alfa">
+      <caption webpage="zyter-alfa" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u34428.jpg" crc="40947527" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u34436.jpg" crc="314164955" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u34438.jpg" crc="4259117918" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u34442.jpg" crc="176128371" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u34430.jpg" crc="384877182" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u34432.jpg" crc="3882911155" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u34434.jpg" crc="331101869" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u34440.jpg" crc="256693286" seo="true" ref="zyter-beta">
+      <caption webpage="zyter-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u34597.jpg" crc="40947527" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u34605.jpg" crc="314164955" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u34607.jpg" crc="4259117918" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u34611.jpg" crc="176128371" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u34599.jpg" crc="384877182" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u34601.jpg" crc="3882911155" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u34603.jpg" crc="331101869" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u34609.jpg" crc="256693286" seo="true" ref="zyter-alfabeta">
+      <caption webpage="zyter-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u34766.jpg" crc="40947527" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u34774.jpg" crc="314164955" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u34776.jpg" crc="4259117918" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u34780.jpg" crc="176128371" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u34768.jpg" crc="384877182" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u34770.jpg" crc="3882911155" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u34772.jpg" crc="331101869" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u34778.jpg" crc="256693286" seo="true" ref="zyter-gamma">
+      <caption webpage="zyter-gamma" alt=""/>
+    </file>
+    <file name="imagen pegada 384x512.jpg" crc="53790786" seo="true" ref="thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta:thealoz--alfa:thealoz-beta:thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+      <caption webpage="thealoz-beta" alt=""/>
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="imagen pegada 578x407.jpg" crc="4011104748" seo="true" ref="thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="imagen pegada 463x170.jpg" crc="3924042868" seo="true" ref="thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="imagen pegada 774x460.jpg" crc="3886152726" seo="true" ref="thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="763b1bf3-1eaf-44f4-9729-eaea90fff322.jpg" crc="345482017" seo="true" ref="thealoz-duo-alfa:thealoz-duo-beta:thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u37741.jpg" crc="4038543874" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u41171.jpg" crc="133234196" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u41191.jpg" crc="411000341" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u41211.jpg" crc="3771898838" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u41231.jpg" crc="4145964290" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u41251.jpg" crc="4218469535" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u41271.jpg" crc="408253308" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u41291.jpg" crc="3937310172" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u41311.jpg" crc="3808658517" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u41331.jpg" crc="213340572" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u41351.jpg" crc="3958381208" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u41371.jpg" crc="3924128641" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u41391.jpg" crc="3921895326" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u41411.jpg" crc="4154987453" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u41431.jpg" crc="3773790773" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u41451.jpg" crc="153142991" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u41471.jpg" crc="3953919560" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u41491.jpg" crc="4018393312" seo="true" ref="thealoz-duo-alfa">
+      <caption webpage="thealoz-duo-alfa" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u41597.jpg" crc="4038543874" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u41581.jpg" crc="133234196" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u41585.jpg" crc="411000341" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u41579.jpg" crc="3771898838" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u41589.jpg" crc="4145964290" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u41603.jpg" crc="4218469535" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u41587.jpg" crc="408253308" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u41583.jpg" crc="3937310172" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u41605.jpg" crc="3808658517" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u41591.jpg" crc="213340572" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u41609.jpg" crc="3958381208" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u41593.jpg" crc="3924128641" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u41595.jpg" crc="3921895326" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u41607.jpg" crc="4154987453" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u41601.jpg" crc="3773790773" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u41599.jpg" crc="153142991" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u41575.jpg" crc="3953919560" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u41577.jpg" crc="4018393312" seo="true" ref="thealoz-duo-beta">
+      <caption webpage="thealoz-duo-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u41936.jpg" crc="4038543874" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u41920.jpg" crc="133234196" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u41924.jpg" crc="411000341" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u41918.jpg" crc="3771898838" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u41928.jpg" crc="4145964290" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u41942.jpg" crc="4218469535" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u41926.jpg" crc="408253308" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u41922.jpg" crc="3937310172" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u41944.jpg" crc="3808658517" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u41930.jpg" crc="213340572" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u41948.jpg" crc="3958381208" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u41932.jpg" crc="3924128641" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u41934.jpg" crc="3921895326" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u41946.jpg" crc="4154987453" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u41940.jpg" crc="3773790773" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u41938.jpg" crc="153142991" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u41914.jpg" crc="3953919560" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u41916.jpg" crc="4018393312" seo="true" ref="thealoz-duo-alfabeta">
+      <caption webpage="thealoz-duo-alfabeta" alt=""/>
+    </file>
+    <file name="imagen pegada 339x350.jpg" crc="3795733716" seo="true" ref="hyabak-alfa:hyabak-beta:hyabak-alfabeta">
+      <caption webpage="hyabak-alfa" alt=""/>
+      <caption webpage="hyabak-beta" alt=""/>
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="imagen pegada 368x37.jpg" crc="4167159361" seo="true" ref="hyabak-alfa:hyabak-beta:hyabak-alfabeta">
+      <caption webpage="hyabak-alfa" alt=""/>
+      <caption webpage="hyabak-beta" alt=""/>
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u42275.jpg" crc="4038543874" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u42259.jpg" crc="133234196" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u42263.jpg" crc="411000341" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u42257.jpg" crc="3771898838" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u42267.jpg" crc="4145964290" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u42281.jpg" crc="4218469535" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u42265.jpg" crc="408253308" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u42261.jpg" crc="3937310172" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u42283.jpg" crc="3808658517" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u42269.jpg" crc="213340572" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u42287.jpg" crc="3958381208" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u42271.jpg" crc="3924128641" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u42273.jpg" crc="3921895326" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u42285.jpg" crc="4154987453" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u42279.jpg" crc="3773790773" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u42277.jpg" crc="153142991" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u42253.jpg" crc="3953919560" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u42255.jpg" crc="4018393312" seo="true" ref="hyabak-alfa">
+      <caption webpage="hyabak-alfa" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u42614.jpg" crc="4038543874" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u42598.jpg" crc="133234196" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u42602.jpg" crc="411000341" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u42596.jpg" crc="3771898838" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u42606.jpg" crc="4145964290" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u42620.jpg" crc="4218469535" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u42604.jpg" crc="408253308" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u42600.jpg" crc="3937310172" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u42622.jpg" crc="3808658517" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u42608.jpg" crc="213340572" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u42626.jpg" crc="3958381208" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u42610.jpg" crc="3924128641" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u42612.jpg" crc="3921895326" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u42624.jpg" crc="4154987453" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u42618.jpg" crc="3773790773" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u42616.jpg" crc="153142991" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u42592.jpg" crc="3953919560" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u42594.jpg" crc="4018393312" seo="true" ref="hyabak-beta">
+      <caption webpage="hyabak-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u42953.jpg" crc="4038543874" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u42937.jpg" crc="133234196" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u42941.jpg" crc="411000341" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u42935.jpg" crc="3771898838" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u42945.jpg" crc="4145964290" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u42959.jpg" crc="4218469535" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u42943.jpg" crc="408253308" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u42939.jpg" crc="3937310172" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u42961.jpg" crc="3808658517" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u42947.jpg" crc="213340572" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u42965.jpg" crc="3958381208" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u42949.jpg" crc="3924128641" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u42951.jpg" crc="3921895326" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u42963.jpg" crc="4154987453" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u42957.jpg" crc="3773790773" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u42955.jpg" crc="153142991" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u42931.jpg" crc="3953919560" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u42933.jpg" crc="4018393312" seo="true" ref="hyabak-alfabeta">
+      <caption webpage="hyabak-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u43292.jpg" crc="4038543874" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u43276.jpg" crc="133234196" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u43280.jpg" crc="411000341" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u43274.jpg" crc="3771898838" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u43284.jpg" crc="4145964290" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u43298.jpg" crc="4218469535" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u43282.jpg" crc="408253308" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u43278.jpg" crc="3937310172" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u43300.jpg" crc="3808658517" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u43286.jpg" crc="213340572" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u43304.jpg" crc="3958381208" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u43288.jpg" crc="3924128641" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u43290.jpg" crc="3921895326" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u43302.jpg" crc="4154987453" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u43296.jpg" crc="3773790773" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u43294.jpg" crc="153142991" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u43270.jpg" crc="3953919560" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u43272.jpg" crc="4018393312" seo="true" ref="thealoz--alfa">
+      <caption webpage="thealoz--alfa" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u43631.jpg" crc="4038543874" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u43615.jpg" crc="133234196" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u43619.jpg" crc="411000341" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u43613.jpg" crc="3771898838" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u43623.jpg" crc="4145964290" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u43637.jpg" crc="4218469535" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u43621.jpg" crc="408253308" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u43617.jpg" crc="3937310172" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u43639.jpg" crc="3808658517" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u43625.jpg" crc="213340572" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u43643.jpg" crc="3958381208" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u43627.jpg" crc="3924128641" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u43629.jpg" crc="3921895326" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u43641.jpg" crc="4154987453" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u43635.jpg" crc="3773790773" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u43633.jpg" crc="153142991" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u43609.jpg" crc="3953919560" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u43611.jpg" crc="4018393312" seo="true" ref="thealoz-beta">
+      <caption webpage="thealoz-beta" alt=""/>
+    </file>
+    <file name="diapositiva1-crop-u43970.jpg" crc="4038543874" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva2-crop-u43954.jpg" crc="133234196" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva3-crop-u43958.jpg" crc="411000341" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva4-crop-u43952.jpg" crc="3771898838" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva5-crop-u43962.jpg" crc="4145964290" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva6-crop-u43976.jpg" crc="4218469535" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva7-crop-u43960.jpg" crc="408253308" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva8-crop-u43956.jpg" crc="3937310172" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva9-crop-u43978.jpg" crc="3808658517" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva10-crop-u43964.jpg" crc="213340572" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva11-crop-u43982.jpg" crc="3958381208" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva12-crop-u43966.jpg" crc="3924128641" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva13-crop-u43968.jpg" crc="3921895326" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva14-crop-u43980.jpg" crc="4154987453" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva15-crop-u43974.jpg" crc="3773790773" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva16-crop-u43972.jpg" crc="153142991" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva17-crop-u43948.jpg" crc="3953919560" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+    <file name="diapositiva18-crop-u43950.jpg" crc="4018393312" seo="true" ref="thealoz-alfabeta">
+      <caption webpage="thealoz-alfabeta" alt=""/>
+    </file>
+  </folder>
+  <file name="ojo-seco.html" crc="358891259" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="monolatan.html" crc="4258068991" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="blephaclean.html" crc="16365579" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zyter.html" crc="429202827" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zaditen.html" crc="3769454804" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz.html" crc="356145412" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="index.html" crc="4227343852" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="alfa-blephaclean.html" crc="4063415794" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="beta-blephaclean.html" crc="202392768" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="alfabeta-blephacelan.html" crc="4248408420" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="gamma-blephaclean.html" crc="3906723004" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="muestra-medica.html" crc="4252535998" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="inicio.html" crc="405770522" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="monolatan-alfa.html" crc="3849468777" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="monolatan-beta.html" crc="3960662599" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="monolatan-alfabeta.html" crc="384684042" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="monolatangamma.html" crc="4166738156" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zaditen-alfa.html" crc="3811109055" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zaditen-beta.html" crc="4058598463" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zaditen-alfabeta.html" crc="3960427447" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zaditen-gamma.html" crc="13268025" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="hyabak.html" crc="364325160" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz-duo.html" crc="4081285148" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zyter-alfa.html" crc="376896672" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zyter-beta.html" crc="155935530" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zyter-alfabeta.html" crc="276000395" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="zyter-gamma.html" crc="3794431163" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz-duo-alfa.html" crc="3965536319" seo="true" mt="1614726804815" redirect="true"/>
+  <file name="thealoz-duo-beta.html" crc="80704038" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz-duo-alfabeta.html" crc="57118386" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="hyabak-alfa.html" crc="4257045189" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="hyabak-beta.html" crc="78570343" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="hyabak-alfabeta.html" crc="3820135899" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz--alfa.html" crc="4169178385" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz-beta.html" crc="3805354140" seo="true" mt="1614707956304" redirect="true"/>
+  <file name="thealoz-alfabeta.html" crc="269519405" seo="true" mt="1614707956304" redirect="true"/>
+</manifest>

@@ -38,8 +38,8 @@ func NewLoginController() *LoginController {
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	username, password := r.FormValue("username"), r.FormValue("password")
-	if username == "manicar2093" && password == "caballeros" {
-
+	if username == "manicar2093" && password == "12345678" {
+		Session.CreateNewSession(w, r, 4) // TODO recuerda quitar esto.
 		http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 		return
 	}

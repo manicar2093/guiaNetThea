@@ -6,6 +6,11 @@ import (
 	"github.com/gorilla/sessions"
 )
 
+const (
+	dayInSeconds  = 86400
+	hourInSeconds = 3600
+)
+
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
 var Session *SessionHandler
 var sessionName = "guianetthea-session"
@@ -56,12 +61,12 @@ func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Reques
 }
 
 // CreateNewSession crea una nueva sesión con el userID que se recibe
-func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, userId int) error {
+func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, userID int) error {
 	session, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return e
 	}
-	session.Values["userId"] = userId
+	session.Values["userId"] = userID
 	e = session.Save(r, w)
 	if e != nil {
 		return SessionError{"Error al guardar la sessión", e}
@@ -71,5 +76,7 @@ func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request
 }
 
 func init() {
-	Session = &SessionHandler{session: sessions.NewCookieStore([]byte("a-session-key"))}
+	instance := &SessionHandler{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
+	instance.session.MaxAge(60)
+	Session = instance
 }

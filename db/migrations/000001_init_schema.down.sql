@@ -1,0 +1,5 @@
+DROP SCHEMA manager CASCADE;
+
+
+
+

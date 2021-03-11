@@ -3,6 +3,9 @@ package web
 import (
 	"database/sql"
 	"testing"
+	"time"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 func TestSaveUser(t *testing.T) {
@@ -98,7 +101,7 @@ func TestFindUserByIDNotExists(t *testing.T) {
 
 func TestFindUserByEmail(t *testing.T) {
 	dao := NewUserDao(DB)
-	email := "mail3@mail.com"
+	email := "email1@email.com"
 	user, e := dao.FindUserByEmail(email)
 	if e != nil {
 		t.Fatal("No debió haber error. El registro existe: ", e)
@@ -106,4 +109,104 @@ func TestFindUserByEmail(t *testing.T) {
 	if user.Email != email {
 		t.Fatal("El email no corresponde. El registro no es correcto")
 	}
+}
+
+func TestFindEndpointByName(t *testing.T) {
+	dao := NewEndpointDao(DB)
+	name := "inicio"
+	endpoint, e := dao.FindEndpointByName(name)
+
+	if e != nil {
+		t.Fatal("No debió haber error: ", e)
+	}
+
+	if endpoint.EndpointID <= 0 {
+		t.Fatal("No hay ID en la estructura")
+	}
+}
+
+func TestFindEndpointByID(t *testing.T) {
+	dao := NewEndpointDao(DB)
+	id := int32(1)
+	endpoint, e := dao.FindEndpointByID(id)
+
+	if e != nil {
+		t.Fatal("No debió haber error: ", e)
+	}
+
+	if endpoint.Name == "" {
+		t.Fatal("No hay Name en la estructura")
+	}
+}
+
+func TestDetailsHostingDaoImpl_Save(t *testing.T) {
+	dao := NewDetailsHostingDao(DB)
+	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	u1 := uuid.NewV4()
+	details := DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
+
+	e := dao.Save(&details)
+	if e != nil {
+		t.Fatal("No debió regresar error:", e)
+	}
+
+	if details.ID == 0 {
+		t.Fatal("No se tiene el ID del registro guardado")
+	}
+}
+
+func TestDetailsHostingDaoImpl_Update(t *testing.T) {
+	dao := NewDetailsHostingDao(DB)
+	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	u1 := uuid.NewV4()
+	details := DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
+
+	dao.Save(&details)
+
+	details.TypeLogOut = "MANUAL"
+	details.SessionClosure.Time = details.SessionStart.Add(5 * time.Minute)
+
+	e := dao.Save(&details)
+	if e != nil {
+		t.Fatal("No debió regresar error:", e)
+	}
+
+}
+
+func TestDetailsHostingDaoImpl_FindDetailsHostingByUUID(t *testing.T) {
+	dao := NewDetailsHostingDao(DB)
+	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	u1 := uuid.NewV4()
+	details := DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
+
+	dao.Save(&details)
+
+	saved, e := dao.FindDetailsHostingByUUID(details.UUID)
+	if e != nil {
+		t.Fatal("No debió regresar error:", e)
+	}
+
+	if saved.ID != details.ID {
+		t.Fatal("No se recupero el registro de la base de datos")
+	}
+}
+
+func TestDetailsEndpointAndHostingDaoImpl_Save(t *testing.T) {
+	detailsHostingDao := NewDetailsHostingDao(DB)
+	detailsEndpointAndHostingDao := NewDetailsEndpointAndHostingDao(DB)
+
+	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	u1 := uuid.NewV4()
+	details := DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
+
+	detailsHostingDao.Save(&details)
+
+	detailsAndEnpoint := DetailsEndpointAndHosting{EndpointID: 1, DetailsHostingID: details.ID}
+
+	e := detailsEndpointAndHostingDao.Save(&detailsAndEnpoint)
+
+	if e != nil {
+		t.Fatal("No debió regresar error: ", e)
+	}
+
 }

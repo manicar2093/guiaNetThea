@@ -21,14 +21,16 @@ type User struct {
 
 // DetailsHosting es la representación de un registro en la base de datos
 type DetailsHosting struct {
-	DetailsHostingID int32
-	UserID           int32
-	Host             string
-	SessionStart     time.Time
-	SessionClosure   sql.NullTime
-	CreationDate     time.Time
-	EditDate         sql.NullTime
-	Status           bool
+	ID             int32
+	UserID         int32
+	Host           string
+	SessionStart   time.Time
+	SessionClosure sql.NullTime
+	TypeLogOut     string
+	CreationDate   time.Time
+	EditDate       sql.NullTime
+	Status         bool
+	UUID           string
 }
 
 // Endpoint es la representación del catalogo
@@ -49,4 +51,14 @@ type Rol struct {
 	CreationDate time.Time
 	EditDate     sql.NullTime
 	Status       bool
+}
+
+// DetailsEndpointAndHosting es la representación de la relación entre Endpoint y DetailsHosting
+type DetailsEndpointAndHosting struct {
+	ID               int32
+	DetailsHostingID int32
+	EndpointID       int32
+	CreationDate     time.Time
+	EditDate         sql.NullTime
+	Status           bool
 }

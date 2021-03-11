@@ -14,7 +14,7 @@ var loginService LoginService
 
 var pageController *PageController
 var loginController *LoginController
-var middlewareProvider *MiddlewareProvider
+var middlewareProvider MiddlewareProvider
 
 func RegistryHandlers(r *mux.Router) {
 	r.HandleFunc("/", pageController.GetLoginPage).Methods(http.MethodGet)

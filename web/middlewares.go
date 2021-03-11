@@ -2,17 +2,21 @@ package web
 
 import "net/http"
 
-// MiddlewareProvider contiene los middlewares del sistema
-type MiddlewareProvider struct {
+type MiddlewareProvider interface {
+	NeedsLoggedIn(h http.HandlerFunc) http.HandlerFunc
+}
+
+// MiddlewareProviderImpl contiene los middlewares del sistema
+type MiddlewareProviderImpl struct {
 	session SessionHandler
 }
 
-func NewMiddlewareProvider(session SessionHandler) *MiddlewareProvider {
-	return &MiddlewareProvider{session: session}
+func NewMiddlewareProvider(session SessionHandler) MiddlewareProvider {
+	return &MiddlewareProviderImpl{session: session}
 }
 
 // NeedsLoggedIn valida que exista alguna sesión activa. Si está no existe se redirige al login.
-func (m MiddlewareProvider) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFunc {
+func (m MiddlewareProviderImpl) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFunc {
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 

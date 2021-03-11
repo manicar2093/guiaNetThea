@@ -9,14 +9,21 @@ import (
 )
 
 type PageController struct {
+	session *SessionHandler
 }
 
-func NewPageController() *PageController {
-	return &PageController{}
+func NewPageController(session *SessionHandler) *PageController {
+	return &PageController{session: session}
 }
 
+// GetLoginPage valida que si hay una sesión activa manda a /inicio. De lo contrario renderiza el template de login
 func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
-	RenderTemplateToWriter("templates/login.html", w, nil)
+	if !p.session.IsLoggedIn(w, r) {
+		RenderTemplateToWriter("templates/login.html", w, nil)
+		return
+	}
+
+	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 }
 
 func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request) {
@@ -30,6 +37,7 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 }
 
 type LoginController struct {
+	userDao *UserDao
 }
 
 func NewLoginController() *LoginController {
@@ -38,6 +46,7 @@ func NewLoginController() *LoginController {
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	username, password := r.FormValue("username"), r.FormValue("password")
+
 	if username == "manicar2093" && password == "12345678" {
 		Session.CreateNewSession(w, r, 4) // TODO recuerda quitar esto.
 		http.Redirect(w, r, "/inicio", http.StatusSeeOther)

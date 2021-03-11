@@ -8,15 +8,17 @@ import (
 
 var pageController *PageController
 var loginController *LoginController
+var middlewareProvider *MiddlewareProvider
 
 func RegistryHandlers(r *mux.Router) {
 	r.HandleFunc("/", pageController.GetLoginPage).Methods(http.MethodGet)
-	r.HandleFunc("/{page}", pageController.GetRequestedPage).Methods(http.MethodGet)
+	r.HandleFunc("/{page}", middlewareProvider.NeedsLoggedIn(pageController.GetRequestedPage)).Methods(http.MethodGet)
 
 	r.HandleFunc("/login", loginController.Login).Methods(http.MethodPost)
 }
 
 func init() {
-	pageController = NewPageController()
+	pageController = NewPageController(Session)
 	loginController = NewLoginController()
+	middlewareProvider = NewMiddlewareProvider(Session)
 }

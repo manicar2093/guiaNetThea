@@ -6,10 +6,10 @@ import (
 	"testing"
 )
 
-func TestSessionHandler_IsLoggedIn(t *testing.T) {
+func TestSessionHandler_GetUserId(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
 
-	userID, e := Session.IsLoggedIn(w, r)
+	userID, e := Session.GetUserID(w, r)
 	if e != nil {
 		t.Error("No debió haber error: ", e)
 	}
@@ -83,4 +83,8 @@ func TestSessionHandler_GetCurrentSessionFail(t *testing.T) {
 	if d != nil {
 		t.Fatal("El userID debe ser nil porque no hay sesión activa")
 	}
+}
+
+func TestSessionHandler_IsLoggedIn(t *testing.T) {
+
 }

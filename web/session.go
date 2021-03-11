@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gorilla/sessions"
@@ -13,25 +14,33 @@ const (
 
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
 var Session *SessionHandler
-var sessionName = "guianetthea-session"
+var sessionName = "guianetthea"
 
 // SessionError es una estructura con la cual se declaran errores generales en el servicio de sesiones
-type SessionError struct {
-	message string
-	e       error
-}
-
-func (se SessionError) Error() string {
-	return se.message
-}
+var (
+	ErrGetSession  = errors.New("Error al obtener la sessión")
+	ErrSaveSession = errors.New("Error al guardar la sessión")
+)
 
 // SessionHandler servicio para el manejo de sesiones
 type SessionHandler struct {
 	session *sessions.CookieStore
 }
 
-// IsLoggedIn valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
-func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) (int, error) {
+// IsLoggedIn indica si hay una sesión activa. Aun cuando haya un error al obtener la sesión redirigira al login
+func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
+	current, e := s.GetUserID(w, r)
+	if e != nil {
+		return false
+	}
+	if current == 0 {
+		return false
+	}
+	return true
+}
+
+// GetUserID valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
+func (s *SessionHandler) GetUserID(w http.ResponseWriter, r *http.Request) (int, error) {
 	current, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return 0, e
@@ -55,7 +64,7 @@ func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) (int
 func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
 	current, e := s.session.Get(r, sessionName)
 	if e != nil {
-		return current, SessionError{"Error al obtener la sessión", e}
+		return current, ErrGetSession
 	}
 	return current, nil
 }
@@ -69,7 +78,7 @@ func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request
 	session.Values["userId"] = userID
 	e = session.Save(r, w)
 	if e != nil {
-		return SessionError{"Error al guardar la sessión", e}
+		return ErrSaveSession
 	}
 
 	return nil

@@ -27,11 +27,11 @@ type LoginService interface {
 type LoginServiceImpl struct {
 	userDao           UserDao
 	passwordUtils     PasswordUtils
-	session           *SessionHandler
+	session           SessionHandler
 	detailsHostingDao DetailsHostingDao
 }
 
-func NewLoginService(userDao UserDao, passwordUtils PasswordUtils, session *SessionHandler, detailsHostingDao DetailsHostingDao) LoginService {
+func NewLoginService(userDao UserDao, passwordUtils PasswordUtils, session SessionHandler, detailsHostingDao DetailsHostingDao) LoginService {
 	return &LoginServiceImpl{userDao, passwordUtils, session, detailsHostingDao}
 }
 

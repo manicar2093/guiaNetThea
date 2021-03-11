@@ -4,10 +4,10 @@ import "net/http"
 
 // MiddlewareProvider contiene los middlewares del sistema
 type MiddlewareProvider struct {
-	session *SessionHandler
+	session SessionHandler
 }
 
-func NewMiddlewareProvider(session *SessionHandler) *MiddlewareProvider {
+func NewMiddlewareProvider(session SessionHandler) *MiddlewareProvider {
 	return &MiddlewareProvider{session: session}
 }
 

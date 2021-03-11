@@ -9,10 +9,10 @@ import (
 )
 
 type PageController struct {
-	session *SessionHandler
+	session SessionHandler
 }
 
-func NewPageController(session *SessionHandler) *PageController {
+func NewPageController(session SessionHandler) *PageController {
 	return &PageController{session: session}
 }
 

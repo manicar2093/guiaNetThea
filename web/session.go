@@ -14,7 +14,7 @@ const (
 )
 
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
-var Session *SessionHandler
+var Session SessionHandler
 var defaultSessionTime int
 
 // SessionDuration indica el time.Duration de la sesión
@@ -29,13 +29,20 @@ var (
 
 const sessionValue = "session_id"
 
-// SessionHandler servicio para el manejo de sesiones
-type SessionHandler struct {
+type SessionHandler interface {
+	IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
+	GetUserID(w http.ResponseWriter, r *http.Request) (string, error)
+	GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error)
+	CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error
+}
+
+// SessionHandlerImpl servicio para el manejo de sesiones
+type SessionHandlerImpl struct {
 	session *sessions.CookieStore
 }
 
 // IsLoggedIn indica si hay una sesión activa. Aun cuando haya un error al obtener la sesión redirigira al login
-func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
+func (s *SessionHandlerImpl) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
 	current, e := s.GetUserID(w, r)
 	if e != nil {
 		return false
@@ -47,7 +54,7 @@ func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
 }
 
 // GetUserID valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
-func (s *SessionHandler) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
+func (s *SessionHandlerImpl) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
 	current, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return "", e
@@ -68,7 +75,7 @@ func (s *SessionHandler) GetUserID(w http.ResponseWriter, r *http.Request) (stri
 // It returns a new session if the sessions doesn't exist. Access IsNew on the session to check if it is an existing session or a new one.
 //
 // It returns a new session and an error if the session exists but could not be decoded.
-func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
+func (s *SessionHandlerImpl) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
 	current, e := s.session.Get(r, sessionName)
 	if e != nil {
 		return current, ErrGetSession
@@ -77,7 +84,7 @@ func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Reques
 }
 
 // CreateNewSession crea una nueva sesión con el userID que se recibe
-func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
+func (s *SessionHandlerImpl) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
 	session, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return e
@@ -94,7 +101,7 @@ func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request
 func init() {
 	SessionDuration = 8 * time.Hour
 	defaultSessionTime = int(SessionDuration.Seconds())
-	instance := &SessionHandler{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
+	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
 	instance.session.MaxAge(defaultSessionTime)
 	Session = instance
 }

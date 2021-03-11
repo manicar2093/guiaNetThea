@@ -33,12 +33,12 @@ type DetailsHosting struct {
 
 // Endpoint es la representación del catalogo
 type Endpoint struct {
-	EndpointID   int32
-	Name         string
-	Description  string
-	CreationDate time.Time
-	EditDate     sql.NullTime
-	Status       bool
+	EndpointID int32
+	Name       string
+	//Description  string
+	//CreationDate time.Time
+	//EditDate     sql.NullTime
+	//Status       bool
 }
 
 // Rol es la representación de la tabla

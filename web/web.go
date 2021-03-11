@@ -6,6 +6,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var userDao UserDao
+var detailsHostingDao DetailsHostingDao
+var passwordUtils PasswordUtils
+
+var loginService LoginService
+
 var pageController *PageController
 var loginController *LoginController
 var middlewareProvider *MiddlewareProvider
@@ -18,7 +24,14 @@ func RegistryHandlers(r *mux.Router) {
 }
 
 func init() {
+	userDao = NewUserDao(DB)
+	detailsHostingDao = NewDetailsHostingDao(DB)
+
+	passwordUtils = NewPasswordUtils()
+
+	loginService = NewLoginService(userDao, passwordUtils, Session, detailsHostingDao)
+
 	pageController = NewPageController(Session)
-	loginController = NewLoginController()
+	loginController = NewLoginController(loginService)
 	middlewareProvider = NewMiddlewareProvider(Session)
 }

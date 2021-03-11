@@ -13,7 +13,7 @@ func TestIsLoggedIn(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/resource", nil)
 	middl := NewMiddlewareProvider(Session)
 
-	Session.CreateNewSession(w, r, 2)
+	Session.CreateNewSession(w, r, "UUID")
 
 	f := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusAlreadyReported)

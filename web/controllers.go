@@ -37,23 +37,29 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 }
 
 type LoginController struct {
-	userDao *UserDao
+	loginService LoginService
 }
 
-func NewLoginController() *LoginController {
-	return &LoginController{}
+func NewLoginController(loginService LoginService) *LoginController {
+	return &LoginController{loginService}
 }
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	username, password := r.FormValue("username"), r.FormValue("password")
 
-	if username == "manicar2093" && password == "12345678" {
-		Session.CreateNewSession(w, r, 4) // TODO recuerda quitar esto.
-		http.Redirect(w, r, "/inicio", http.StatusSeeOther)
-		return
+	e := l.loginService.DoLogin(username, password, w, r)
+
+	if e != nil {
+		if el, ok := e.(LoginError); ok {
+			fmt.Println(el) // TODO crear los mensajes flash
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return
+		}
 	}
-	fmt.Println(username, password)
-	fmt.Fprintln(w, username, password)
+
+	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
+	return
+
 }
 
 func (l *LoginController) Logout(w http.ResponseWriter, r *http.Request) {

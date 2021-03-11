@@ -181,6 +181,9 @@ func (e EndpointDaoImpl) FindEndpointByID(id int32) (Endpoint, error) {
 }
 
 type DetailsHostingDao interface {
+	// Save realiza el guardado de un DetailsHostingDaoImpl. Si el DetailsHostingDaoImpl no contiene un ID se guardará un nuevo registro. Si ID va lleno realizará el update del registro.
+	//
+	// Se debe considerar que el salvado de información solo contempla los campos id_user, host, session_start, session_closure y uuid. El update solo modifica los campos session_closure y  type_log_out
 	Save(details *DetailsHosting) error
 	FindDetailsHostingByUUID(uuid string) (DetailsHosting, error)
 }

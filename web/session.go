@@ -3,6 +3,7 @@ package web
 import (
 	"errors"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/sessions"
 )
@@ -14,13 +15,19 @@ const (
 
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
 var Session *SessionHandler
-var sessionName = "guianetthea"
+var defaultSessionTime int
+
+// SessionDuration indica el time.Duration de la sesión
+var SessionDuration time.Duration
 
 // SessionError es una estructura con la cual se declaran errores generales en el servicio de sesiones
 var (
 	ErrGetSession  = errors.New("Error al obtener la sessión")
 	ErrSaveSession = errors.New("Error al guardar la sessión")
+	sessionName    = "guianetthea"
 )
+
+const sessionValue = "session_id"
 
 // SessionHandler servicio para el manejo de sesiones
 type SessionHandler struct {
@@ -33,24 +40,24 @@ func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
 	if e != nil {
 		return false
 	}
-	if current == 0 {
+	if current == "" {
 		return false
 	}
 	return true
 }
 
 // GetUserID valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
-func (s *SessionHandler) GetUserID(w http.ResponseWriter, r *http.Request) (int, error) {
+func (s *SessionHandler) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
 	current, e := s.GetCurrentSession(w, r)
 	if e != nil {
-		return 0, e
+		return "", e
 	}
-	d, ok := current.Values["userId"]
+	d, ok := current.Values[sessionValue]
 	if !ok {
-		return 0, nil
+		return "", nil
 	}
-	userID := d.(int)
-	return userID, nil
+	sessionUUID := d.(string)
+	return sessionUUID, nil
 }
 
 // GetCurrentSession obtiene la sesión actual.
@@ -70,12 +77,12 @@ func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Reques
 }
 
 // CreateNewSession crea una nueva sesión con el userID que se recibe
-func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, userID int) error {
+func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
 	session, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return e
 	}
-	session.Values["userId"] = userID
+	session.Values[sessionValue] = uuid
 	e = session.Save(r, w)
 	if e != nil {
 		return ErrSaveSession
@@ -85,7 +92,9 @@ func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request
 }
 
 func init() {
+	SessionDuration = 8 * time.Hour
+	defaultSessionTime = int(SessionDuration.Seconds())
 	instance := &SessionHandler{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
-	instance.session.MaxAge(60)
+	instance.session.MaxAge(defaultSessionTime)
 	Session = instance
 }

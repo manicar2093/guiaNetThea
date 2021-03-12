@@ -28,7 +28,9 @@ func TestSessionHandler_CreateNewSession(t *testing.T) {
 		t.Error("No debió haber error: ", e)
 	}
 
-	s, e := Session.session.Get(r, sessionName)
+	store, _ := Session.(*SessionHandlerImpl)
+
+	s, e := store.session.Get(r, sessionName)
 	if e != nil {
 		t.Error("No debió haber error al obtener la sesión: ", e)
 	}

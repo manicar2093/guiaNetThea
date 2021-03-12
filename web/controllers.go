@@ -9,17 +9,19 @@ import (
 )
 
 type PageController struct {
-	session SessionHandler
+	session       SessionHandler
+	recordService RecordService
 }
 
-func NewPageController(session SessionHandler) *PageController {
-	return &PageController{session: session}
+func NewPageController(session SessionHandler, recordService RecordService) *PageController {
+	return &PageController{session, recordService}
 }
 
 // GetLoginPage valida que si hay una sesión activa manda a /inicio. De lo contrario renderiza el template de login
 func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 	if !p.session.IsLoggedIn(w, r) {
-		RenderTemplateToWriter("templates/login.html", w, nil)
+		flash := p.session.GetFlashMessages(w, r)
+		RenderTemplateToWriter("templates/login.html", w, flash)
 		return
 	}
 
@@ -33,15 +35,23 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)
-	RenderTemplateToWriter(pagePath, w, nil)
+	e := RenderTemplateToWriter(pagePath, w, nil)
+	if e != nil {
+		panic(e)
+	}
+	e = p.recordService.RegisterPageVisited(w, r, page)
+	if e != nil {
+		panic(e)
+	}
 }
 
 type LoginController struct {
-	loginService LoginService
+	loginService   LoginService
+	sessionHandler SessionHandler
 }
 
-func NewLoginController(loginService LoginService) *LoginController {
-	return &LoginController{loginService}
+func NewLoginController(loginService LoginService, sessionHandler SessionHandler) *LoginController {
+	return &LoginController{loginService, sessionHandler}
 }
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
@@ -51,7 +61,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 
 	if e != nil {
 		if el, ok := e.(LoginError); ok {
-			fmt.Println(el) // TODO crear los mensajes flash
+			l.sessionHandler.AddFlashMessage(FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
@@ -63,5 +73,5 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func (l *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Login out")
+	fmt.Fprintln(w, "LOGINOUT")
 }

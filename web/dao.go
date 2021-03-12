@@ -253,7 +253,8 @@ func (d *DetailsHostingDaoImpl) insert(details *DetailsHosting) error {
 }
 
 type DetailsEndpointAndHostingDao interface {
-	Save(d *DetailsEndpointAndHosting) error
+	// Save guarda la instancia y coloca el ID. Solo se requiere el DetailsHostingID y EndpointID
+	Save(details *DetailsEndpointAndHosting) error
 }
 
 type DetailsEndpointAndHostingDaoImpl struct {

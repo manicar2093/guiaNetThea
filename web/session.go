@@ -1,6 +1,7 @@
 package web
 
 import (
+	"encoding/gob"
 	"errors"
 	"net/http"
 	"time"
@@ -29,11 +30,18 @@ var (
 
 const sessionValue = "session_id"
 
+type FlashMessage struct {
+	Type, Value string
+}
+
 type SessionHandler interface {
 	IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
 	GetUserID(w http.ResponseWriter, r *http.Request) (string, error)
 	GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error)
 	CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error
+	//DeleteSession(w http.ResponseWriter, r *http.Request) error
+	AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request)
+	GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{}
 }
 
 // SessionHandlerImpl servicio para el manejo de sesiones
@@ -83,7 +91,7 @@ func (s *SessionHandlerImpl) GetCurrentSession(w http.ResponseWriter, r *http.Re
 	return current, nil
 }
 
-// CreateNewSession crea una nueva sesión con el userID que se recibe
+// CreateNewSession crea una nueva sesión con el uuid que se recibe
 func (s *SessionHandlerImpl) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
 	session, e := s.GetCurrentSession(w, r)
 	if e != nil {
@@ -98,7 +106,29 @@ func (s *SessionHandlerImpl) CreateNewSession(w http.ResponseWriter, r *http.Req
 	return nil
 }
 
+func (s *SessionHandlerImpl) AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request) {
+	session, e := s.session.Get(r, "flash")
+	if e != nil {
+		panic(e)
+	}
+	session.AddFlash(&message)
+	e = session.Save(r, w)
+	if e != nil {
+		panic(e)
+	}
+}
+func (s *SessionHandlerImpl) GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{} {
+	session, e := s.session.Get(r, "flash")
+	if e != nil {
+		panic(e)
+	}
+	flashes := session.Flashes()
+	session.Save(r, w)
+	return flashes
+}
+
 func init() {
+	gob.Register(FlashMessage{})
 	SessionDuration = 8 * time.Hour
 	defaultSessionTime = int(SessionDuration.Seconds())
 	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}

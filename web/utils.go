@@ -2,21 +2,22 @@ package web
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"text/template"
 
+	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // RenderTemplateToWriter realiza el render del template que se encuentre en el path especificado
-func RenderTemplateToWriter(templatePath string, w http.ResponseWriter, data interface{}) {
+func RenderTemplateToWriter(templatePath string, w http.ResponseWriter, data interface{}) error {
 	t := template.Must(template.ParseFiles(templatePath))
-	e := t.Execute(w, nil)
+	e := t.Execute(w, data)
 	if e != nil {
-		log.Println(e)
+		return e
 	}
+	return nil
 }
 
 // GetEnvVar obtiene una variable de entorno o regresa el string especificado
@@ -65,4 +66,18 @@ func (p PasswordUtilsImpl) ValidatePassword(hashed, password string) error {
 		return fmt.Errorf("Invalid password")
 	}
 	return nil
+}
+
+type UUIDGeneratorUtils interface {
+	// CreateUUIDV4 crea un UUID V4 con el package uuid
+	CreateUUIDV4() string
+}
+
+type UUIDGeneratorUtilsImpl struct{}
+
+func NewUUIDGeneratorUtils() UUIDGeneratorUtils {
+	return UUIDGeneratorUtilsImpl{}
+}
+func (u UUIDGeneratorUtilsImpl) CreateUUIDV4() string {
+	return uuid.NewV4().String()
 }

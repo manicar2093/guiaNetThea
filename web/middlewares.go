@@ -22,6 +22,7 @@ func (m MiddlewareProviderImpl) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFu
 
 		isLoggin := m.session.IsLoggedIn(w, r)
 		if !isLoggin {
+			m.session.AddFlashMessage(FlashMessage{Type: "info", Value: "Favor de iniciar sesión."}, w, r)
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}

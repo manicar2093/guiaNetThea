@@ -9,14 +9,23 @@ import (
 )
 
 type PageController struct {
+	session       SessionHandler
+	recordService RecordService
 }
 
-func NewPageController() *PageController {
-	return &PageController{}
+func NewPageController(session SessionHandler, recordService RecordService) *PageController {
+	return &PageController{session, recordService}
 }
 
+// GetLoginPage valida que si hay una sesión activa manda a /inicio. De lo contrario renderiza el template de login
 func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
-	RenderTemplateToWriter("templates/login.html", w, nil)
+	if !p.session.IsLoggedIn(w, r) {
+		flash := p.session.GetFlashMessages(w, r)
+		RenderTemplateToWriter("templates/login.html", w, flash)
+		return
+	}
+
+	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 }
 
 func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request) {
@@ -26,27 +35,43 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)
-	RenderTemplateToWriter(pagePath, w, nil)
+	e := RenderTemplateToWriter(pagePath, w, nil)
+	if e != nil {
+		panic(e)
+	}
+	e = p.recordService.RegisterPageVisited(w, r, page)
+	if e != nil {
+		panic(e)
+	}
 }
 
 type LoginController struct {
+	loginService   LoginService
+	sessionHandler SessionHandler
 }
 
-func NewLoginController() *LoginController {
-	return &LoginController{}
+func NewLoginController(loginService LoginService, sessionHandler SessionHandler) *LoginController {
+	return &LoginController{loginService, sessionHandler}
 }
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	username, password := r.FormValue("username"), r.FormValue("password")
-	if username == "manicar2093" && password == "caballeros" {
 
-		http.Redirect(w, r, "/inicio", http.StatusSeeOther)
-		return
+	e := l.loginService.DoLogin(username, password, w, r)
+
+	if e != nil {
+		if el, ok := e.(LoginError); ok {
+			l.sessionHandler.AddFlashMessage(FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return
+		}
 	}
-	fmt.Println(username, password)
-	fmt.Fprintln(w, username, password)
+
+	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
+	return
+
 }
 
 func (l *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Login out")
+	fmt.Fprintln(w, "LOGINOUT")
 }

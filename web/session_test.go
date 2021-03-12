@@ -6,48 +6,50 @@ import (
 	"testing"
 )
 
-func TestSessionHandler_IsLoggedIn(t *testing.T) {
+func TestSessionHandler_GetUserId(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
 
-	userID, e := Session.IsLoggedIn(w, r)
+	sessionUUID, e := Session.GetUserID(w, r)
 	if e != nil {
 		t.Error("No debió haber error: ", e)
 	}
 
-	if userID > 0 {
-		t.Error("No debe haber userID ya que no hay sesión")
+	if sessionUUID > "" {
+		t.Error("No debe haber UUID ya que no hay sesión")
 	}
 
 }
 
 func TestSessionHandler_CreateNewSession(t *testing.T) {
-	w, r, userID := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil), 1
+	w, r, uuid := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil), "UUID"
 
-	e := Session.CreateNewSession(w, r, userID)
+	e := Session.CreateNewSession(w, r, uuid)
 	if e != nil {
 		t.Error("No debió haber error: ", e)
 	}
 
-	s, e := Session.session.Get(r, sessionName)
+	store, _ := Session.(*SessionHandlerImpl)
+
+	s, e := store.session.Get(r, sessionName)
 	if e != nil {
 		t.Error("No debió haber error al obtener la sesión: ", e)
 	}
 
-	d, ok := s.Values["userId"]
+	d, ok := s.Values[sessionValue]
 	if !ok {
-		t.Fatal("Debe encontrarse el userID en la sesión")
+		t.Fatal("Debe encontrarse el UUID en la sesión")
 	}
 
-	userIDData := d.(int)
-	if userIDData != userID {
+	storedUuid := d.(string)
+	if storedUuid != uuid {
 		t.Fatal("El userID no corresponde")
 	}
 }
 
 func TestSessionHandler_GetCurrentSession(t *testing.T) {
-	w, r, userID := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil), 1
+	w, r, uuid := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil), "UUID"
 
-	e := Session.CreateNewSession(w, r, userID)
+	e := Session.CreateNewSession(w, r, uuid)
 	if e != nil {
 		t.Error("No debió haber error: ", e)
 	}
@@ -57,13 +59,13 @@ func TestSessionHandler_GetCurrentSession(t *testing.T) {
 		t.Error("No debió haber error al obtener la sesión: ", e)
 	}
 
-	d, ok := s.Values["userId"]
+	d, ok := s.Values[sessionValue]
 	if !ok {
-		t.Fatal("Debe encontrarse el userID en la sesión")
+		t.Fatal("Debe encontrarse el UUID en la sesión")
 	}
 
-	userIDData := d.(int)
-	if userIDData != userID {
+	uuidStored := d.(string)
+	if uuidStored != uuid {
 		t.Fatal("El userID no corresponde")
 	}
 }
@@ -75,12 +77,16 @@ func TestSessionHandler_GetCurrentSessionFail(t *testing.T) {
 		t.Error("No debió haber error al obtener la sesión: ", e)
 	}
 
-	d, ok := s.Values["userId"]
+	d, ok := s.Values[sessionValue]
 	if ok {
-		t.Fatal("No debe encontrarse el userID en la sesión")
+		t.Fatal("No debe encontrarse el UUID en la sesión")
 	}
 
 	if d != nil {
-		t.Fatal("El userID debe ser nil porque no hay sesión activa")
+		t.Fatal("El UUID debe ser nil porque no hay sesión activa")
 	}
+}
+
+func TestSessionHandler_IsLoggedIn(t *testing.T) {
+
 }

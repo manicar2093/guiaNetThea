@@ -1,42 +1,78 @@
 package web
 
 import (
+	"encoding/gob"
+	"errors"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/sessions"
 )
 
+const (
+	dayInSeconds  = 86400
+	hourInSeconds = 3600
+)
+
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
-var Session *SessionHandler
-var sessionName = "guianetthea-session"
+var Session SessionHandler
+var defaultSessionTime int
+
+// SessionDuration indica el time.Duration de la sesión
+var SessionDuration time.Duration
 
 // SessionError es una estructura con la cual se declaran errores generales en el servicio de sesiones
-type SessionError struct {
-	message string
-	e       error
+var (
+	ErrGetSession  = errors.New("Error al obtener la sessión")
+	ErrSaveSession = errors.New("Error al guardar la sessión")
+	sessionName    = "guianetthea"
+)
+
+const sessionValue = "session_id"
+
+type FlashMessage struct {
+	Type, Value string
 }
 
-func (se SessionError) Error() string {
-	return se.message
+type SessionHandler interface {
+	IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
+	GetUserID(w http.ResponseWriter, r *http.Request) (string, error)
+	GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error)
+	CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error
+	//DeleteSession(w http.ResponseWriter, r *http.Request) error
+	AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request)
+	GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{}
 }
 
-// SessionHandler servicio para el manejo de sesiones
-type SessionHandler struct {
+// SessionHandlerImpl servicio para el manejo de sesiones
+type SessionHandlerImpl struct {
 	session *sessions.CookieStore
 }
 
-// IsLoggedIn valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
-func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) (int, error) {
+// IsLoggedIn indica si hay una sesión activa. Aun cuando haya un error al obtener la sesión redirigira al login
+func (s *SessionHandlerImpl) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
+	current, e := s.GetUserID(w, r)
+	if e != nil {
+		return false
+	}
+	if current == "" {
+		return false
+	}
+	return true
+}
+
+// GetUserID valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
+func (s *SessionHandlerImpl) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
 	current, e := s.GetCurrentSession(w, r)
 	if e != nil {
-		return 0, e
+		return "", e
 	}
-	d, ok := current.Values["userId"]
+	d, ok := current.Values[sessionValue]
 	if !ok {
-		return 0, nil
+		return "", nil
 	}
-	userID := d.(int)
-	return userID, nil
+	sessionUUID := d.(string)
+	return sessionUUID, nil
 }
 
 // GetCurrentSession obtiene la sesión actual.
@@ -47,29 +83,55 @@ func (s *SessionHandler) IsLoggedIn(w http.ResponseWriter, r *http.Request) (int
 // It returns a new session if the sessions doesn't exist. Access IsNew on the session to check if it is an existing session or a new one.
 //
 // It returns a new session and an error if the session exists but could not be decoded.
-func (s *SessionHandler) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
+func (s *SessionHandlerImpl) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
 	current, e := s.session.Get(r, sessionName)
 	if e != nil {
-		return current, SessionError{"Error al obtener la sessión", e}
+		return current, ErrGetSession
 	}
 	return current, nil
 }
 
-// CreateNewSession crea una nueva sesión con el userID que se recibe
-func (s *SessionHandler) CreateNewSession(w http.ResponseWriter, r *http.Request, userId int) error {
+// CreateNewSession crea una nueva sesión con el uuid que se recibe
+func (s *SessionHandlerImpl) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
 	session, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return e
 	}
-	session.Values["userId"] = userId
+	session.Values[sessionValue] = uuid
 	e = session.Save(r, w)
 	if e != nil {
-		return SessionError{"Error al guardar la sessión", e}
+		return ErrSaveSession
 	}
 
 	return nil
 }
 
+func (s *SessionHandlerImpl) AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request) {
+	session, e := s.session.Get(r, "flash")
+	if e != nil {
+		panic(e)
+	}
+	session.AddFlash(&message)
+	e = session.Save(r, w)
+	if e != nil {
+		panic(e)
+	}
+}
+func (s *SessionHandlerImpl) GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{} {
+	session, e := s.session.Get(r, "flash")
+	if e != nil {
+		panic(e)
+	}
+	flashes := session.Flashes()
+	session.Save(r, w)
+	return flashes
+}
+
 func init() {
-	Session = &SessionHandler{session: sessions.NewCookieStore([]byte("a-session-key"))}
+	gob.Register(FlashMessage{})
+	SessionDuration = 8 * time.Hour
+	defaultSessionTime = int(SessionDuration.Seconds())
+	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
+	instance.session.MaxAge(defaultSessionTime)
+	Session = instance
 }

@@ -15,7 +15,7 @@ func main() {
 	registryStaticHandlers(r)
 
 	fmt.Println("Servidor iniciado")
-	http.ListenAndServe(":8000", r)
+	http.ListenAndServe(web.GetPortFromEnvVar("PORT", "8000"), r)
 }
 
 func registryStaticHandlers(r *mux.Router) {

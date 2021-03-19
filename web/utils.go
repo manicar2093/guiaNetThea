@@ -103,23 +103,23 @@ func init() {
 
 	logTrace, err := os.OpenFile(logFileTrace, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileTrace, err))
 	}
 	logInfo, err := os.OpenFile(logFileInfo, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileInfo, err))
 	}
 	logWarn, err := os.OpenFile(logFileWarn, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileWarn, err))
 	}
 	logError, err := os.OpenFile(logFileError, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileError, err))
 	}
 	logGral, err := os.OpenFile(logFileGral, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileGral, err))
 	}
 
 	Trace = log.New(io.MultiWriter(logTrace, logGral, os.Stdout),

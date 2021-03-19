@@ -50,7 +50,7 @@ func TestIsLoggedInNoSession(t *testing.T) {
 
 	location := w.Header().Get("Location")
 
-	if location != "/" {
+	if location != "/index" {
 		t.Fatal("El URL destino no es el correcto:", location)
 	}
 

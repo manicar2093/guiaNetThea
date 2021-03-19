@@ -131,7 +131,7 @@ func init() {
 	gob.Register(FlashMessage{})
 	SessionDuration = 8 * time.Hour
 	defaultSessionTime = int(SessionDuration.Seconds())
-	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET-KEY", "a-session-key")))}
+	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET_KEY", "a-session-key")))}
 	instance.session.MaxAge(defaultSessionTime)
 	Session = instance
 }

@@ -66,6 +66,15 @@ func (s SessionHandlerMock) CreateNewSession(w http.ResponseWriter, r *http.Requ
 	return args.Error(0)
 }
 
+func (s SessionHandlerMock) AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request) {
+	s.Called(message, w, r)
+}
+
+func (s SessionHandlerMock) GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{} {
+	args := s.Called(w, r)
+	return args.Get(0).([]interface{})
+}
+
 type EndpointDaoMock struct {
 	mock.Mock
 }

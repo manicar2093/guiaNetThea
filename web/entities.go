@@ -11,7 +11,7 @@ type User struct {
 	RolID            sql.NullInt32
 	Name             string
 	PaternalSureName string
-	MaternalSureName string
+	MaternalSureName sql.NullString
 	Email            string
 	Password         string
 	CreationDate     time.Time

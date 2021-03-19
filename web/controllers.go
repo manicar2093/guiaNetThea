@@ -73,6 +73,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}
+		// FIXME arreglar el manejo de este error
 		Error.Println("Hubo un error al realizar el login:", e)
 	}
 

@@ -21,7 +21,8 @@ var (
 )
 
 func RegistryHandlers(r *mux.Router) {
-	r.HandleFunc("/", pageController.GetLoginPage).Methods(http.MethodGet)
+	r.HandleFunc("/", pageController.GetOnDevTemplate).Methods(http.MethodGet)
+	r.HandleFunc("/index", pageController.GetLoginPage).Methods(http.MethodGet)
 	r.HandleFunc("/{page}", middlewareProvider.NeedsLoggedIn(pageController.GetRequestedPage)).Methods(http.MethodGet)
 
 	r.HandleFunc("/login", loginController.Login).Methods(http.MethodPost)

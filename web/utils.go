@@ -13,13 +13,19 @@ import (
 )
 
 var (
-	LogTrace   *log.Logger
-	LogInfo    *log.Logger
-	LogWarning *log.Logger
-	LogError   *log.Logger
+	Trace   *log.Logger
+	Info    *log.Logger
+	Warning *log.Logger
+	Error   *log.Logger
 )
 
-const logFileName = "logs.log"
+const (
+	logFileTrace = "trace.log"
+	logFileInfo  = "info.log"
+	logFileWarn  = "warn.log"
+	logFileError = "error.log"
+	logFileGral  = "logs.log"
+)
 
 // RenderTemplateToWriter realiza el render del template que se encuentre en el path especificado
 func RenderTemplateToWriter(templatePath string, w http.ResponseWriter, data interface{}) error {
@@ -95,24 +101,40 @@ func (u UUIDGeneratorUtilsImpl) CreateUUIDV4() string {
 
 func init() {
 
-	logFile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logTrace, err := os.OpenFile(logFileTrace, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
-		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logFileName, err))
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+	}
+	logInfo, err := os.OpenFile(logFileInfo, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+	}
+	logWarn, err := os.OpenFile(logFileWarn, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+	}
+	logError, err := os.OpenFile(logFileError, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
+	}
+	logGral, err := os.OpenFile(logFileGral, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to open log file %s: Detalles: %v", logTrace, err))
 	}
 
-	LogTrace = log.New(os.Stdout,
+	Trace = log.New(io.MultiWriter(logTrace, logGral, os.Stdout),
 		"TRACE: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 
-	LogInfo = log.New(os.Stdout,
+	Info = log.New(io.MultiWriter(logInfo, logGral, os.Stdout),
 		"INFO: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 
-	LogWarning = log.New(io.MultiWriter(logFile, os.Stdout),
+	Warning = log.New(io.MultiWriter(logWarn, logGral, os.Stdout),
 		"WARNING: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 
-	LogError = log.New(io.MultiWriter(logFile, os.Stderr),
+	Error = log.New(io.MultiWriter(logError, logGral, os.Stderr),
 		"ERROR: ",
 		log.Ldate|log.Ltime|log.Lshortfile)
 }

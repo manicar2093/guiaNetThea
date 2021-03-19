@@ -73,6 +73,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}
+		Error.Println("Hubo un error al realizar el login:", e)
 	}
 
 	Info.Println("Usuario logueado?", l.sessionHandler.IsLoggedIn(w, r))

@@ -28,6 +28,13 @@ func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 }
 
+// GetOnDevTemplate regresa el template on_dev para motivos de despliegue
+func (p *PageController) GetOnDevTemplate(w http.ResponseWriter, r *http.Request) {
+
+	RenderTemplateToWriter("templates/on_dev.html", w, nil)
+
+}
+
 func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request) {
 	page := mux.Vars(r)["page"]
 	if page == "favicon.ico" {
@@ -61,14 +68,16 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 
 	if e != nil {
 		if el, ok := e.(LoginError); ok {
+			Error.Println(el.internalMessage)
 			l.sessionHandler.AddFlashMessage(FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
-			http.Redirect(w, r, "/", http.StatusSeeOther)
+			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}
 	}
 
+	Info.Println("Usuario logueado?", l.sessionHandler.IsLoggedIn(w, r))
+
 	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
-	return
 
 }
 

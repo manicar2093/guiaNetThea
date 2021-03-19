@@ -9,11 +9,6 @@ import (
 	"github.com/gorilla/sessions"
 )
 
-const (
-	dayInSeconds  = 86400
-	hourInSeconds = 3600
-)
-
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
 var Session SessionHandler
 var defaultSessionTime int
@@ -131,7 +126,7 @@ func init() {
 	gob.Register(FlashMessage{})
 	SessionDuration = 8 * time.Hour
 	defaultSessionTime = int(SessionDuration.Seconds())
-	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET_KEY", "a-session-key")))}
+	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET_KEY", "a-secret-key")))}
 	instance.session.MaxAge(defaultSessionTime)
 	Session = instance
 }

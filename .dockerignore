@@ -1,0 +1,5 @@
+*.log
+Makefile
+README.md
+.vscode
+.gitignore

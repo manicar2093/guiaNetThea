@@ -1,0 +1,15 @@
+version: 3
+
+services:
+  guianet:
+    container_name: guianet-app
+    image: guianet
+    depends_on:
+      - guianet-db
+    environment: 
+      PORT: 5000
+      DB_URL: guianet-db
+  guianet-db:
+    container_name: guianet-db
+    image: postgres
+    

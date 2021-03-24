@@ -1,6 +1,9 @@
 package web
 
-import "net/http"
+import (
+	"github.com/manicar2093/guianetThea/app/utils"
+	"net/http"
+)
 
 type MiddlewareProvider interface {
 	NeedsLoggedIn(h http.HandlerFunc) http.HandlerFunc
@@ -21,7 +24,7 @@ func (m MiddlewareProviderImpl) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFu
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		isLoggin := m.session.IsLoggedIn(w, r)
-		Info.Println("Usuario esta logeado?", isLoggin)
+		utils.Info.Println("Usuario esta logeado?", isLoggin)
 		if !isLoggin {
 			m.session.AddFlashMessage(FlashMessage{Type: "info", Value: "Favor de iniciar sesión."}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)

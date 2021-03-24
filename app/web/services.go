@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 type LoginError struct {
@@ -23,13 +25,13 @@ type LoginService interface {
 
 type LoginServiceImpl struct {
 	userDao            UserDao
-	passwordUtils      PasswordUtils
+	passwordUtils      utils.PasswordUtils
 	session            SessionHandler
 	detailsHostingDao  DetailsHostingDao
-	uuidGeneratorUtils UUIDGeneratorUtils
+	uuidGeneratorUtils utils.UUIDGeneratorUtils
 }
 
-func NewLoginService(userDao UserDao, passwordUtils PasswordUtils, session SessionHandler, detailsHostingDao DetailsHostingDao, uuidGeneratorUtils UUIDGeneratorUtils) LoginService {
+func NewLoginService(userDao UserDao, passwordUtils utils.PasswordUtils, session SessionHandler, detailsHostingDao DetailsHostingDao, uuidGeneratorUtils utils.UUIDGeneratorUtils) LoginService {
 	return &LoginServiceImpl{userDao, passwordUtils, session, detailsHostingDao, uuidGeneratorUtils}
 }
 

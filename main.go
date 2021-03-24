@@ -5,17 +5,18 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/manicar2093/guianetThea/web"
+	"github.com/manicar2093/guianetThea/app"
+	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 func main() {
 	r := mux.NewRouter()
-	web.RegistryHandlers(r)
+	app.RegistryHandlers(r)
 
 	registryStaticHandlers(r)
 
 	fmt.Println("Servidor iniciado")
-	http.ListenAndServe(web.GetPortFromEnvVar("PORT", "8000"), r)
+	http.ListenAndServe(utils.GetPortFromEnvVar("PORT", "8000"), r)
 }
 
 func registryStaticHandlers(r *mux.Router) {

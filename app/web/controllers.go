@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 type PageController struct {
@@ -21,7 +22,7 @@ func NewPageController(session SessionHandler, recordService RecordService) *Pag
 func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 	if !p.session.IsLoggedIn(w, r) {
 		flash := p.session.GetFlashMessages(w, r)
-		RenderTemplateToWriter("templates/login.html", w, flash)
+		utils.RenderTemplateToWriter("templates/login.html", w, flash)
 		return
 	}
 
@@ -31,7 +32,7 @@ func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 // GetOnDevTemplate regresa el template on_dev para motivos de despliegue
 func (p *PageController) GetOnDevTemplate(w http.ResponseWriter, r *http.Request) {
 
-	RenderTemplateToWriter("templates/on_dev.html", w, nil)
+	utils.RenderTemplateToWriter("templates/on_dev.html", w, nil)
 
 }
 
@@ -42,7 +43,7 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)
-	e := RenderTemplateToWriter(pagePath, w, nil)
+	e := utils.RenderTemplateToWriter(pagePath, w, nil)
 	if e != nil {
 		panic(e)
 	}
@@ -68,16 +69,16 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 
 	if e != nil {
 		if el, ok := e.(LoginError); ok {
-			Error.Println(el.internalMessage)
+			utils.Error.Println(el.internalMessage)
 			l.sessionHandler.AddFlashMessage(FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}
 		// FIXME arreglar el manejo de este error
-		Error.Println("Hubo un error al realizar el login:", e)
+		utils.Error.Println("Hubo un error al realizar el login:", e)
 	}
 
-	Info.Println("Usuario logueado?", l.sessionHandler.IsLoggedIn(w, r))
+	utils.Info.Println("Usuario logueado?", l.sessionHandler.IsLoggedIn(w, r))
 
 	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 

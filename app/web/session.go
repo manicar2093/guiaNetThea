@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gorilla/sessions"
+	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 // Session es el objeto con el que se puede realizar el manejo de las sesiones
@@ -126,7 +127,7 @@ func init() {
 	gob.Register(FlashMessage{})
 	SessionDuration = 8 * time.Hour
 	defaultSessionTime = int(SessionDuration.Seconds())
-	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(GetEnvVar("SECRET_KEY", "a-secret-key")))}
+	instance := &SessionHandlerImpl{session: sessions.NewCookieStore([]byte(utils.GetEnvVar("SECRET_KEY", "a-secret-key")))}
 	instance.session.MaxAge(defaultSessionTime)
 	Session = instance
 }

@@ -14,17 +14,18 @@ import (
 type PageController struct {
 	session       sessions.SessionHandler
 	recordService services.RecordService
+	templateUtils utils.TemplateUtils
 }
 
-func NewPageController(session sessions.SessionHandler, recordService services.RecordService) *PageController {
-	return &PageController{session, recordService}
+func NewPageController(session sessions.SessionHandler, recordService services.RecordService, templateUtils utils.TemplateUtils) *PageController {
+	return &PageController{session, recordService, templateUtils}
 }
 
 // GetLoginPage valida que si hay una sesión activa manda a /inicio. De lo contrario renderiza el template de login
 func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 	if !p.session.IsLoggedIn(w, r) {
 		flash := p.session.GetFlashMessages(w, r)
-		utils.RenderTemplateToWriter("templates/login.html", w, flash)
+		p.templateUtils.RenderTemplateToResponseWriter("templates/login.html", w, flash)
 		return
 	}
 
@@ -33,8 +34,8 @@ func (p *PageController) GetLoginPage(w http.ResponseWriter, r *http.Request) {
 
 // GetOnDevTemplate regresa el template on_dev para motivos de despliegue
 func (p *PageController) GetOnDevTemplate(w http.ResponseWriter, r *http.Request) {
-
-	utils.RenderTemplateToWriter("templates/on_dev.html", w, nil)
+	// FIXME: Puede que esto solo sea temporal
+	p.templateUtils.RenderTemplateToResponseWriter("templates/on_dev.html", w, nil)
 
 }
 
@@ -45,13 +46,25 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)
-	e := utils.RenderTemplateToWriter(pagePath, w, nil)
+	e := p.templateUtils.RenderTemplateToResponseWriter(pagePath, w, nil)
 	if e != nil {
-		panic(e)
+		switch {
+		case e == utils.ErrTemplateNotFound:
+			http.Error(w, fmt.Sprintf("No se encontró la ruta '%s'", page), http.StatusNotFound)
+			return
+		case e == utils.ErrExecution:
+			http.Error(w, "Error Interno del Servidor", http.StatusInternalServerError)
+			return
+		default:
+			utils.Error.Printf("Error desconocido en el path '%s'\n", page)
+			http.Error(w, "Error Interno del Servidor", http.StatusInternalServerError)
+			return
+		}
 	}
 	e = p.recordService.RegisterPageVisited(w, r, page)
 	if e != nil {
-		panic(e)
+		http.Error(w, "Error Interno del Servidor", http.StatusInternalServerError)
+		return
 	}
 }
 
@@ -70,9 +83,9 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	e := l.loginService.DoLogin(username, password, w, r)
 
 	if e != nil {
-		if el, ok := e.(LoginError); ok {
-			utils.Error.Println(el.internalMessage)
-			l.sessionHandler.AddFlashMessage(sessions.FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
+		if el, ok := e.(services.LoginError); ok {
+			utils.Error.Println(el.InternalMessage)
+			l.sessionHandler.AddFlashMessage(sessions.FlashMessage{Type: "danger", Value: el.ClientMessage}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}

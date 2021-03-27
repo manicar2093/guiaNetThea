@@ -1,4 +1,4 @@
-package web
+package services
 
 import (
 	"database/sql"
@@ -6,6 +6,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/manicar2093/guianetThea/app/dao"
+	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/sessions"
 	"github.com/manicar2093/guianetThea/app/utils"
 )
 
@@ -24,14 +27,14 @@ type LoginService interface {
 }
 
 type LoginServiceImpl struct {
-	userDao            UserDao
+	userDao            dao.UserDao
 	passwordUtils      utils.PasswordUtils
-	session            SessionHandler
-	detailsHostingDao  DetailsHostingDao
+	session            sessions.SessionHandler
+	detailsHostingDao  dao.DetailsHostingDao
 	uuidGeneratorUtils utils.UUIDGeneratorUtils
 }
 
-func NewLoginService(userDao UserDao, passwordUtils utils.PasswordUtils, session SessionHandler, detailsHostingDao DetailsHostingDao, uuidGeneratorUtils utils.UUIDGeneratorUtils) LoginService {
+func NewLoginService(userDao dao.UserDao, passwordUtils utils.PasswordUtils, session sessions.SessionHandler, detailsHostingDao dao.DetailsHostingDao, uuidGeneratorUtils utils.UUIDGeneratorUtils) LoginService {
 	return &LoginServiceImpl{userDao, passwordUtils, session, detailsHostingDao, uuidGeneratorUtils}
 }
 
@@ -63,7 +66,7 @@ func (l LoginServiceImpl) DoLogin(email, password string, w http.ResponseWriter,
 	}
 
 	// Registramos la nueva sesión
-	e = l.detailsHostingDao.Save(&DetailsHosting{UserID: saved.UserID, Host: r.RemoteAddr, SessionStart: time.Now(), SessionClosure: sql.NullTime{Time: time.Now().Add(SessionDuration), Valid: true}, UUID: u})
+	e = l.detailsHostingDao.Save(&entities.DetailsHosting{UserID: saved.UserID, Host: r.RemoteAddr, SessionStart: time.Now(), SessionClosure: sql.NullTime{Time: time.Now().Add(sessions.SessionDuration), Valid: true}, UUID: u})
 	if e != nil {
 		return e
 	}
@@ -80,13 +83,13 @@ type RecordService interface {
 }
 
 type RecordServiceImpl struct {
-	detailsEndpointAndHostingDao DetailsEndpointAndHostingDao
-	detailsHostingDao            DetailsHostingDao
-	endpointDao                  EndpointDao
-	sessionHandler               SessionHandler
+	detailsEndpointAndHostingDao dao.DetailsEndpointAndHostingDao
+	detailsHostingDao            dao.DetailsHostingDao
+	endpointDao                  dao.EndpointDao
+	sessionHandler               sessions.SessionHandler
 }
 
-func NewRecordService(detailsEndpointAndHostingDao DetailsEndpointAndHostingDao, detailsHostingDao DetailsHostingDao, endpointDao EndpointDao, sessionHandler SessionHandler) RecordService {
+func NewRecordService(detailsEndpointAndHostingDao dao.DetailsEndpointAndHostingDao, detailsHostingDao dao.DetailsHostingDao, endpointDao dao.EndpointDao, sessionHandler sessions.SessionHandler) RecordService {
 	return &RecordServiceImpl{detailsEndpointAndHostingDao, detailsHostingDao, endpointDao, sessionHandler}
 }
 
@@ -106,7 +109,7 @@ func (r RecordServiceImpl) RegisterPageVisited(w http.ResponseWriter, req *http.
 		return e
 	}
 
-	e = r.detailsEndpointAndHostingDao.Save(&DetailsEndpointAndHosting{DetailsHostingID: details.ID, EndpointID: endpoint.EndpointID})
+	e = r.detailsEndpointAndHostingDao.Save(&entities.DetailsEndpointAndHosting{DetailsHostingID: details.ID, EndpointID: endpoint.EndpointID})
 	if e != nil {
 		return e
 	}

@@ -1,4 +1,4 @@
-package web
+package sessions
 
 import (
 	"encoding/gob"

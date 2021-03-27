@@ -1,4 +1,4 @@
-package web
+package sessions
 
 import (
 	"net/http"
@@ -88,5 +88,5 @@ func TestSessionHandler_GetCurrentSessionFail(t *testing.T) {
 }
 
 func TestSessionHandler_IsLoggedIn(t *testing.T) {
-
+	// TODO: Implement test
 }

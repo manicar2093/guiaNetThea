@@ -1,4 +1,4 @@
-package web
+package controllers
 
 import (
 	"fmt"
@@ -6,15 +6,17 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/manicar2093/guianetThea/app/services"
+	"github.com/manicar2093/guianetThea/app/sessions"
 	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 type PageController struct {
-	session       SessionHandler
-	recordService RecordService
+	session       sessions.SessionHandler
+	recordService services.RecordService
 }
 
-func NewPageController(session SessionHandler, recordService RecordService) *PageController {
+func NewPageController(session sessions.SessionHandler, recordService services.RecordService) *PageController {
 	return &PageController{session, recordService}
 }
 
@@ -54,11 +56,11 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 }
 
 type LoginController struct {
-	loginService   LoginService
-	sessionHandler SessionHandler
+	loginService   services.LoginService
+	sessionHandler sessions.SessionHandler
 }
 
-func NewLoginController(loginService LoginService, sessionHandler SessionHandler) *LoginController {
+func NewLoginController(loginService services.LoginService, sessionHandler sessions.SessionHandler) *LoginController {
 	return &LoginController{loginService, sessionHandler}
 }
 
@@ -70,7 +72,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 	if e != nil {
 		if el, ok := e.(LoginError); ok {
 			utils.Error.Println(el.internalMessage)
-			l.sessionHandler.AddFlashMessage(FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
+			l.sessionHandler.AddFlashMessage(sessions.FlashMessage{Type: "danger", Value: el.clientMessage}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}

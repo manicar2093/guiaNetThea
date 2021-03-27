@@ -1,4 +1,4 @@
-package web
+package connections
 
 import (
 	"database/sql"

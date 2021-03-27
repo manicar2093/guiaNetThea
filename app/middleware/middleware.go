@@ -1,8 +1,10 @@
-package web
+package middleware
 
 import (
-	"github.com/manicar2093/guianetThea/app/utils"
 	"net/http"
+
+	"github.com/manicar2093/guianetThea/app/sessions"
+	"github.com/manicar2093/guianetThea/app/utils"
 )
 
 type MiddlewareProvider interface {
@@ -11,10 +13,10 @@ type MiddlewareProvider interface {
 
 // MiddlewareProviderImpl contiene los middlewares del sistema
 type MiddlewareProviderImpl struct {
-	session SessionHandler
+	session sessions.SessionHandler
 }
 
-func NewMiddlewareProvider(session SessionHandler) MiddlewareProvider {
+func NewMiddlewareProvider(session sessions.SessionHandler) MiddlewareProvider {
 	return &MiddlewareProviderImpl{session: session}
 }
 
@@ -26,7 +28,7 @@ func (m MiddlewareProviderImpl) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFu
 		isLoggin := m.session.IsLoggedIn(w, r)
 		utils.Info.Println("Usuario esta logeado?", isLoggin)
 		if !isLoggin {
-			m.session.AddFlashMessage(FlashMessage{Type: "info", Value: "Favor de iniciar sesión."}, w, r)
+			m.session.AddFlashMessage(sessions.FlashMessage{Type: "info", Value: "Favor de iniciar sesión."}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
 		}

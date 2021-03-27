@@ -1,4 +1,4 @@
-package web
+package services
 
 import (
 	"database/sql"
@@ -6,34 +6,37 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/mocks"
 )
 
 var (
-	userDaoMock                      UserDaoMock
-	passwordUtilsMock                PasswordUtilsMock
-	uuidGeneratorUtilsMock           UUIDGeneratorUtilsMock
-	sessionHandlerMock               SessionHandlerMock
-	detailsHostingDaoMock            DetailsHostingDaoMock
-	detailsEndpointAndHostingDaoMock DetailsEndpointAndHostingDaoMock
-	endpointDaoMock                  EndpointDaoMock
+	userDaoMock                      mocks.UserDaoMock
+	passwordUtilsMock                mocks.PasswordUtilsMock
+	uuidGeneratorUtilsMock           mocks.UUIDGeneratorUtilsMock
+	sessionHandlerMock               mocks.SessionHandlerMock
+	detailsHostingDaoMock            mocks.DetailsHostingDaoMock
+	detailsEndpointAndHostingDaoMock mocks.DetailsEndpointAndHostingDaoMock
+	endpointDaoMock                  mocks.EndpointDaoMock
 )
 
 // setUp inicializa las variales mock
 var setUp = func() {
-	userDaoMock = UserDaoMock{}
-	passwordUtilsMock = PasswordUtilsMock{}
-	uuidGeneratorUtilsMock = UUIDGeneratorUtilsMock{}
-	sessionHandlerMock = SessionHandlerMock{}
-	detailsHostingDaoMock = DetailsHostingDaoMock{}
-	detailsEndpointAndHostingDaoMock = DetailsEndpointAndHostingDaoMock{}
-	endpointDaoMock = EndpointDaoMock{}
+	userDaoMock = mocks.UserDaoMock{}
+	passwordUtilsMock = mocks.PasswordUtilsMock{}
+	uuidGeneratorUtilsMock = mocks.UUIDGeneratorUtilsMock{}
+	sessionHandlerMock = mocks.SessionHandlerMock{}
+	detailsHostingDaoMock = mocks.DetailsHostingDaoMock{}
+	detailsEndpointAndHostingDaoMock = mocks.DetailsEndpointAndHostingDaoMock{}
+	endpointDaoMock = mocks.EndpointDaoMock{}
 }
 
 /*func TestDoLogin(t *testing.T) {
 
 	email, password, w, r := "email", "password", httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, "/login", nil)
 	uuid := "UUID"
-	userMock := User{
+	userMock := entities.User{
 		UserID:           1,
 		RolID:            sql.NullInt32{1, true},
 		Name:             "Name",
@@ -43,7 +46,7 @@ var setUp = func() {
 		Password:         password,
 		Status:           true,
 	}
-	details := DetailsHosting{
+	details := entities.DetailsHosting{
 		UserID:         userMock.UserID,
 		Host:           r.RemoteAddr,
 		SessionStart:   time.Now(),
@@ -77,7 +80,7 @@ var setUp = func() {
 func TestDoLoginNoUser(t *testing.T) {
 
 	email, password, w, r := "email", "password", httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, "/login", nil)
-	userMock := User{}
+	userMock := entities.User{}
 
 	setUp()
 
@@ -106,7 +109,7 @@ func TestDoLoginNoUser(t *testing.T) {
 func TestDoLoginPasswordNotMatch(t *testing.T) {
 
 	email, password, w, r := "email", "password", httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, "/login", nil)
-	userMock := User{Password: "password"}
+	userMock := entities.User{Password: "password"}
 
 	setUp()
 
@@ -135,9 +138,9 @@ func TestDoLoginPasswordNotMatch(t *testing.T) {
 
 func TestRecordServiceImpl_RegisterPageVisited(t *testing.T) {
 	uuid, page, w, r := "uuid-session-id", "test", httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/test", nil)
-	details := DetailsHosting{ID: 1}
-	endpoint := Endpoint{EndpointID: 1}
-	detailsEndpoint := DetailsEndpointAndHosting{DetailsHostingID: details.ID, EndpointID: endpoint.EndpointID}
+	details := entities.DetailsHosting{ID: 1}
+	endpoint := entities.Endpoint{EndpointID: 1}
+	detailsEndpoint := entities.DetailsEndpointAndHosting{DetailsHostingID: details.ID, EndpointID: endpoint.EndpointID}
 
 	setUp()
 

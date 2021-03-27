@@ -1,8 +1,10 @@
-package web
+package dao
 
 import (
 	"database/sql"
 	"fmt"
+
+	"github.com/manicar2093/guianetThea/app/entities"
 )
 
 // User queries
@@ -41,10 +43,10 @@ const (
 )
 
 type UserDao interface {
-	Save(user *User) error
+	Save(user *entities.User) error
 	Delete(userID int32) error
-	FindUserByID(id int32) (User, error)
-	FindUserByEmail(email string) (User, error)
+	FindUserByID(id int32) (entities.User, error)
+	FindUserByEmail(email string) (entities.User, error)
 }
 
 type UserDaoImpl struct {
@@ -56,7 +58,7 @@ func NewUserDao(db *sql.DB) *UserDaoImpl {
 }
 
 // Save realiza el guardado de un usuario. Si el usuario no contiene un UserID se guardará un nuevo registro. Si UserID va lleno realizará el update del registro
-func (u *UserDaoImpl) Save(user *User) error {
+func (u *UserDaoImpl) Save(user *entities.User) error {
 
 	switch {
 	case user.UserID <= 0:
@@ -84,36 +86,36 @@ func (u *UserDaoImpl) Delete(userID int32) error {
 }
 
 // FindUserByID busca el usuario con el id proporcionado
-func (u *UserDaoImpl) FindUserByID(id int32) (User, error) {
+func (u *UserDaoImpl) FindUserByID(id int32) (entities.User, error) {
 	r := u.db.QueryRow(findUserByID, id)
 	if r.Err() != nil {
-		return User{}, r.Err()
+		return entities.User{}, r.Err()
 	}
-	var user User
+	var user entities.User
 	e := r.Scan(&user.UserID, &user.RolID, &user.Name, &user.PaternalSureName, &user.MaternalSureName, &user.Email, &user.Password, &user.Status)
 	if e != nil {
-		return User{}, e
+		return entities.User{}, e
 	}
 
 	return user, nil
 }
 
 // FindUserByEmail busca un usuario por email
-func (u *UserDaoImpl) FindUserByEmail(email string) (User, error) {
+func (u *UserDaoImpl) FindUserByEmail(email string) (entities.User, error) {
 	r := u.db.QueryRow(findUserByEmail, email)
 	if r.Err() != nil {
-		return User{}, r.Err()
+		return entities.User{}, r.Err()
 	}
-	var user User
+	var user entities.User
 	e := r.Scan(&user.UserID, &user.RolID, &user.Name, &user.PaternalSureName, &user.MaternalSureName, &user.Email, &user.Password, &user.Status)
 	if e != nil {
-		return User{}, e
+		return entities.User{}, e
 	}
 
 	return user, nil
 }
 
-func (u *UserDaoImpl) update(user *User) error {
+func (u *UserDaoImpl) update(user *entities.User) error {
 	r, e := u.db.Exec(updateUser, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password, user.UserID)
 	if e != nil {
 		return e
@@ -128,7 +130,7 @@ func (u *UserDaoImpl) update(user *User) error {
 	return nil
 }
 
-func (u *UserDaoImpl) insert(user *User) error {
+func (u *UserDaoImpl) insert(user *entities.User) error {
 	query := fmt.Sprintf(insertUser, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password) // FIXME cambiar a stmt
 	r := u.db.QueryRow(query)
 
@@ -142,8 +144,8 @@ func (u *UserDaoImpl) insert(user *User) error {
 }
 
 type EndpointDao interface {
-	FindEndpointByName(name string) (Endpoint, error)
-	FindEndpointByID(id int32) (Endpoint, error)
+	FindEndpointByName(name string) (entities.Endpoint, error)
+	FindEndpointByID(id int32) (entities.Endpoint, error)
 }
 
 type EndpointDaoImpl struct {
@@ -154,28 +156,28 @@ func NewEndpointDao(db *sql.DB) EndpointDao {
 	return &EndpointDaoImpl{db}
 }
 
-func (e EndpointDaoImpl) FindEndpointByName(name string) (Endpoint, error) {
+func (e EndpointDaoImpl) FindEndpointByName(name string) (entities.Endpoint, error) {
 	r := e.db.QueryRow(findEndpointByName, &name)
 	if r.Err() != nil {
-		return Endpoint{}, r.Err()
+		return entities.Endpoint{}, r.Err()
 	}
-	var endpoint Endpoint
+	var endpoint entities.Endpoint
 	err := r.Scan(&endpoint.EndpointID, &endpoint.Name)
 	if err != nil {
-		return Endpoint{}, err
+		return entities.Endpoint{}, err
 	}
 	return endpoint, nil
 }
 
-func (e EndpointDaoImpl) FindEndpointByID(id int32) (Endpoint, error) {
+func (e EndpointDaoImpl) FindEndpointByID(id int32) (entities.Endpoint, error) {
 	r := e.db.QueryRow(findEndpointByID, &id)
 	if r.Err() != nil {
-		return Endpoint{}, r.Err()
+		return entities.Endpoint{}, r.Err()
 	}
-	var endpoint Endpoint
+	var endpoint entities.Endpoint
 	err := r.Scan(&endpoint.EndpointID, &endpoint.Name)
 	if err != nil {
-		return Endpoint{}, err
+		return entities.Endpoint{}, err
 	}
 	return endpoint, nil
 }
@@ -184,8 +186,8 @@ type DetailsHostingDao interface {
 	// Save realiza el guardado de un DetailsHostingDaoImpl. Si el DetailsHostingDaoImpl no contiene un ID se guardará un nuevo registro. Si ID va lleno realizará el update del registro.
 	//
 	// Se debe considerar que el salvado de información solo contempla los campos id_user, host, session_start, session_closure y uuid. El update solo modifica los campos session_closure y  type_log_out
-	Save(details *DetailsHosting) error
-	FindDetailsHostingByUUID(uuid string) (DetailsHosting, error)
+	Save(details *entities.DetailsHosting) error
+	FindDetailsHostingByUUID(uuid string) (entities.DetailsHosting, error)
 }
 
 type DetailsHostingDaoImpl struct {
@@ -199,7 +201,7 @@ func NewDetailsHostingDao(db *sql.DB) DetailsHostingDao {
 // Save realiza el guardado de un DetailsHostingDaoImpl. Si el DetailsHostingDaoImpl no contiene un ID se guardará un nuevo registro. Si ID va lleno realizará el update del registro.
 //
 // Se debe considerar que el salvado de información solo contempla los campos id_user, host, session_start, session_closure y uuid. El update solo modifica los campos session_closure y  type_log_out
-func (d *DetailsHostingDaoImpl) Save(details *DetailsHosting) error {
+func (d *DetailsHostingDaoImpl) Save(details *entities.DetailsHosting) error {
 	switch {
 	case details.ID <= 0:
 		return d.insert(details)
@@ -208,21 +210,21 @@ func (d *DetailsHostingDaoImpl) Save(details *DetailsHosting) error {
 	}
 }
 
-func (d *DetailsHostingDaoImpl) FindDetailsHostingByUUID(uuid string) (DetailsHosting, error) {
+func (d *DetailsHostingDaoImpl) FindDetailsHostingByUUID(uuid string) (entities.DetailsHosting, error) {
 	r := d.db.QueryRow(findDetailsHostingByUUID, &uuid)
 	if r.Err() != nil {
-		return DetailsHosting{}, r.Err()
+		return entities.DetailsHosting{}, r.Err()
 	}
-	var details DetailsHosting
+	var details entities.DetailsHosting
 	e := r.Scan(&details.ID, &details.UserID, &details.Host, &details.SessionStart, &details.SessionClosure, &details.TypeLogOut, &details.CreationDate, &details.EditDate, &details.Status, &details.UUID)
 	if e != nil {
-		return DetailsHosting{}, e
+		return entities.DetailsHosting{}, e
 	}
 
 	return details, nil
 }
 
-func (d *DetailsHostingDaoImpl) update(details *DetailsHosting) error {
+func (d *DetailsHostingDaoImpl) update(details *entities.DetailsHosting) error {
 	r, e := d.db.Exec(updateDetailsHosting, details.SessionClosure, details.TypeLogOut, details.ID)
 	if e != nil {
 		return e
@@ -237,7 +239,7 @@ func (d *DetailsHostingDaoImpl) update(details *DetailsHosting) error {
 	return nil
 }
 
-func (d *DetailsHostingDaoImpl) insert(details *DetailsHosting) error {
+func (d *DetailsHostingDaoImpl) insert(details *entities.DetailsHosting) error {
 	stmt, e := d.db.Prepare(insertDetailsHosting)
 	if e != nil {
 		return e
@@ -254,7 +256,7 @@ func (d *DetailsHostingDaoImpl) insert(details *DetailsHosting) error {
 
 type DetailsEndpointAndHostingDao interface {
 	// Save guarda la instancia y coloca el ID. Solo se requiere el DetailsHostingID y EndpointID
-	Save(details *DetailsEndpointAndHosting) error
+	Save(details *entities.DetailsEndpointAndHosting) error
 }
 
 type DetailsEndpointAndHostingDaoImpl struct {
@@ -265,7 +267,7 @@ func NewDetailsEndpointAndHostingDao(db *sql.DB) DetailsEndpointAndHostingDao {
 	return &DetailsEndpointAndHostingDaoImpl{db}
 }
 
-func (d *DetailsEndpointAndHostingDaoImpl) Save(details *DetailsEndpointAndHosting) error {
+func (d *DetailsEndpointAndHostingDaoImpl) Save(details *entities.DetailsEndpointAndHosting) error {
 	stmt, e := d.db.Prepare(insertDetailsEndpointAndHosting)
 	if e != nil {
 		return e

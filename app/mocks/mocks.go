@@ -1,9 +1,11 @@
-package web
+package mocks
 
 import (
 	"net/http"
 
-	"github.com/gorilla/sessions"
+	muxSessions "github.com/gorilla/sessions"
+	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/sessions"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -13,7 +15,7 @@ type UserDaoMock struct {
 	mock.Mock
 }
 
-func (u UserDaoMock) Save(user *User) error {
+func (u UserDaoMock) Save(user *entities.User) error {
 	args := u.Called(user)
 	return args.Error(0)
 }
@@ -23,14 +25,14 @@ func (u UserDaoMock) Delete(userID int32) error {
 	return args.Error(0)
 }
 
-func (u UserDaoMock) FindUserByID(id int32) (User, error) {
+func (u UserDaoMock) FindUserByID(id int32) (entities.User, error) {
 	args := u.Called(id)
-	return args.Get(0).(User), args.Error(1)
+	return args.Get(0).(entities.User), args.Error(1)
 }
 
-func (u UserDaoMock) FindUserByEmail(email string) (User, error) {
+func (u UserDaoMock) FindUserByEmail(email string) (entities.User, error) {
 	args := u.Called(email)
-	return args.Get(0).(User), args.Error(1)
+	return args.Get(0).(entities.User), args.Error(1)
 }
 
 type MiddlewareProviderMock struct {
@@ -56,9 +58,9 @@ func (s SessionHandlerMock) GetUserID(w http.ResponseWriter, r *http.Request) (s
 	return args.String(0), args.Error(1)
 }
 
-func (s SessionHandlerMock) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error) {
+func (s SessionHandlerMock) GetCurrentSession(w http.ResponseWriter, r *http.Request) (*muxSessions.Session, error) {
 	args := s.Called(w, r)
-	return args.Get(0).(*sessions.Session), args.Error(1)
+	return args.Get(0).(*muxSessions.Session), args.Error(1)
 }
 
 func (s SessionHandlerMock) CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error {
@@ -66,7 +68,7 @@ func (s SessionHandlerMock) CreateNewSession(w http.ResponseWriter, r *http.Requ
 	return args.Error(0)
 }
 
-func (s SessionHandlerMock) AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request) {
+func (s SessionHandlerMock) AddFlashMessage(message sessions.FlashMessage, w http.ResponseWriter, r *http.Request) {
 	s.Called(message, w, r)
 }
 
@@ -79,14 +81,14 @@ type EndpointDaoMock struct {
 	mock.Mock
 }
 
-func (e EndpointDaoMock) FindEndpointByName(name string) (Endpoint, error) {
+func (e EndpointDaoMock) FindEndpointByName(name string) (entities.Endpoint, error) {
 	args := e.Called(name)
-	return args.Get(0).(Endpoint), args.Error(1)
+	return args.Get(0).(entities.Endpoint), args.Error(1)
 }
 
-func (e EndpointDaoMock) FindEndpointByID(id int32) (Endpoint, error) {
+func (e EndpointDaoMock) FindEndpointByID(id int32) (entities.Endpoint, error) {
 	args := e.Called(id)
-	return args.Get(0).(Endpoint), args.Error(1)
+	return args.Get(0).(entities.Endpoint), args.Error(1)
 }
 
 type DetailsHostingDaoMock struct {
@@ -96,21 +98,21 @@ type DetailsHostingDaoMock struct {
 // Save realiza el guardado de un DetailsHostingDaoImpl. Si el DetailsHostingDaoImpl no contiene un ID se guardará un nuevo registro. Si ID va lleno realizará el update del registro.
 //
 // Se debe considerar que el salvado de información solo contempla los campos id_user, host, session_start, session_closure y uuid. El update solo modifica los campos session_closure y  type_log_out
-func (d DetailsHostingDaoMock) Save(details *DetailsHosting) error {
+func (d DetailsHostingDaoMock) Save(details *entities.DetailsHosting) error {
 	args := d.Called(details)
 	return args.Error(0)
 }
 
-func (d DetailsHostingDaoMock) FindDetailsHostingByUUID(uuid string) (DetailsHosting, error) {
+func (d DetailsHostingDaoMock) FindDetailsHostingByUUID(uuid string) (entities.DetailsHosting, error) {
 	args := d.Called(uuid)
-	return args.Get(0).(DetailsHosting), args.Error(1)
+	return args.Get(0).(entities.DetailsHosting), args.Error(1)
 }
 
 type DetailsEndpointAndHostingDaoMock struct {
 	mock.Mock
 }
 
-func (d DetailsEndpointAndHostingDaoMock) Save(details *DetailsEndpointAndHosting) error {
+func (d DetailsEndpointAndHostingDaoMock) Save(details *entities.DetailsEndpointAndHosting) error {
 	args := d.Called(details)
 	return args.Error(0)
 }

@@ -1,4 +1,4 @@
-package web
+package entities
 
 import (
 	"database/sql"

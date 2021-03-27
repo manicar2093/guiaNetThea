@@ -1,4 +1,4 @@
-package web
+package middleware
 
 import (
 	"net/http"
@@ -6,14 +6,15 @@ import (
 	"testing"
 
 	"github.com/gorilla/mux"
+	"github.com/manicar2093/guianetThea/app/sessions"
 )
 
 func TestIsLoggedIn(t *testing.T) {
 
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/resource", nil)
-	middl := NewMiddlewareProvider(Session)
+	middl := NewMiddlewareProvider(sessions.Session)
 
-	Session.CreateNewSession(w, r, "UUID")
+	sessions.Session.CreateNewSession(w, r, "UUID")
 
 	f := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusAlreadyReported)
@@ -33,7 +34,7 @@ func TestIsLoggedIn(t *testing.T) {
 func TestIsLoggedInNoSession(t *testing.T) {
 
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/resource", nil)
-	middl := NewMiddlewareProvider(Session)
+	middl := NewMiddlewareProvider(sessions.Session)
 
 	f := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusAlreadyReported)

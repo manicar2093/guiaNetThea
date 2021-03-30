@@ -13,11 +13,11 @@ import (
 )
 
 type LoginError struct {
-	clientMessage, internalMessage string
+	ClientMessage, InternalMessage string
 }
 
 func (l LoginError) Error() string {
-	return l.internalMessage
+	return l.InternalMessage
 }
 
 type LoginService interface {
@@ -44,7 +44,7 @@ func (l LoginServiceImpl) DoLogin(email, password string, w http.ResponseWriter,
 	if e != nil {
 		switch {
 		case e == sql.ErrNoRows:
-			return LoginError{clientMessage: "Usuario y/o Contraseña incorrectos", internalMessage: fmt.Sprintf("Usuario con email %v no existe", email)}
+			return LoginError{ClientMessage: "Usuario y/o Contraseña incorrectos", InternalMessage: fmt.Sprintf("Usuario con email %v no existe", email)}
 		default:
 			return e
 		}
@@ -53,7 +53,7 @@ func (l LoginServiceImpl) DoLogin(email, password string, w http.ResponseWriter,
 	// Validamos la contraseña correcta
 	e = l.passwordUtils.ValidatePassword(saved.Password, password)
 	if e != nil {
-		return LoginError{clientMessage: "Usuario y/o Contraseña incorrectos", internalMessage: "Contraseña incorrecta"}
+		return LoginError{ClientMessage: "Usuario y/o Contraseña incorrectos", InternalMessage: "Contraseña incorrecta"}
 	}
 
 	// Creamos el UUID para identificar la sesión

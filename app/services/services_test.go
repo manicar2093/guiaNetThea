@@ -97,11 +97,11 @@ func TestDoLoginNoUser(t *testing.T) {
 		t.Fatal("El error no corresponde al necesario.", e)
 	}
 
-	if le.clientMessage != "Usuario y/o Contraseña incorrectos" {
+	if le.ClientMessage != "Usuario y/o Contraseña incorrectos" {
 		t.Fatal("El error del cliente no corresponde")
 	}
 
-	if le.internalMessage != fmt.Sprintf("Usuario con email %v no existe", email) {
+	if le.InternalMessage != fmt.Sprintf("Usuario con email %v no existe", email) {
 		t.Fatal("El error interno no es correcto")
 	}
 }
@@ -127,11 +127,11 @@ func TestDoLoginPasswordNotMatch(t *testing.T) {
 		t.Fatal("El error no corresponde al necesario.", e)
 	}
 
-	if le.clientMessage != "Usuario y/o Contraseña incorrectos" {
+	if le.ClientMessage != "Usuario y/o Contraseña incorrectos" {
 		t.Fatal("El error del cliente no corresponde")
 	}
 
-	if le.internalMessage != "Contraseña incorrecta" {
+	if le.InternalMessage != "Contraseña incorrecta" {
 		t.Fatal("El error interno no es correcto")
 	}
 }

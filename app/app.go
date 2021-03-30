@@ -3,6 +3,7 @@ package app
 import (
 	"net/http"
 
+	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 	"github.com/manicar2093/guianetThea/app/connections"
 	"github.com/manicar2093/guianetThea/app/controllers"
@@ -20,15 +21,20 @@ var (
 	endpointDao                  dao.EndpointDao
 	uuidGeneratorUtils           utils.UUIDGeneratorUtils
 	passwordUtils                utils.PasswordUtils
+	templateUtils                utils.TemplateUtils
 	loginService                 services.LoginService
 	recordService                services.RecordService
 	pageController               *controllers.PageController
 	loginController              *controllers.LoginController
+	adminController              controllers.AdminController
 	middlewareProvider           middleware.MiddlewareProvider
+	csrfMiddleware               func(http.Handler) http.Handler
 )
 
 func RegistryHandlers(r *mux.Router) {
 	webHandlers(r)
+	adminHandlers(r)
+	registryStaticHandlers(r)
 }
 
 func webHandlers(r *mux.Router) {
@@ -39,6 +45,27 @@ func webHandlers(r *mux.Router) {
 	r.HandleFunc("/login", loginController.Login).Methods(http.MethodPost)
 }
 
+func adminHandlers(r *mux.Router) {
+	adminRouter := r.PathPrefix("/admin").Subrouter()
+	adminRouter.Use(csrfMiddleware)
+
+	adminRouter.HandleFunc("/", middlewareProvider.NeedsLoggedIn(adminController.GetAdminIndex)).Methods(http.MethodGet)
+	adminRouter.HandleFunc("/user/all", middlewareProvider.NeedsLoggedIn(adminController.GetGeneralUsersView)).Methods(http.MethodGet)
+	adminRouter.HandleFunc("/user/registry", middlewareProvider.NeedsLoggedIn(adminController.GetUserRegistry)).Methods(http.MethodGet)
+	adminRouter.HandleFunc("/logginRegistry", middlewareProvider.NeedsLoggedIn(adminController.GetLogRegistyView)).Methods(http.MethodGet)
+	adminRouter.HandleFunc("/user/{idUser}", middlewareProvider.NeedsLoggedIn(adminController.GetUpdateUserForm)).Methods(http.MethodGet)
+
+}
+
+func registryStaticHandlers(r *mux.Router) {
+
+	r.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("./static/css"))))
+	r.PathPrefix("/assets/").Handler(http.StripPrefix("/assets/", http.FileServer(http.Dir("./static/assets"))))
+	r.PathPrefix("/images/").Handler(http.StripPrefix("/images/", http.FileServer(http.Dir("./static/images"))))
+	r.PathPrefix("/scripts/").Handler(http.StripPrefix("/scripts/", http.FileServer(http.Dir("./static/scripts"))))
+
+}
+
 func init() {
 	userDao = dao.NewUserDao(connections.DB)
 	detailsHostingDao = dao.NewDetailsHostingDao(connections.DB)
@@ -47,11 +74,15 @@ func init() {
 
 	uuidGeneratorUtils = utils.NewUUIDGeneratorUtils()
 	passwordUtils = utils.NewPasswordUtils()
+	templateUtils = utils.NewTemplateUtils()
 
 	loginService = services.NewLoginService(userDao, passwordUtils, sessions.Session, detailsHostingDao, uuidGeneratorUtils)
 	recordService = services.NewRecordService(detailsEndpointAndHostingDao, detailsHostingDao, endpointDao, sessions.Session)
 
-	pageController = controllers.NewPageController(sessions.Session, recordService)
+	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
 	loginController = controllers.NewLoginController(loginService, sessions.Session)
+	adminController = controllers.NewAdminController(templateUtils, userDao)
+
 	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session)
+	csrfMiddleware = csrf.Protect([]byte("a-key-word"))
 }

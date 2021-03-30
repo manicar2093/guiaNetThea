@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Editar usuario</title>
+    </head>
+  <body> 
+    <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1>Administrador</h1>
+        </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="columns">
+        <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+          <p class="menu-label">Administrador</p>
+          <ul class="menu-list">
+            <li><a href="/admin/user/all">Usuarios</a>
+              <ul> 
+                <li><a href="/admin/user/registry">Registrar</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="menu-label">Informes
+            <ul class="menu-list">
+              <li><a href="/admin/logginRegistry">Bitácora</a></li>
+            </ul>
+          </p>
+          <hr><a class="button is-light is-danger is-fullwidth" href="#">Logout</a>
+        </aside>
+        <div class="column is-10 is-fullheight section is-full-touch">
+          <div class="hero is-info is-small">
+            <div class="hero-body">
+              <p class="title">Editar Usuario</p>
+              <p class="subtitle">Cambia los datos y da guardar para editar el usuario {{.UserMail}}</p>
+            </div>
+          </div>
+          {{.User.ToJson}}
+          <form class="form mt-5" action="#">
+            {{.csrfField}}
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Nombre(s)</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Nombres(s)" value="{{.User.Name}}">
+                </div>
+                <p class="help is-danger">El nombre no es valido</p>
+              </div>
+              <div class="field">
+                <label class="label">Apellido Paterno</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Apellido Paterno" value="{{.User.PaternalSureName}}">
+                </div>
+                <p class="help is-danger">El apellido paterno no es valido</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Apellido Materno</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Apellido Materno" value="{{.User.MaternalSureName.String}}">
+                </div>
+                <p class="help is-danger">El apellido materno no es valido</p>
+              </div>
+              <div class="field">
+                <label class="label">Correo Electrónico</label>
+                <div class="control">
+                  <input class="input" type="email" placeholder="Correo Electrónico" value="{{.User.Email}}">
+                </div>
+                <p class="help is-danger">El correo electrónico no es valido</p>
+              </div>
+            </div>
+            <hr>
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Rol</label>
+                <div class="select">
+                  <select>
+                    <option value="0">Selecciona un Rol</option>
+                    <option value="1">General</option>
+                    <option value="2" selected>Admin</option>
+                  </select>
+                </div>
+                <p class="help is-danger">Selecciona un rol</p>
+              </div>
+            </div>
+            <div class="buttons is-justify-content-flex-end mt-2">
+              <div class="button is-primary">Guardar                        </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

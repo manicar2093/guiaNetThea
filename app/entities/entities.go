@@ -2,6 +2,7 @@ package entities
 
 import (
 	"database/sql"
+	"encoding/json"
 	"time"
 )
 
@@ -17,6 +18,24 @@ type User struct {
 	CreationDate     time.Time
 	EditDate         sql.NullTime
 	Status           bool
+}
+
+func (u User) ToJson() string {
+
+	typeRes := map[string]interface{}{
+		"UserID":           u.UserID,
+		"RolID":            u.RolID.Int32,
+		"Name":             u.Name,
+		"PaternalSureName": u.PaternalSureName,
+		"MaternalSureName": u.MaternalSureName.String,
+		"Email":            u.Email,
+	}
+	b, e := json.Marshal(&typeRes)
+	if e != nil {
+		panic("No se logro convertir :S")
+	}
+
+	return string(b)
 }
 
 // DetailsHosting es la representación de un registro en la base de datos

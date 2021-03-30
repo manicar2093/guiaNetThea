@@ -48,18 +48,7 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 	pagePath := fmt.Sprintf("templates/%s.html", page)
 	e := p.templateUtils.RenderTemplateToResponseWriter(pagePath, w, nil)
 	if e != nil {
-		switch {
-		case e == utils.ErrTemplateNotFound:
-			http.Error(w, fmt.Sprintf("No se encontró la ruta '%s'", page), http.StatusNotFound)
-			return
-		case e == utils.ErrExecution:
-			http.Error(w, "Error Interno del Servidor", http.StatusInternalServerError)
-			return
-		default:
-			utils.Error.Printf("Error desconocido en el path '%s'\n", page)
-			http.Error(w, "Error Interno del Servidor", http.StatusInternalServerError)
-			return
-		}
+		utils.Error.Printf("Error al ingresar a la pagina '%s'. Detalles: \n\t%v", page, e)
 	}
 	e = p.recordService.RegisterPageVisited(w, r, page)
 	if e != nil {

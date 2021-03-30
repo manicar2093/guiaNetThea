@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Usuarios</title>
+    </head>
+  <body> 
+    <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1>Administrador</h1>
+        </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+    </nav>
+    <div class="modal is-clipped" id="restore_password_form">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="is-size-2 mb-3">Usuario -Usuario-</h2>
+          <div class="field">
+            <label class="label">Nueva contraseña</label>
+            <div class="control">
+              <input class="input" type="password">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Confirma contraseña</label>
+            <div class="control">
+              <input class="input" type="password">
+            </div>
+            <p class="help is-danger">Las contraseñas no coinciden</p>
+          </div>
+          <div class="buttons is-justify-content-flex-end">
+            <div class="button is-success">Aceptar</div>
+            <div class="button is-danger is-focused">Cancelar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal is-clipped" id="delete_user_form">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <h2 class="is-size-2 m-5 has-text-centered">¿Seguro quieres eliminar al usuario {{.User.Email}}?</h2>
+          <div class="buttons is-justify-content-center">
+            <div class="button is-success is-fullwidth">Aceptar</div>
+            <div class="button is-danger is-fullwidth is-focused">Cancelar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="columns">
+        <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+          <p class="menu-label">Administrador</p>
+          <ul class="menu-list">
+            <li><a href="/admin/user/all">Usuarios</a>
+              <ul> 
+                <li><a href="/admin/user/registry">Registrar</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="menu-label">Informes
+            <ul class="menu-list">
+              <li><a href="/admin/logginRegistry">Bitácora</a></li>
+            </ul>
+          </p>
+          <hr><a class="button is-light is-danger is-fullwidth" href="#">Logout</a>
+        </aside>
+        <div class="column is-10 is-narrow-mobile is-fullheight section is-full-touch">
+          <div class="hero is-info is-small">
+            <div class="hero-body">
+              <p class="title">Adminsitra tus usuarios</p>
+              <p class="subtitle">Aquí se encuentran todos los usuarios que tienes registrados.</p>
+            </div>
+          </div>
+          <div class="registries show_overflow mt-5">
+            <div class="registry">
+              <div class="registry_info">
+                <label class="registry_label">Nombre</label>
+                <p>Erick Eduardo</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Apellido Paterno</label>
+                <p>Ortega</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Apellido Materno</label>
+                <p>de la Luz</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Rol</label>
+                <p>Admin</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Correo Electrónico</label>
+                <p>uncorreodeejemplo90@correo.com</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Acciones</label>
+                <div class="buttons is-justify-content-center"><a class="button is-info is-small" href="/admin/user/1">Editar</a><a class="button is-warning is-small" href="#">Reestablecer</a><a class="button is-danger is-small" href="#">Borrar</a></div>
+              </div>
+            </div>
+            <div class="registry">
+              <div class="registry_info">
+                <label class="registry_label">Nombre</label>
+                <p>Erick Eduardo</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Apellido Paterno</label>
+                <p>Ortega</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Apellido Materno</label>
+                <p>de la Luz</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Rol</label>
+                <p>Admin</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Correo Electrónico</label>
+                <p>uncorreodeejemplo90@correo.com</p>
+              </div>
+              <div class="registry_info">
+                <label class="registry_label">Acciones</label>
+                <div class="buttons is-justify-content-center"><a class="button is-info is-small" href="/admin/user/2">Editar</a><a class="button is-warning is-small" href="#">Reestablecer</a><a class="button is-danger is-small" href="#">Borrar</a></div>
+              </div>
+            </div>
+          </div>
+          <nav class="pagination is-centered mt-5" role="navigation" aria-label="pagination"><a class="pagination-previous">Previous</a><a class="pagination-next">Next</a>
+            <ul class="pagination-list">
+              <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+              <li><a class="pagination-link" aria-label="Goto page 46">46</a></li>
+              <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+              <li><span class="pagination-ellipsis">&hellip;</span></li>
+              <li><a class="pagination-link" aria-label="Goto page 89">89</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <script src="/scripts/admin/users.js"></script>
+  </body>
+</html>

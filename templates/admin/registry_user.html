@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Registrar Usuario</title>
+    </head>
+  <body> 
+    <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1>Administrador</h1>
+        </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="columns">
+        <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+          <p class="menu-label">Administrador</p>
+          <ul class="menu-list">
+            <li><a href="/admin/user/all">Usuarios</a>
+              <ul> 
+                <li><a href="/admin/user/registry">Registrar</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="menu-label">Informes
+            <ul class="menu-list">
+              <li><a href="/admin/logginRegistry">Bitácora</a></li>
+            </ul>
+          </p>
+          <hr><a class="button is-light is-danger is-fullwidth" href="#">Logout</a>
+        </aside>
+        <div class="column is-10 is-fullheight section is-full-touch">
+          <div class="hero is-info is-small">
+            <div class="hero-body">
+              <p class="title">Registrar Usuario</p>
+              <p class="subtitle">Llena el formulario con la información solicitada y crea un nuevo</p>
+            </div>
+          </div>
+          <form class="form mt-5" action="#">
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Nombre(s)</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Nombres(s)">
+                </div>
+                <p class="help is-danger">El nombre no es valido</p>
+              </div>
+              <div class="field">
+                <label class="label">Apellido Paterno</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Apellido Paterno">
+                </div>
+                <p class="help is-danger">El apellido paterno no es valido</p>
+              </div>
+            </div>
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Apellido Materno</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Apellido Materno">
+                </div>
+                <p class="help is-danger">El apellido materno no es valido</p>
+              </div>
+              <div class="field">
+                <label class="label">Correo Electrónico</label>
+                <div class="control">
+                  <input class="input" type="email" placeholder="Correo Electrónico">
+                </div>
+                <p class="help is-danger">El correo electrónico no es valido</p>
+              </div>
+            </div>
+            <hr>
+            <div class="field-group">
+              <div class="field">
+                <label class="label">Contraseña</label>
+                <div class="control">
+                  <input class="input" type="password" placeholder="Contraseña">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Confirma contraseña</label>
+                <div class="control">
+                  <input class="input" type="password" placeholder="Confirma contraseña">
+                </div>
+                <p class="help is-danger">Las contraseñas no coinciden</p>
+              </div>
+              <div class="field">
+                <label class="label">Rol</label>
+                <div class="select">
+                  <select>
+                    <option value="0">Selecciona un Rol</option>
+                  </select>
+                </div>
+                <p class="help is-danger">Selecciona un rol</p>
+              </div>
+            </div>
+            <div class="buttons is-justify-content-flex-end">
+              <div class="button is-primary">Guardar</div>
+              <div class="button is-warning">Limpiar</div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

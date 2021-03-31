@@ -3,6 +3,7 @@ module github.com/manicar2093/guianetThea
 go 1.16
 
 require (
+	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/gorilla/csrf v1.7.0 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1

@@ -5,6 +5,7 @@ import (
 
 	muxSessions "github.com/gorilla/sessions"
 	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/models"
 	"github.com/manicar2093/guianetThea/app/sessions"
 	"github.com/stretchr/testify/mock"
 )
@@ -33,6 +34,11 @@ func (u UserDaoMock) FindUserByID(id int32) (entities.User, error) {
 func (u UserDaoMock) FindUserByEmail(email string) (entities.User, error) {
 	args := u.Called(email)
 	return args.Get(0).(entities.User), args.Error(1)
+}
+
+func (u UserDaoMock) SaveFromModel(user models.CreateUserData) error {
+	args := u.Called(user)
+	return args.Error(0)
 }
 
 type MiddlewareProviderMock struct {
@@ -143,4 +149,13 @@ func (p PasswordUtilsMock) ValidatePassword(hashed, password string) error {
 
 type LoginServiceMock struct {
 	mock.Mock
+}
+
+type ValidatorServiceMock struct {
+	mock.Mock
+}
+
+func (v ValidatorServiceMock) Validate(data models.Validable) ([]models.ErrorValidationDetail, bool) {
+	args := v.Called(data)
+	return args.Get(0).([]models.ErrorValidationDetail), args.Bool(1)
 }

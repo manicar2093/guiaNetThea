@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 )
 
@@ -22,4 +24,10 @@ func GetPortFromEnvVar(envVar, possible string) string {
 		return fmt.Sprintf(":%s", p)
 	}
 	return fmt.Sprintf(":%s", possible)
+}
+
+func JSON(d interface{}, status int, w http.ResponseWriter) {
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(d)
 }

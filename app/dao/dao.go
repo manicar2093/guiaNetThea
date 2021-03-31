@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/models"
 )
 
 // User queries
@@ -47,6 +48,7 @@ type UserDao interface {
 	Delete(userID int32) error
 	FindUserByID(id int32) (entities.User, error)
 	FindUserByEmail(email string) (entities.User, error)
+	SaveFromModel(user models.CreateUserData) error
 }
 
 type UserDaoImpl struct {
@@ -113,6 +115,10 @@ func (u *UserDaoImpl) FindUserByEmail(email string) (entities.User, error) {
 	}
 
 	return user, nil
+}
+
+func (u *UserDaoImpl) SaveFromModel(user models.CreateUserData) error {
+	panic("Not implemented yet")
 }
 
 func (u *UserDaoImpl) update(user *entities.User) error {

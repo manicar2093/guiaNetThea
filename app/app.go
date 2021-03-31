@@ -90,7 +90,7 @@ func init() {
 	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
 	loginController = controllers.NewLoginController(loginService, sessions.Session)
 	adminController = controllers.NewAdminController(templateUtils, userDao)
-	userController = controllers.NewUserController(userDao, validatorService)
+	userController = controllers.NewUserController(userDao, validatorService, passwordUtils)
 
 	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session)
 	csrfMiddleware = csrf.Protect([]byte("a-key-word"))

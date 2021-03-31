@@ -23,6 +23,7 @@ var (
 	router           *mux.Router
 	validatorService mocks.ValidatorServiceMock
 	userDao          mocks.UserDaoMock
+	passwordUtils    mocks.PasswordUtilsMock
 )
 
 // Data for testing
@@ -105,6 +106,7 @@ func setUp() {
 	router = mux.NewRouter()
 	validatorService = mocks.ValidatorServiceMock{}
 	userDao = mocks.UserDaoMock{}
+	passwordUtils = mocks.PasswordUtilsMock{}
 }
 
 /*
@@ -115,19 +117,26 @@ func setUp() {
 func TestCreateUser(t *testing.T) {
 	setUp()
 	target := "/admin/user/registry"
+	hash := "passwordHashed"
 
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, target, serialize(t, &creationData))
 
 	validatorService.On("Validate", userCreationModel).Return([]models.ErrorValidationDetail{}, true)
-	userDao.On("SaveFromModel", userCreationModel).Return(1, nil)
+	passwordUtils.On("HashPassword", []byte(userCreationModel.Password)).Return(hash, nil)
 
-	controller := NewUserController(userDao, validatorService)
+	userWithPass := userCreationModel
+	userWithPass.Password = hash
+
+	userDao.On("SaveFromModel", userWithPass).Return(1, nil)
+
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.CreateUser)
 
 	router.ServeHTTP(w, r)
 
 	validatorService.AssertExpectations(t)
+	passwordUtils.AssertExpectations(t)
 	userDao.AssertExpectations(t)
 
 	assert.Equal(t, http.StatusCreated, w.Code, "Debió regresar un status 201")
@@ -149,7 +158,7 @@ func TestCreateUserValidatorError(t *testing.T) {
 		}},
 	}, false)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.CreateUser)
 
@@ -163,28 +172,59 @@ func TestCreateUserValidatorError(t *testing.T) {
 	assert.Equal(t, "La información es incorrecta. Favor de revisar la documentación", res["message"].(string), "La cantidad de errores no corresponde")
 
 	validatorService.AssertExpectations(t)
+	passwordUtils.AssertExpectations(t)
 	userDao.AssertExpectations(t)
 
 	assert.Equal(t, http.StatusBadRequest, w.Code, "Debió regresar un status 400")
 }
 
-// TestCreateUserUserDaoError valida que se mande el error correcto cuando falla el UserDao
-func TestCreateUserUserDaoError(t *testing.T) {
+// TestCreateUserPasswordHashError valida se regrese el HTTP code correcto cuando el hash del pass falla
+func TestCreateUserPasswordHashError(t *testing.T) {
 	setUp()
 	target := "/admin/user/registry"
 
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, target, serialize(t, &creationData))
 
 	validatorService.On("Validate", userCreationModel).Return([]models.ErrorValidationDetail{}, true)
-	userDao.On("SaveFromModel", userCreationModel).Return(0, fmt.Errorf("Un error en el UserDao"))
+	passwordUtils.On("HashPassword", []byte(userCreationModel.Password)).Return("", fmt.Errorf("Un error al hacer hash del pass"))
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.CreateUser)
 
 	router.ServeHTTP(w, r)
 
 	validatorService.AssertExpectations(t)
+	passwordUtils.AssertExpectations(t)
+	userDao.AssertExpectations(t)
+
+	assert.Equal(t, http.StatusInternalServerError, w.Code, "Código HTTP incorrecto")
+}
+
+// TestCreateUserUserDaoError valida que se mande el error correcto cuando falla el UserDao
+func TestCreateUserUserDaoError(t *testing.T) {
+	setUp()
+	target := "/admin/user/registry"
+	hash := "passwordHashed"
+
+	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, target, serialize(t, &creationData))
+
+	validatorService.On("Validate", userCreationModel).Return([]models.ErrorValidationDetail{}, true)
+	passwordUtils.On("HashPassword", []byte(userCreationModel.Password)).Return(hash, nil)
+
+	userWithPass := userCreationModel
+	userWithPass.Password = hash
+
+	userDao.On("SaveFromModel", userWithPass).Return(0, fmt.Errorf("Un error en el UserDao"))
+
+	controller := NewUserController(userDao, validatorService, passwordUtils)
+
+	router.HandleFunc(target, controller.CreateUser)
+
+	router.ServeHTTP(w, r)
+
+	validatorService.AssertExpectations(t)
+	passwordUtils.AssertExpectations(t)
 	userDao.AssertExpectations(t)
 
 	var res map[string]interface{}
@@ -197,7 +237,7 @@ func TestCreateUserUserDaoError(t *testing.T) {
 }
 
 /*
-	Upsdate User
+	Update User
 */
 
 // TestUpdateUser valida el happy path del proceso
@@ -212,7 +252,7 @@ func TestUpdateUser(t *testing.T) {
 	userDao.On("FindUserByID", userUpdateModel.ID).Return(userUpdateEntityMock, nil)
 	userDao.On("Save", &userUpdateEntityMock).Return(nil)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.UpdateUser)
 
@@ -244,7 +284,7 @@ func TestUpdateUserValidationError(t *testing.T) {
 	// userDao.On("FindUserByID", userUpdateModel.ID).Return(userEntityMock, nil)
 	// userDao.On("Save", &userEntityMock).Return(nil)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.UpdateUser)
 
@@ -269,7 +309,7 @@ func TestUpdateUserUserNotFound(t *testing.T) {
 	userDao.On("FindUserByID", userUpdateModel.ID).Return(entities.User{}, sql.ErrNoRows)
 	// userDao.On("Save", &userEntityMock).Return(nil)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.UpdateUser)
 
@@ -299,7 +339,7 @@ func TestUpdateUserUserDaoError(t *testing.T) {
 	userDao.On("FindUserByID", userUpdateModel.ID).Return(entities.User{}, fmt.Errorf("Un error al buscar el usuario"))
 	// userDao.On("Save", &userEntityMock).Return(nil)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.UpdateUser)
 
@@ -329,7 +369,7 @@ func TestUpdateUserUserDaoSaveError(t *testing.T) {
 	userDao.On("FindUserByID", userUpdateModel.ID).Return(userUpdateEntityMock, nil)
 	userDao.On("Save", &userUpdateEntityMock).Return(fmt.Errorf("Un error en el metodo Save"))
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.UpdateUser)
 
@@ -354,14 +394,19 @@ func TestUpdateUserUserDaoSaveError(t *testing.T) {
 func TestRestorePassword(t *testing.T) {
 	setUp()
 	target := "/admin/user/restore_password"
+	hash := "passwordhash"
 
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPut, target, serialize(t, &restorePasswordData))
 
 	validatorService.On("Validate", restorePasswordModel).Return([]models.ErrorValidationDetail{}, true)
-	userDao.On("FindUserByID", restorePasswordModel.ID).Return(userRestorePassEntityMock, nil)
-	userDao.On("Save", &userRestorePassEntityMock).Return(nil)
+	passwordUtils.On("HashPassword", []byte(restorePasswordModel.Password)).Return(hash, nil)
+	userWithPass := userRestorePassEntityMock
+	userWithPass.Password = hash
 
-	controller := NewUserController(userDao, validatorService)
+	userDao.On("FindUserByID", restorePasswordModel.ID).Return(userRestorePassEntityMock, nil)
+	userDao.On("Save", &userWithPass).Return(nil)
+
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(target, controller.RestorePassword)
 
@@ -384,7 +429,7 @@ func TestDeleteUser(t *testing.T) {
 
 	userDao.On("Delete", idUser).Return(nil)
 
-	controller := NewUserController(userDao, validatorService)
+	controller := NewUserController(userDao, validatorService, passwordUtils)
 
 	router.HandleFunc(endpoint, controller.DeleteUser)
 

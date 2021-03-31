@@ -25,10 +25,11 @@ type UserController interface {
 type UserControllerImpl struct {
 	userDao          dao.UserDao
 	validatorService services.ValidatorService
+	passwordUtils    utils.PasswordUtils
 }
 
-func NewUserController(userDao dao.UserDao, validatorService services.ValidatorService) UserController {
-	return &UserControllerImpl{userDao, validatorService}
+func NewUserController(userDao dao.UserDao, validatorService services.ValidatorService, passwordUtils utils.PasswordUtils) UserController {
+	return &UserControllerImpl{userDao, validatorService, passwordUtils}
 }
 
 func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
@@ -48,7 +49,19 @@ func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, e := u.userDao.SaveFromModel(data)
+	hash, e := u.passwordUtils.HashPassword([]byte(data.Password))
+
+	if e != nil {
+		utils.Error.Printf("Error al crear hash del password. Detalles: \n\t%v", e)
+		utils.JSON(map[string]interface{}{
+			"message": "Hubo un error al registrar al usuario. Favor de contactar a soporte",
+		}, http.StatusInternalServerError, w)
+		return
+	}
+
+	data.Password = hash
+
+	_, e = u.userDao.SaveFromModel(data)
 	if e != nil {
 		utils.Error.Printf("Error al registrar nuevo usuario. Detalles: \n\t%v", e)
 		utils.JSON(map[string]interface{}{
@@ -149,7 +162,16 @@ func (u UserControllerImpl) RestorePassword(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	stored.Password = data.Password
+	hash, e := u.passwordUtils.HashPassword([]byte(data.Password))
+	if e != nil {
+		utils.Error.Printf("Error al crear hash del password. Detalles: \n\t%v", e)
+		utils.JSON(map[string]interface{}{
+			"message": "Hubo un error al registrar al usuario. Favor de contactar a soporte",
+		}, http.StatusInternalServerError, w)
+		return
+	}
+
+	stored.Password = hash
 
 	e = u.userDao.Save(&stored)
 	if e != nil {

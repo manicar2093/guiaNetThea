@@ -1,9 +1,12 @@
 package utils
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
+	"html/template"
 	"net/http"
-	"text/template"
+	"path/filepath"
 )
 
 var (
@@ -24,7 +27,10 @@ func NewTemplateUtils() TemplateUtils {
 }
 
 func (t TemplateUtilsImpl) RenderTemplateToResponseWriter(templatePath string, w http.ResponseWriter, data interface{}) error {
-	tpl, e := template.ParseFiles(templatePath)
+	name := filepath.Base(templatePath)
+
+	tpl, e := t.createTemplate(name, templatePath)
+
 	if e != nil {
 		Error.Printf("Error al parsear el template '%s': Detalles: \n\t%v", templatePath, e)
 		http.Error(w, "No se encontró la ruta especificada", http.StatusNotFound)
@@ -37,4 +43,18 @@ func (t TemplateUtilsImpl) RenderTemplateToResponseWriter(templatePath string, w
 		return ErrExecution
 	}
 	return nil
+}
+
+func (t TemplateUtilsImpl) createTemplate(name, templatePath string) (*template.Template, error) {
+	return template.New(name).Funcs(
+		template.FuncMap{
+			"ToJSON": func(i interface{}) string {
+				b, e := json.Marshal(i)
+				if e != nil {
+					panic(fmt.Sprintf("Error al realizar el Marshal a JSON del Usuario: Detalles: \n\t%v", e))
+				}
+				return string(b)
+			},
+		},
+	).ParseFiles(templatePath)
 }

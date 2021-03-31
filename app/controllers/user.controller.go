@@ -48,7 +48,7 @@ func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	e := u.userDao.SaveFromModel(data)
+	_, e := u.userDao.SaveFromModel(data)
 	if e != nil {
 		utils.Error.Printf("Error al registrar nuevo usuario. Detalles: \n\t%v", e)
 		utils.JSON(map[string]interface{}{

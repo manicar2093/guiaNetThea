@@ -119,7 +119,7 @@ func TestCreateUser(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, target, serialize(t, &creationData))
 
 	validatorService.On("Validate", userCreationModel).Return([]models.ErrorValidationDetail{}, true)
-	userDao.On("SaveFromModel", userCreationModel).Return(nil)
+	userDao.On("SaveFromModel", userCreationModel).Return(1, nil)
 
 	controller := NewUserController(userDao, validatorService)
 
@@ -176,7 +176,7 @@ func TestCreateUserUserDaoError(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodPost, target, serialize(t, &creationData))
 
 	validatorService.On("Validate", userCreationModel).Return([]models.ErrorValidationDetail{}, true)
-	userDao.On("SaveFromModel", userCreationModel).Return(fmt.Errorf("Un error en el UserDao"))
+	userDao.On("SaveFromModel", userCreationModel).Return(0, fmt.Errorf("Un error en el UserDao"))
 
 	controller := NewUserController(userDao, validatorService)
 

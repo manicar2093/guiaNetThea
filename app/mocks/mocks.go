@@ -36,9 +36,9 @@ func (u UserDaoMock) FindUserByEmail(email string) (entities.User, error) {
 	return args.Get(0).(entities.User), args.Error(1)
 }
 
-func (u UserDaoMock) SaveFromModel(user models.CreateUserData) error {
+func (u UserDaoMock) SaveFromModel(user models.CreateUserData) (int, error) {
 	args := u.Called(user)
-	return args.Error(0)
+	return args.Int(0), args.Error(0)
 }
 
 type MiddlewareProviderMock struct {

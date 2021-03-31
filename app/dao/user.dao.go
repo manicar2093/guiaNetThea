@@ -6,6 +6,7 @@ import (
 
 	"github.com/manicar2093/guianetThea/app/entities"
 	"github.com/manicar2093/guianetThea/app/models"
+	"gopkg.in/guregu/null.v4/zero"
 )
 
 const (
@@ -25,7 +26,7 @@ type UserDao interface {
 	Delete(userID int32) error
 	FindUserByID(id int32) (entities.User, error)
 	FindUserByEmail(email string) (entities.User, error)
-	SaveFromModel(user models.CreateUserData) error
+	SaveFromModel(user models.CreateUserData) (int, error)
 }
 
 type UserDaoImpl struct {
@@ -94,8 +95,23 @@ func (u *UserDaoImpl) FindUserByEmail(email string) (entities.User, error) {
 	return user, nil
 }
 
-func (u *UserDaoImpl) SaveFromModel(user models.CreateUserData) error {
-	panic("Not implemented yet")
+func (u *UserDaoImpl) SaveFromModel(user models.CreateUserData) (int, error) {
+
+	toSave := entities.User{
+		RolID:            zero.IntFrom(int64(user.RolID)),
+		Name:             user.Name,
+		PaternalSureName: user.PaternalSureName,
+		MaternalSureName: zero.StringFrom(user.MaternalSureName),
+		Email:            user.Email,
+		Password:         user.Password,
+	}
+
+	if e := u.Save(&toSave); e != nil {
+		return 0, e
+	}
+
+	return int(toSave.UserID), nil
+
 }
 
 func (u *UserDaoImpl) update(user *entities.User) error {

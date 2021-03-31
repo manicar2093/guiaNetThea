@@ -6,6 +6,8 @@ import (
 
 	"github.com/manicar2093/guianetThea/app/connections"
 	"github.com/manicar2093/guianetThea/app/entities"
+	"github.com/manicar2093/guianetThea/app/models"
+	"github.com/stretchr/testify/assert"
 	"gopkg.in/guregu/null.v4/zero"
 )
 
@@ -110,4 +112,21 @@ func TestFindUserByEmail(t *testing.T) {
 	if user.Email != email {
 		t.Fatal("El email no corresponde. El registro no es correcto")
 	}
+}
+
+func TestSaveFromModel(t *testing.T) {
+	dao := NewUserDao(connections.DB)
+	model := models.CreateUserData{
+		RolID:            1,
+		Name:             "ModelTest",
+		PaternalSureName: "ModelTest",
+		MaternalSureName: "ModelTest",
+		Email:            "email@test.com",
+		Password:         "pass",
+		PasswordConfirm:  "pass",
+	}
+	id, err := dao.SaveFromModel(model)
+
+	assert.Nil(t, err, "No debió regresar error")
+	assert.Greater(t, id, 0, "No se recibio el id")
 }

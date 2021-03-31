@@ -34,6 +34,7 @@ func NewUserController(userDao dao.UserDao, validatorService services.ValidatorS
 func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var data models.CreateUserData
 	if e := json.NewDecoder(r.Body).Decode(&data); e != nil {
+		utils.Error.Printf("Error al decodificar los datos del body. Detalles: \n\t%v", e)
 		utils.JSON(map[string]interface{}{"message": "No se logró obtener la información necesaria. Valida la documentación"}, http.StatusInternalServerError, w)
 		return
 	}

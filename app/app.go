@@ -24,9 +24,11 @@ var (
 	templateUtils                utils.TemplateUtils
 	loginService                 services.LoginService
 	recordService                services.RecordService
+	validatorService             services.ValidatorService
 	pageController               *controllers.PageController
 	loginController              *controllers.LoginController
 	adminController              controllers.AdminController
+	userController               controllers.UserController
 	middlewareProvider           middleware.MiddlewareProvider
 	csrfMiddleware               func(http.Handler) http.Handler
 )
@@ -55,6 +57,11 @@ func adminHandlers(r *mux.Router) {
 	adminRouter.HandleFunc("/logginRegistry", middlewareProvider.NeedsLoggedIn(adminController.GetLogRegistyView)).Methods(http.MethodGet)
 	adminRouter.HandleFunc("/user/{idUser}", middlewareProvider.NeedsLoggedIn(adminController.GetUpdateUserForm)).Methods(http.MethodGet)
 
+	adminRouter.HandleFunc("/user/registry", userController.CreateUser).Methods(http.MethodPost)
+	adminRouter.HandleFunc("/user/delete/{idUser}", userController.DeleteUser).Methods(http.MethodDelete)
+	adminRouter.HandleFunc("/user/restore_password", userController.RestorePassword).Methods(http.MethodPut)
+	adminRouter.HandleFunc("/user/update", userController.UpdateUser).Methods(http.MethodPut)
+
 }
 
 func registryStaticHandlers(r *mux.Router) {
@@ -78,10 +85,12 @@ func init() {
 
 	loginService = services.NewLoginService(userDao, passwordUtils, sessions.Session, detailsHostingDao, uuidGeneratorUtils)
 	recordService = services.NewRecordService(detailsEndpointAndHostingDao, detailsHostingDao, endpointDao, sessions.Session)
+	validatorService = services.NewValidatorService()
 
 	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
 	loginController = controllers.NewLoginController(loginService, sessions.Session)
 	adminController = controllers.NewAdminController(templateUtils, userDao)
+	userController = controllers.NewUserController(userDao, validatorService)
 
 	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session)
 	csrfMiddleware = csrf.Protect([]byte("a-key-word"))

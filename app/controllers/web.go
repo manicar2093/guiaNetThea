@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -42,7 +41,7 @@ func (p *PageController) GetOnDevTemplate(w http.ResponseWriter, r *http.Request
 func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request) {
 	page := mux.Vars(r)["page"]
 	if page == "favicon.ico" {
-		log.Println("Recurso omitido", page)
+		utils.Info.Println("Recurso omitido", page)
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)

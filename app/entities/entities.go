@@ -1,41 +1,23 @@
 package entities
 
 import (
-	"database/sql"
-	"encoding/json"
 	"time"
+
+	"gopkg.in/guregu/null.v4/zero"
 )
 
 // User es la representación de un registro en la base de datos
 type User struct {
-	UserID           int32
-	RolID            sql.NullInt32
-	Name             string
-	PaternalSureName string
-	MaternalSureName sql.NullString
-	Email            string
-	Password         string
-	CreationDate     time.Time
-	EditDate         sql.NullTime
-	Status           bool
-}
-
-func (u User) ToJson() string {
-
-	typeRes := map[string]interface{}{
-		"UserID":           u.UserID,
-		"RolID":            u.RolID.Int32,
-		"Name":             u.Name,
-		"PaternalSureName": u.PaternalSureName,
-		"MaternalSureName": u.MaternalSureName.String,
-		"Email":            u.Email,
-	}
-	b, e := json.Marshal(&typeRes)
-	if e != nil {
-		panic("No se logro convertir :S")
-	}
-
-	return string(b)
+	UserID           int32       `json:"id"`
+	RolID            zero.Int    `json:"rol_id"`
+	Name             string      `json:"name"`
+	PaternalSureName string      `json:"paternal_surename"`
+	MaternalSureName zero.String `json:"maternal_surename"`
+	Email            string      `json:"email"`
+	Password         string      `json:"-"`
+	CreationDate     time.Time   `json:"creation_date"`
+	EditDate         zero.Time   `json:"update_date"`
+	Status           bool        `json:"status"`
 }
 
 // DetailsHosting es la representación de un registro en la base de datos
@@ -44,10 +26,10 @@ type DetailsHosting struct {
 	UserID         int32
 	Host           string
 	SessionStart   time.Time
-	SessionClosure sql.NullTime
+	SessionClosure zero.Time
 	TypeLogOut     string
 	CreationDate   time.Time
-	EditDate       sql.NullTime
+	EditDate       zero.Time
 	Status         bool
 	UUID           string
 }
@@ -68,7 +50,7 @@ type Rol struct {
 	Name         string
 	Code         string
 	CreationDate time.Time
-	EditDate     sql.NullTime
+	EditDate     zero.Time
 	Status       bool
 }
 
@@ -78,6 +60,6 @@ type DetailsEndpointAndHosting struct {
 	DetailsHostingID int32
 	EndpointID       int32
 	CreationDate     time.Time
-	EditDate         sql.NullTime
+	EditDate         zero.Time
 	Status           bool
 }

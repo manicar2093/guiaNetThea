@@ -8,15 +8,16 @@ import (
 	"github.com/manicar2093/guianetThea/app/connections"
 	"github.com/manicar2093/guianetThea/app/entities"
 	uuid "github.com/satori/go.uuid"
+	"gopkg.in/guregu/null.v4/zero"
 )
 
 func TestSaveUser(t *testing.T) {
 	dao := NewUserDao(connections.DB)
 	user := entities.User{
-		RolID:            sql.NullInt32{1, true},
+		RolID:            zero.NewInt(1, true),
 		Name:             "Test",
 		PaternalSureName: "Test",
-		MaternalSureName: sql.NullString{Valid: true, String: "Test"},
+		MaternalSureName: zero.NewString("Test", true),
 		Email:            "test@test.com",
 		Password:         "password",
 		Status:           true,
@@ -35,10 +36,10 @@ func TestSaveUser(t *testing.T) {
 func TestDeleteUser(t *testing.T) {
 	dao := NewUserDao(connections.DB)
 	user := entities.User{
-		RolID:            sql.NullInt32{1, true},
+		RolID:            zero.NewInt(1, true),
 		Name:             "Test DEL",
 		PaternalSureName: "Test DEL",
-		MaternalSureName: sql.NullString{Valid: true, String: "Test DEL"},
+		MaternalSureName: zero.NewString("Test DEL", true),
 		Email:            "test@test.com",
 		Password:         "password",
 		Status:           true,
@@ -56,10 +57,10 @@ func TestUpdateUser(t *testing.T) {
 	dao := NewUserDao(connections.DB)
 	newEmail, newName := "Changed", "Changed"
 	user := entities.User{
-		RolID:            sql.NullInt32{1, true},
+		RolID:            zero.NewInt(1, true),
 		Name:             "Test",
 		PaternalSureName: "Test",
-		MaternalSureName: sql.NullString{Valid: true, String: "Test"},
+		MaternalSureName: zero.NewString("Test", true),
 		Email:            "test@test.com",
 		Password:         "password",
 		Status:           true,
@@ -143,7 +144,7 @@ func TestFindEndpointByID(t *testing.T) {
 
 func TestDetailsHostingDaoImpl_Save(t *testing.T) {
 	dao := NewDetailsHostingDao(connections.DB)
-	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	closure := zero.NewTime(time.Now().Add(1*time.Hour), true)
 	u1 := uuid.NewV4()
 	details := entities.DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
 
@@ -159,7 +160,7 @@ func TestDetailsHostingDaoImpl_Save(t *testing.T) {
 
 func TestDetailsHostingDaoImpl_Update(t *testing.T) {
 	dao := NewDetailsHostingDao(connections.DB)
-	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	closure := zero.NewTime(time.Now().Add(1*time.Hour), true)
 	u1 := uuid.NewV4()
 	details := entities.DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
 
@@ -177,7 +178,7 @@ func TestDetailsHostingDaoImpl_Update(t *testing.T) {
 
 func TestDetailsHostingDaoImpl_FindDetailsHostingByUUID(t *testing.T) {
 	dao := NewDetailsHostingDao(connections.DB)
-	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	closure := zero.NewTime(time.Now().Add(1*time.Hour), true)
 	u1 := uuid.NewV4()
 	details := entities.DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
 
@@ -197,7 +198,7 @@ func TestDetailsEndpointAndHostingDaoImpl_Save(t *testing.T) {
 	detailsHostingDao := NewDetailsHostingDao(connections.DB)
 	detailsEndpointAndHostingDao := NewDetailsEndpointAndHostingDao(connections.DB)
 
-	closure := sql.NullTime{Time: time.Now().Add(1 * time.Hour), Valid: true}
+	closure := zero.NewTime(time.Now().Add(1*time.Hour), true)
 	u1 := uuid.NewV4()
 	details := entities.DetailsHosting{UserID: 1, Host: "HOST", SessionStart: time.Now(), SessionClosure: closure, UUID: u1.String()}
 

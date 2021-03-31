@@ -10,6 +10,7 @@ import (
 	"github.com/manicar2093/guianetThea/app/entities"
 	"github.com/manicar2093/guianetThea/app/sessions"
 	"github.com/manicar2093/guianetThea/app/utils"
+	"gopkg.in/guregu/null.v4/zero"
 )
 
 type LoginError struct {
@@ -66,7 +67,7 @@ func (l LoginServiceImpl) DoLogin(email, password string, w http.ResponseWriter,
 	}
 
 	// Registramos la nueva sesión
-	e = l.detailsHostingDao.Save(&entities.DetailsHosting{UserID: saved.UserID, Host: r.RemoteAddr, SessionStart: time.Now(), SessionClosure: sql.NullTime{Time: time.Now().Add(sessions.SessionDuration), Valid: true}, UUID: u})
+	e = l.detailsHostingDao.Save(&entities.DetailsHosting{UserID: saved.UserID, Host: r.RemoteAddr, SessionStart: time.Now(), SessionClosure: zero.NewTime(time.Now().Add(sessions.SessionDuration), true), UUID: u})
 	if e != nil {
 		return e
 	}

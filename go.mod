@@ -10,4 +10,5 @@ require (
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
+	gopkg.in/guregu/null.v4 v4.0.0 // indirect
 )

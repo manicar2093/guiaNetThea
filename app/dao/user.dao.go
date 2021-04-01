@@ -19,6 +19,8 @@ const (
 	findUserByID = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status FROM manager."THEA_USER" WHERE id_user= $1 group by id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status`
 
 	findUserByEmail = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status FROM manager."THEA_USER" WHERE email= $1 group by id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status`
+
+	findAll = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, creation_date, edit_date, status FROM manager."THEA_USER"`
 )
 
 type UserDao interface {
@@ -27,6 +29,7 @@ type UserDao interface {
 	FindUserByID(id int32) (entities.User, error)
 	FindUserByEmail(email string) (entities.User, error)
 	SaveFromModel(user models.CreateUserData) (int, error)
+	FindAll() ([]entities.User, error)
 }
 
 type UserDaoImpl struct {
@@ -111,6 +114,24 @@ func (u *UserDaoImpl) SaveFromModel(user models.CreateUserData) (int, error) {
 	}
 
 	return int(toSave.UserID), nil
+
+}
+
+func (u *UserDaoImpl) FindAll() (found []entities.User, e error) {
+	r, e := u.db.Query(findAll)
+	if e != nil {
+		return
+	}
+
+	for r.Next() {
+		var temp entities.User
+		if e = r.Scan(&temp.UserID, &temp.RolID, &temp.Name, &temp.PaternalSureName, &temp.MaternalSureName, &temp.Email, &temp.Password, &temp.CreationDate, &temp.EditDate, &temp.Status); e != nil {
+			return
+		}
+		found = append(found, temp)
+	}
+
+	return
 
 }
 

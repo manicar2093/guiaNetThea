@@ -131,3 +131,11 @@ func TestSaveFromModel(t *testing.T) {
 	assert.Nil(t, err, "No debió regresar error")
 	assert.Greater(t, id, 0, "No se recibio el id")
 }
+
+func TestFindAll(t *testing.T) {
+	dao := NewUserDao(connections.DB)
+	users, e := dao.FindAll()
+
+	assert.Nil(t, e, "No debió regresar error")
+	assert.Greater(t, len(users), 0, "No hay usuarios en el slice")
+}

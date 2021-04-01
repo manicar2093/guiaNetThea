@@ -123,6 +123,15 @@ func (d DetailsEndpointAndHostingDaoMock) Save(details *entities.DetailsEndpoint
 	return args.Error(0)
 }
 
+type RolDaoMock struct {
+	mock.Mock
+}
+
+func (r RolDaoMock) FindAllRolByStatus(status bool) ([]entities.Rol, error) {
+	args := r.Called(status)
+	return args.Get(0).([]entities.Rol), args.Error(1)
+}
+
 type UUIDGeneratorUtilsMock struct {
 	mock.Mock
 }
@@ -158,4 +167,13 @@ type ValidatorServiceMock struct {
 func (v ValidatorServiceMock) Validate(data models.Validable) ([]models.ErrorValidationDetail, bool) {
 	args := v.Called(data)
 	return args.Get(0).([]models.ErrorValidationDetail), args.Bool(1)
+}
+
+type CatalogsServiceMock struct {
+	mock.Mock
+}
+
+func (c CatalogsServiceMock) CreateCatalog(catalog string) ([]models.CatalogModel, error) {
+	args := c.Called(catalog)
+	return args.Get(0).([]models.CatalogModel), args.Error(1)
 }

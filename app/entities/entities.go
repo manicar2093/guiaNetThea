@@ -3,6 +3,7 @@ package entities
 import (
 	"time"
 
+	"github.com/manicar2093/guianetThea/app/models"
 	"gopkg.in/guregu/null.v4/zero"
 )
 
@@ -52,6 +53,10 @@ type Rol struct {
 	CreationDate time.Time
 	EditDate     zero.Time
 	Status       bool
+}
+
+func (r Rol) GetCatalogInstance() models.CatalogModel {
+	return models.CatalogModel{ID: int(r.RolID), Description: r.Name}
 }
 
 // DetailsEndpointAndHosting es la representación de la relación entre Endpoint y DetailsHosting

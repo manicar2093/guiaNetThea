@@ -10,20 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gorilla/mux"
 	"github.com/manicar2093/guianetThea/app/entities"
-	"github.com/manicar2093/guianetThea/app/mocks"
 	"github.com/manicar2093/guianetThea/app/models"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/guregu/null.v4/zero"
-)
-
-// Mocks
-var (
-	router           *mux.Router
-	validatorService mocks.ValidatorServiceMock
-	userDao          mocks.UserDaoMock
-	passwordUtils    mocks.PasswordUtilsMock
 )
 
 // Data for testing
@@ -101,13 +91,6 @@ var (
 		PasswordConfirm: "TestPass",
 	}
 )
-
-func setUp() {
-	router = mux.NewRouter()
-	validatorService = mocks.ValidatorServiceMock{}
-	userDao = mocks.UserDaoMock{}
-	passwordUtils = mocks.PasswordUtilsMock{}
-}
 
 /*
 	Create User

@@ -65,7 +65,17 @@ func (a AdminControllerImpl) GetUpdateUserForm(w http.ResponseWriter, r *http.Re
 
 func (a AdminControllerImpl) GetGeneralUsersView(w http.ResponseWriter, r *http.Request) {
 
-	a.renderTemplate(gralUsersView, w, r, true, map[string]interface{}{})
+	users, e := a.userDao.FindAll()
+
+	if e != nil {
+		utils.Error.Printf("Error al buscar todos los usuarios. Detalles: \n\t%v", e)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	a.renderTemplate(gralUsersView, w, r, true, map[string]interface{}{
+		"users": users,
+	})
 
 }
 

@@ -19,16 +19,19 @@ var (
 	detailsHostingDao            dao.DetailsHostingDao
 	detailsEndpointAndHostingDao dao.DetailsEndpointAndHostingDao
 	endpointDao                  dao.EndpointDao
+	roleDao                      dao.RolDao
 	uuidGeneratorUtils           utils.UUIDGeneratorUtils
 	passwordUtils                utils.PasswordUtils
 	templateUtils                utils.TemplateUtils
 	loginService                 services.LoginService
 	recordService                services.RecordService
 	validatorService             services.ValidatorService
+	catalogsService              services.CatalogsService
 	pageController               *controllers.PageController
 	loginController              *controllers.LoginController
 	adminController              controllers.AdminController
 	userController               controllers.UserController
+	catalogsController           controllers.CatalogsController
 	middlewareProvider           middleware.MiddlewareProvider
 	csrfMiddleware               func(http.Handler) http.Handler
 )
@@ -62,6 +65,8 @@ func adminHandlers(r *mux.Router) {
 	adminRouter.HandleFunc("/user/restore_password", userController.RestorePassword).Methods(http.MethodPut)
 	adminRouter.HandleFunc("/user/update", userController.UpdateUser).Methods(http.MethodPut)
 
+	adminRouter.HandleFunc("/catalogs/{catalog}", catalogsController.GetCatalog).Methods(http.MethodGet)
+
 }
 
 func registryStaticHandlers(r *mux.Router) {
@@ -78,6 +83,7 @@ func init() {
 	detailsHostingDao = dao.NewDetailsHostingDao(connections.DB)
 	detailsEndpointAndHostingDao = dao.NewDetailsEndpointAndHostingDao(connections.DB)
 	endpointDao = dao.NewEndpointDao(connections.DB)
+	roleDao = dao.NewRolDao(connections.DB)
 
 	uuidGeneratorUtils = utils.NewUUIDGeneratorUtils()
 	passwordUtils = utils.NewPasswordUtils()
@@ -86,11 +92,13 @@ func init() {
 	loginService = services.NewLoginService(userDao, passwordUtils, sessions.Session, detailsHostingDao, uuidGeneratorUtils)
 	recordService = services.NewRecordService(detailsEndpointAndHostingDao, detailsHostingDao, endpointDao, sessions.Session)
 	validatorService = services.NewValidatorService()
+	catalogsService = services.NewCatalogService(roleDao)
 
 	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
 	loginController = controllers.NewLoginController(loginService, sessions.Session)
 	adminController = controllers.NewAdminController(templateUtils, userDao)
 	userController = controllers.NewUserController(userDao, validatorService, passwordUtils)
+	catalogsController = controllers.NewCatalogController(catalogsService)
 
 	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session)
 	csrfMiddleware = csrf.Protect([]byte("a-key-word"))

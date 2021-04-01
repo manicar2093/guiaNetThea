@@ -30,11 +30,11 @@ func (c CatalogsServiceImpl) CreateCatalog(catalog string) ([]models.CatalogMode
 	var res []models.CatalogModel
 	switch catalog {
 	case "rol":
-		rols, e := c.rolDao.FindAllRolByStatus(true)
+		roles, e := c.rolDao.FindAllByStatus(true)
 		if e != nil {
 			return res, e
 		}
-		for _, v := range rols {
+		for _, v := range roles {
 			res = append(res, v.GetCatalogInstance())
 		}
 	default:

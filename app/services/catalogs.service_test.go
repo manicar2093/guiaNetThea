@@ -12,13 +12,13 @@ func TestCreateCatalog(t *testing.T) {
 	setUp()
 	catalog := "rol"
 
-	rols := []entities.Rol{
+	roles := []entities.Rol{
 		{RolID: 1, Name: "rol1", Code: "RL1", Status: true},
 		{RolID: 2, Name: "rol2", Code: "RL2", Status: true},
 		{RolID: 3, Name: "rol3", Code: "RL3", Status: true},
 	}
 
-	rolDao.On("FindAllRolByStatus", true).Return(rols, nil)
+	rolDao.On("FindAllByStatus", true).Return(roles, nil)
 
 	service := NewCatalogService(rolDao)
 

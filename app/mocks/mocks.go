@@ -127,7 +127,7 @@ type RolDaoMock struct {
 	mock.Mock
 }
 
-func (r RolDaoMock) FindAllRolByStatus(status bool) ([]entities.Rol, error) {
+func (r RolDaoMock) FindAllByStatus(status bool) ([]entities.Rol, error) {
 	args := r.Called(status)
 	return args.Get(0).([]entities.Rol), args.Error(1)
 }

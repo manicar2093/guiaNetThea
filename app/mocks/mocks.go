@@ -41,6 +41,11 @@ func (u UserDaoMock) SaveFromModel(user models.CreateUserData) (int, error) {
 	return args.Int(0), args.Error(1)
 }
 
+func (u UserDaoMock) FindAll() (found []entities.User, e error) {
+	args := u.Called()
+	return args.Get(0).([]entities.User), args.Error(1)
+}
+
 type MiddlewareProviderMock struct {
 	mock.Mock
 }

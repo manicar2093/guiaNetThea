@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSessionHandler_GetUserId(t *testing.T) {
@@ -88,5 +90,20 @@ func TestSessionHandler_GetCurrentSessionFail(t *testing.T) {
 }
 
 func TestSessionHandler_IsLoggedIn(t *testing.T) {
-	// TODO: Implement test
+	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
+
+	e := Session.CreateNewSession(w, r, "uuid")
+	if e != nil {
+		t.Fatal("Error al crear la sesion para la prueba")
+	}
+
+	loggedIn := Session.IsLoggedIn(w, r)
+	assert.True(t, loggedIn, "Debió ser true. La sessión se generó")
+}
+
+func TestSessionHandler_NotIsLoggedIn(t *testing.T) {
+	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
+
+	loggedIn := Session.IsLoggedIn(w, r)
+	assert.False(t, loggedIn, "Debió ser false. No hay sesión se generó")
 }

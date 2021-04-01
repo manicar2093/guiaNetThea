@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	insertUser = `INSERT INTO manager."THEA_USER" (id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, creation_date, edit_date, status) VALUES (nextval('manager."THEA_USER_id_user_seq"'::regclass) ,1 ,'%v' ,'%v' ,'%v' ,'%v' ,'%v' ,now(), null, true) RETURNING id_user`
+	insertUser = `INSERT INTO manager."THEA_USER" (id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, creation_date, edit_date, status) VALUES (nextval('manager."THEA_USER_id_user_seq"'::regclass) ,$1 ,$2 ,$3 ,$4 ,$5, $6 ,now(), null, true) RETURNING id_user`
 
-	updateUser = `UPDATE manager."THEA_USER" SET name = $1, paternal_surname = $2, maternal_surname = $3, email = $4, edit_date = now(), pasword = $5 WHERE id_user = $6`
+	updateUser = `UPDATE manager."THEA_USER" SET name = $1, paternal_surname = $2, maternal_surname = $3, email = $4, edit_date = now(), pasword = $5, id_role = $6 WHERE id_user = $7`
 
 	deleteUser = `UPDATE manager."THEA_USER" SET status = false WHERE id_user = $1`
 
@@ -115,7 +115,7 @@ func (u *UserDaoImpl) SaveFromModel(user models.CreateUserData) (int, error) {
 }
 
 func (u *UserDaoImpl) update(user *entities.User) error {
-	r, e := u.db.Exec(updateUser, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password, user.UserID)
+	r, e := u.db.Exec(updateUser, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password, user.RolID, user.UserID)
 	if e != nil {
 		return e
 	}
@@ -130,8 +130,11 @@ func (u *UserDaoImpl) update(user *entities.User) error {
 }
 
 func (u *UserDaoImpl) insert(user *entities.User) error {
-	query := fmt.Sprintf(insertUser, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password) // FIXME cambiar a stmt
-	r := u.db.QueryRow(query)
+	stmt, e := u.db.Prepare(insertUser)
+	if e != nil {
+		return e
+	}
+	r := stmt.QueryRow(user.RolID, user.Name, user.PaternalSureName, user.MaternalSureName, user.Email, user.Password)
 
 	if r.Err() != nil {
 		return r.Err()

@@ -67,6 +67,7 @@ func TestUpdateUser(t *testing.T) {
 	}
 	dao.Save(&user)
 
+	user.RolID = zero.IntFrom(2)
 	user.Email = newEmail
 	user.Name = newName
 

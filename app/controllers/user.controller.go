@@ -16,7 +16,6 @@ import (
 // TODO: Realizar refactorización de código
 type UserController interface {
 	CreateUser(w http.ResponseWriter, r *http.Request)
-	//GetUserByID(w http.ResponseWriter, r *http.Request)
 	UpdateUser(w http.ResponseWriter, r *http.Request)
 	RestorePassword(w http.ResponseWriter, r *http.Request)
 	DeleteUser(w http.ResponseWriter, r *http.Request)
@@ -72,10 +71,6 @@ func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	utils.JSON(nil, http.StatusCreated, w)
 }
-
-/*func (u UserControllerImpl) GetUserByID(w http.ResponseWriter, r *http.Request) {
-	panic("not implemented") // TODO: Implement
-}*/
 
 func (u UserControllerImpl) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	var data models.UpdateUserData

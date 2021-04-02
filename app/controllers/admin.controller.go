@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
 	"github.com/manicar2093/guianetThea/app/dao"
+	"github.com/manicar2093/guianetThea/app/services"
 	"github.com/manicar2093/guianetThea/app/utils"
 )
 
@@ -27,12 +28,13 @@ type AdminController interface {
 }
 
 type AdminControllerImpl struct {
-	templateUtils utils.TemplateUtils
-	userDao       dao.UserDao
+	templateUtils   utils.TemplateUtils
+	userDao         dao.UserDao
+	catalogsService services.CatalogsService
 }
 
-func NewAdminController(templateUtils utils.TemplateUtils, userDao dao.UserDao) AdminController {
-	return &AdminControllerImpl{templateUtils, userDao}
+func NewAdminController(templateUtils utils.TemplateUtils, userDao dao.UserDao, catalogsService services.CatalogsService) AdminController {
+	return &AdminControllerImpl{templateUtils, userDao, catalogsService}
 }
 
 func (a AdminControllerImpl) GetAdminIndex(w http.ResponseWriter, r *http.Request) {
@@ -57,8 +59,16 @@ func (a AdminControllerImpl) GetUpdateUserForm(w http.ResponseWriter, r *http.Re
 		return
 	}
 
+	roles, e := a.catalogsService.CreateCatalog("rol")
+	if e != nil {
+		utils.Error.Printf("Error al buscar todos los roles. Detalles: \n\t%v", e)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
 	a.renderTemplate(editUser, w, r, true, map[string]interface{}{
-		"User": user,
+		"user":  user,
+		"roles": roles,
 	})
 
 }
@@ -73,8 +83,16 @@ func (a AdminControllerImpl) GetGeneralUsersView(w http.ResponseWriter, r *http.
 		return
 	}
 
+	roles, e := a.catalogsService.CreateCatalog("rol")
+	if e != nil {
+		utils.Error.Printf("Error al buscar todos los roles. Detalles: \n\t%v", e)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
 	a.renderTemplate(gralUsersView, w, r, true, map[string]interface{}{
 		"users": users,
+		"roles": roles,
 	})
 
 }
@@ -87,7 +105,16 @@ func (a AdminControllerImpl) GetLogRegistyView(w http.ResponseWriter, r *http.Re
 
 func (a AdminControllerImpl) GetUserRegistry(w http.ResponseWriter, r *http.Request) {
 
-	a.renderTemplate(registryUser, w, r, true, map[string]interface{}{})
+	roles, e := a.catalogsService.CreateCatalog("rol")
+	if e != nil {
+		utils.Error.Printf("Error al buscar todos los roles. Detalles: \n\t%v", e)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	a.renderTemplate(registryUser, w, r, true, map[string]interface{}{
+		"roles": roles,
+	})
 
 }
 

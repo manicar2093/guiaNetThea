@@ -60,7 +60,7 @@ func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	data.Password = hash
 
-	_, e = u.userDao.SaveFromModel(data)
+	id, e := u.userDao.SaveFromModel(data)
 	if e != nil {
 		utils.Error.Printf("Error al registrar nuevo usuario. Detalles: \n\t%v", e)
 		utils.JSON(map[string]interface{}{
@@ -69,7 +69,10 @@ func (u UserControllerImpl) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.JSON(nil, http.StatusCreated, w)
+	utils.JSON(map[string]interface{}{
+		"id":      id,
+		"message": "OK",
+	}, http.StatusCreated, w)
 }
 
 func (u UserControllerImpl) UpdateUser(w http.ResponseWriter, r *http.Request) {
@@ -127,12 +130,14 @@ func (u UserControllerImpl) RestorePassword(w http.ResponseWriter, r *http.Reque
 	var data models.RestorePasswordData
 
 	if e := json.NewDecoder(r.Body).Decode(&data); e != nil {
+		utils.Error.Println("No se pudo decodificar el body. Detalles:\n\t", e)
 		utils.JSON(map[string]interface{}{"message": "No se logró obtener la información necesaria. Valida la documentación"}, http.StatusInternalServerError, w)
 		return
 	}
 
 	err, valid := u.validatorService.Validate(data)
 	if !valid {
+		utils.Error.Println("La validación de los datos no fue exitosa. Detalles:\n\t", err)
 		utils.JSON(map[string]interface{}{
 			"message": "La información es incorrecta. Favor de revisar la documentación",
 			"errores": err,

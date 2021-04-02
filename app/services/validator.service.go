@@ -30,9 +30,9 @@ func (v ValidatorServiceImpl) Validate(data models.Validable) ([]models.ErrorVal
 			switch err.ActualTag() {
 			case "required":
 				m.Constraints = append(m.Constraints, "is required")
+				fallthrough
 			case "eqfield":
 				m.Constraints = append(m.Constraints, fmt.Sprintf("must be equals to %s", err.Param()))
-				fallthrough
 			case "email":
 				m.Constraints = append(m.Constraints, "must have email format")
 			default:

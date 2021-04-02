@@ -96,7 +96,7 @@ func init() {
 
 	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
 	loginController = controllers.NewLoginController(loginService, sessions.Session)
-	adminController = controllers.NewAdminController(templateUtils, userDao)
+	adminController = controllers.NewAdminController(templateUtils, userDao, catalogsService)
 	userController = controllers.NewUserController(userDao, validatorService, passwordUtils)
 	catalogsController = controllers.NewCatalogController(catalogsService)
 

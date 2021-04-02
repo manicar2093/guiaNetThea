@@ -50,14 +50,14 @@
                   <div class="control">
                     <input class="input" type="text" placeholder="Nombres(s)" v-model="user.name">
                   </div>
-                  <p class="help is-danger">El nombre no es valido</p>
+                  <p class="help is-danger" v-if="!$v.user.name.required">El nombre es requerido</p>
                 </div>
                 <div class="field">
                   <label class="label">Apellido Paterno</label>
                   <div class="control">
                     <input class="input" type="text" placeholder="Apellido Paterno" v-model="user.paternal_surename">
                   </div>
-                  <p class="help is-danger">El apellido paterno no es valido</p>
+                  <p class="help is-danger" v-if="!$v.user.paternal_surename.required">El apellido paterno es requerido</p>
                 </div>
               </div>
               <div class="field-group">
@@ -72,7 +72,8 @@
                   <div class="control">
                     <input class="input" type="email" placeholder="Correo Electrónico" v-model="user.email">
                   </div>
-                  <p class="help is-danger">El correo electrónico no es valido</p>
+                  <p class="help is-danger" v-if="!$v.user.email.required">El email es requerido</p>
+                  <p class="help is-danger" v-if="!$v.user.email.email">El email no tiene el formato correcto</p>
                 </div>
               </div>
               <hr>
@@ -81,11 +82,10 @@
                   <label class="label">Rol</label>
                   <div class="select">
                     <select v-model="user.rol_id" class="input">
-                      <option value="0">--Selecciona un Rol--</option>
                       <option v-for="rol in roles" :key="rol.id" :value="rol.id">{% rol.description %}</option>
                     </select>
                   </div>
-                  <p class="help is-danger">Selecciona un rol</p>
+                  <p class="help is-danger" v-if="!$v.user.rol_id.required">Debes de escoger un rol</p>
                 </div>
               </div>
               <div class="buttons is-justify-content-flex-end mt-2">
@@ -98,16 +98,46 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
     <script>
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs, email } = window.validators
+
       let app = new Vue({
         el: "#app",
         delimiters: ['{%', '%}'],
+        validations: {
+          user: {
+            name: {
+              required
+            },
+            paternal_surename: {
+              required
+            },
+            maternal_surename: {
+
+            },
+            email: {
+              required,
+              email
+            },
+            rol_id: {
+              required
+            },
+          }
+        },
         data: {
           user: {{ .user }},
           roles: {{ .roles }},
         },
         methods: {
           async save() {
+            this.$v.user.$touch()
+            if (this.$v.user.$invalid) {
+              alert("Favor de validar la información.")
+              return
+            }
             this.$refs.saveButton.classList.add("is-loading")
             let inputs = this.$refs.updateForm.querySelectorAll(".input")
             inputs.forEach(i => {

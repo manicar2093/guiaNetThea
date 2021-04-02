@@ -2,3 +2,5 @@
 .idea/
 *.exe
 *.log
+*.xls
+*.xlsx

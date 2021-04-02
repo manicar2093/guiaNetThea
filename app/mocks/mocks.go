@@ -2,6 +2,7 @@ package mocks
 
 import (
 	"net/http"
+	"time"
 
 	muxSessions "github.com/gorilla/sessions"
 	"github.com/manicar2093/guianetThea/app/entities"
@@ -181,4 +182,13 @@ type CatalogsServiceMock struct {
 func (c CatalogsServiceMock) CreateCatalog(catalog string) ([]models.CatalogModel, error) {
 	args := c.Called(catalog)
 	return args.Get(0).([]models.CatalogModel), args.Error(1)
+}
+
+type LogRegistryDaoMock struct {
+	mock.Mock
+}
+
+func (l LogRegistryDaoMock) LogRegistrySearch(init, final time.Time) ([]entities.LoginRegistry, error) {
+	args := l.Called(init, final)
+	return args.Get(0).([]entities.LoginRegistry), args.Error(1)
 }

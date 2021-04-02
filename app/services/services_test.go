@@ -20,6 +20,7 @@ var (
 	detailsEndpointAndHostingDaoMock mocks.DetailsEndpointAndHostingDaoMock
 	endpointDaoMock                  mocks.EndpointDaoMock
 	rolDao                           mocks.RolDaoMock
+	logRegistryDao                   mocks.LogRegistryDaoMock
 )
 
 // setUp inicializa las variales mock
@@ -32,6 +33,7 @@ var setUp = func() {
 	detailsEndpointAndHostingDaoMock = mocks.DetailsEndpointAndHostingDaoMock{}
 	endpointDaoMock = mocks.EndpointDaoMock{}
 	rolDao = mocks.RolDaoMock{}
+	logRegistryDao = mocks.LogRegistryDaoMock{}
 }
 
 /*func TestDoLogin(t *testing.T) {

@@ -30,17 +30,19 @@
               <div class="control">
                 <input class="input" type="password" v-model="restoreData.password">
               </div>
+              <p class="help is-danger" v-if="!$v.restoreData.password.minLength">La contraseña debe tener 8 o más caracteres</p>
+              <p class="help is-danger" v-if="!$v.restoreData.password.required">La contraseña es requerida</p>
             </div>
             <div class="field">
               <label class="label">Confirma contraseña</label>
               <div class="control">
                 <input class="input" type="password" v-model="restoreData.password_confirm">
               </div>
-              <p class="help is-danger">Las contraseñas no coinciden</p>
+              <p class="help is-danger" v-if="!$v.restoreData.password_confirm.sameAsPassword">Las contraseñas no coinciden</p>
             </div>
             <div class="buttons is-justify-content-flex-end">
               <div class="button is-success" @click="restorePass" ref="restoreAccept">Aceptar</div>
-              <div class="button is-danger is-focused" @click="$refs.restore_password_form.classList.remove('is-active')" ref="restoreCancel">Cancelar</div>
+              <div class="button is-danger is-focused" @click="cancelRestorePass" ref="restoreCancel">Cancelar</div>
             </div>
           </div>
         </div>
@@ -140,10 +142,30 @@
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
     <script>
+      
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs } = window.validators
+
       let app = new Vue({
         el: '#app',
         delimiters: ['{%', '%}'],
+        validations: {
+          restoreData: {
+            id: {
+              required,
+            },
+            password: {
+              minLength: minLength(8),
+              required
+            },
+            password_confirm: {
+              sameAsPassword: sameAs('password')
+            }
+          }
+        },
         data: {
           users: {{ .users }},
           roles: {{ .roles }},
@@ -170,6 +192,11 @@
         },
         methods: {
           async restorePass() {
+            this.$v.restoreData.$touch()
+            if(this.$v.restoreData.$invalid) {
+              alert("Favor de validar la información.")
+              return
+            }
             this.$refs.restoreAccept.classList.add("is-loading")
             this.$refs.restoreCancel.classList.add("is-loading")
             let res = await fetch("/admin/user/restore_password", {
@@ -241,11 +268,18 @@
             this.$refs.delete_user_form.classList.add("is-active")
           },
           getRolName(rol) {
-            console.log(this.roles)
             let roles = this.roles.filter(i => i.id == rol)
             let description = roles[0].description.toLowerCase()
             return `${description.charAt(0).toUpperCase()}${description.slice(1)}`
 
+          },
+          cancelRestorePass() {
+            this.$refs.restore_password_form.classList.remove("is-active")
+            this.restoreData = {
+              id: 0,
+              password: "",
+              password_confirm: ""
+            }
           }
         },
         computed: {

@@ -68,3 +68,13 @@ type DetailsEndpointAndHosting struct {
 	EditDate         zero.Time
 	Status           bool
 }
+
+type LoginRegistry struct {
+	Name       string
+	Email      string
+	Rol        string
+	Time       string
+	Host       string
+	TypeLogOut string
+	Page       string
+}

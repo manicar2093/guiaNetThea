@@ -38,64 +38,117 @@
           <div class="hero is-info is-small">
             <div class="hero-body">
               <p class="title">Editar Usuario</p>
-              <p class="subtitle">Cambia los datos y da guardar para editar el usuario {{.UserMail}}</p>
+              <p class="subtitle">Cambia los datos y da guardar para editar el usuario {{.user.Email}}</p>
             </div>
           </div>
-          {{.User.ToJson}}
-          <form class="form mt-5" action="#">
-            {{.csrfField}}
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Nombre(s)</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Nombres(s)" value="{{.User.Name}}">
+          <div id="app">
+            <form class="form mt-5" ref="updateForm">
+              {{.csrfField}}
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Nombre(s)</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Nombres(s)" v-model="user.name">
+                  </div>
+                  <p class="help is-danger">El nombre no es valido</p>
                 </div>
-                <p class="help is-danger">El nombre no es valido</p>
-              </div>
-              <div class="field">
-                <label class="label">Apellido Paterno</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Apellido Paterno" value="{{.User.PaternalSureName}}">
+                <div class="field">
+                  <label class="label">Apellido Paterno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Paterno" v-model="user.paternal_surename">
+                  </div>
+                  <p class="help is-danger">El apellido paterno no es valido</p>
                 </div>
-                <p class="help is-danger">El apellido paterno no es valido</p>
               </div>
-            </div>
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Apellido Materno</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Apellido Materno" value="{{.User.MaternalSureName.String}}">
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Apellido Materno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Materno" v-model="user.maternal_surename">
+                  </div>
                 </div>
-                <p class="help is-danger">El apellido materno no es valido</p>
-              </div>
-              <div class="field">
-                <label class="label">Correo Electrónico</label>
-                <div class="control">
-                  <input class="input" type="email" placeholder="Correo Electrónico" value="{{.User.Email}}">
+                <div class="field">
+                  <label class="label">Correo Electrónico</label>
+                  <div class="control">
+                    <input class="input" type="email" placeholder="Correo Electrónico" v-model="user.email">
+                  </div>
+                  <p class="help is-danger">El correo electrónico no es valido</p>
                 </div>
-                <p class="help is-danger">El correo electrónico no es valido</p>
               </div>
-            </div>
-            <hr>
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Rol</label>
-                <div class="select">
-                  <select>
-                    <option value="0">Selecciona un Rol</option>
-                    <option value="1">General</option>
-                    <option value="2" selected>Admin</option>
-                  </select>
+              <hr>
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Rol</label>
+                  <div class="select">
+                    <select v-model="user.rol_id" class="input">
+                      <option value="0">--Selecciona un Rol--</option>
+                      <option v-for="rol in roles" :key="rol.id" :value="rol.id">{% rol.description %}</option>
+                    </select>
+                  </div>
+                  <p class="help is-danger">Selecciona un rol</p>
                 </div>
-                <p class="help is-danger">Selecciona un rol</p>
               </div>
-            </div>
-            <div class="buttons is-justify-content-flex-end mt-2">
-              <div class="button is-primary">Guardar                        </div>
-            </div>
-          </form>
+              <div class="buttons is-justify-content-flex-end mt-2">
+                <div class="button is-primary" ref="saveButton" @click="save">Guardar</div>
+              </div>
+            </form>
+          </div>
+          
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      let app = new Vue({
+        el: "#app",
+        delimiters: ['{%', '%}'],
+        data: {
+          user: {{ .user }},
+          roles: {{ .roles }},
+        },
+        methods: {
+          async save() {
+            this.$refs.saveButton.classList.add("is-loading")
+            let inputs = this.$refs.updateForm.querySelectorAll(".input")
+            inputs.forEach(i => {
+              i.disabled = true
+            })
+
+            let res = await fetch("/admin/user/update", {
+              method: "PUT",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(this.user)
+            })
+
+            switch(res.status) {
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte.")
+                this.$refs.saveButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 400:
+                alert("Favor de validar que los datos esten bien llenos")
+                this.$refs.saveButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 404:
+                alert("El usuario que desea modificar no existe")
+                location.href = "/admin/user/all"
+                break
+              case 200:
+                alert("Se ha modificado correctamente el usuario")
+                location.reload()
+                break
+            }
+          }
+        }
+      })
+    </script>
   </body>
 </html>

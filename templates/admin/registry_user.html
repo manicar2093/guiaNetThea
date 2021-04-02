@@ -41,71 +41,157 @@
               <p class="subtitle">Llena el formulario con la información solicitada y crea un nuevo</p>
             </div>
           </div>
-          <form class="form mt-5" action="#">
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Nombre(s)</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Nombres(s)">
+          <div id="app">
+            <form class="form mt-5" ref="saveForm">
+              {{.csrfField}}
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Nombre(s)</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Nombres(s)" v-model="dataToSave.name">
+                  </div>
+                  <p class="help is-danger">El nombre no es valido</p>
                 </div>
-                <p class="help is-danger">El nombre no es valido</p>
-              </div>
-              <div class="field">
-                <label class="label">Apellido Paterno</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Apellido Paterno">
-                </div>
-                <p class="help is-danger">El apellido paterno no es valido</p>
-              </div>
-            </div>
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Apellido Materno</label>
-                <div class="control">
-                  <input class="input" type="text" placeholder="Apellido Materno">
-                </div>
-                <p class="help is-danger">El apellido materno no es valido</p>
-              </div>
-              <div class="field">
-                <label class="label">Correo Electrónico</label>
-                <div class="control">
-                  <input class="input" type="email" placeholder="Correo Electrónico">
-                </div>
-                <p class="help is-danger">El correo electrónico no es valido</p>
-              </div>
-            </div>
-            <hr>
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="Contraseña">
+                <div class="field">
+                  <label class="label">Apellido Paterno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Paterno" v-model="dataToSave.paternal_surename">
+                  </div>
+                  <p class="help is-danger">El apellido paterno no es valido</p>
                 </div>
               </div>
-              <div class="field">
-                <label class="label">Confirma contraseña</label>
-                <div class="control">
-                  <input class="input" type="password" placeholder="Confirma contraseña">
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Apellido Materno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Materno" v-model="dataToSave.maternal_surename">
+                  </div>
+                  <p class="help is-danger">El apellido materno no es valido</p>
                 </div>
-                <p class="help is-danger">Las contraseñas no coinciden</p>
-              </div>
-              <div class="field">
-                <label class="label">Rol</label>
-                <div class="select">
-                  <select>
-                    <option value="0">Selecciona un Rol</option>
-                  </select>
+                <div class="field">
+                  <label class="label">Correo Electrónico</label>
+                  <div class="control">
+                    <input class="input" type="email" placeholder="Correo Electrónico" v-model="dataToSave.email">
+                  </div>
+                  <p class="help is-danger">El correo electrónico no es valido</p>
                 </div>
-                <p class="help is-danger">Selecciona un rol</p>
               </div>
-            </div>
-            <div class="buttons is-justify-content-flex-end">
-              <div class="button is-primary">Guardar</div>
-              <div class="button is-warning">Limpiar</div>
-            </div>
-          </form>
+              <hr>
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" placeholder="Contraseña" v-model="dataToSave.password">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Confirma contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" placeholder="Confirma contraseña" v-model="dataToSave.password_confirm">
+                  </div>
+                  <p class="help is-danger">Las contraseñas no coinciden</p>
+                </div>
+                <div class="field">
+                  <label class="label">Rol</label>
+                  <div class="select">
+                    <select class="input" v-model="dataToSave.rol_id">
+                      <option value="0">--Selecciona un Rol--</option>
+                      <option v-for="rol in roles" :key="rol.id" :value="rol.id">{% rol.description %}</option>
+                    </select>
+                  </div>
+                  <p class="help is-danger">Selecciona un rol</p>
+                </div>
+              </div>
+              <div class="buttons is-justify-content-flex-end">
+                <div class="button is-primary" ref="saveButton" @click="save">Guardar</div>
+                <div class="button is-warning" ref="clearButton" @click="clear">Limpiar</div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+      let app = new Vue({
+        el: "#app",
+        delimiters: ['{%', '%}'],
+        data: {
+          roles: {{ .roles }},
+          dataToSave: {
+            name: "",
+            paternal_surename: "",
+            maternal_surename: "",
+            email: "",
+            rol_id: 0,
+            password: "",
+            password_confirm: ""
+          }
+        },
+        methods: {
+          async save() {
+            this.$refs.saveButton.classList.add("is-loading")
+            this.$refs.clearButton.classList.add("is-loading")
+            let inputs = this.$refs.saveForm.querySelectorAll(".input")
+            inputs.forEach(i => {
+              i.disabled = true
+            })
+
+            let res = await fetch("/admin/user/registry", {
+              method: "POST",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(this.dataToSave)
+            })
+
+            const data = await res.json()
+            console.log(data)
+
+            switch(res.status) {
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte.")
+                this.$refs.saveButton.classList.remove("is-loading")
+                this.$refs.clearButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 400:
+                alert("Favor de validar que los datos esten bien llenos")
+                this.$refs.saveButton.classList.remove("is-loading")
+                this.$refs.clearButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 404:
+                alert("El usuario que desea modificar no existe")
+                location.href = "/admin/user/all"
+                break
+              case 201:
+                alert("Se ha modificado correctamente el usuario")
+                location.href = `/admin/user/${data.id}`
+                break
+            }
+
+          },
+          clear() {
+            if(confirm("¿Seguro quieres limpiar el formulario?")) {
+              this.dataToSave = {
+                name: "",
+                paternal_surename: "",
+                maternal_surename: "",
+                email: "",
+                rol_id: 0,
+                password: "",
+                password_confirm: ""
+              }
+              return
+            }
+          }
+        }
+      })
+    </script>
   </body>
 </html>

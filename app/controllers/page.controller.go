@@ -41,10 +41,14 @@ func (p *PageController) GetOnDevTemplate(w http.ResponseWriter, r *http.Request
 
 func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request) {
 	page := mux.Vars(r)["page"]
-	if page == "favicon.ico" {
-		utils.Info.Println("Recurso omitido", page)
+	switch page {
+	case "favicon.ico":
+		return
+	case "admin":
+		http.Redirect(w, r, "/admin/", http.StatusSeeOther)
 		return
 	}
+
 	pagePath := fmt.Sprintf("templates/%s.html", page)
 
 	logout := template.HTML(`<a href="/logout/" style="background-color: red; padding: .5rem; width: auto; position: fixed; z-index: 90;">LOGOUT</a>`)

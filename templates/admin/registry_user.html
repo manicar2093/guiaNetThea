@@ -204,12 +204,8 @@
                   i.disabled = false
                 })
                 break
-              case 404:
-                alert("El usuario que desea modificar no existe")
-                location.href = "/admin/user/all"
-                break
               case 201:
-                alert("Se ha modificado correctamente el usuario")
+                alert("Se ha creado correctamente el usuario")
                 location.href = `/admin/user/${data.id}`
                 break
             }

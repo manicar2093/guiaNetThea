@@ -91,7 +91,7 @@
   
             <div class="registries show_overflow mt-5">
               {{.csrfField}}
-              <div class="registry" v-for="(user, index) in userFiltered" :key="user.id">
+              <div class="registry" v-for="(user, index) in users" :key="user.id">
                 <div class="registry_info">
                   <label class="registry_label">Nombre</label>
                   <p>{% user.name %}</p>
@@ -260,7 +260,9 @@
           },
           askRestore(index) {
             this.toRestore = this.users[index]
+            console.log(this.users[index], index)
             this.restoreData.id = this.toRestore.id
+            console.log(this.restoreData)
             this.$refs.restore_password_form.classList.add("is-active")
           },
           askDelete(index) {

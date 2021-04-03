@@ -20,7 +20,7 @@ const (
 
 	findUserByEmail = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status FROM manager."THEA_USER" WHERE email= $1 group by id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, status`
 
-	findAll = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, creation_date, edit_date, status FROM manager."THEA_USER"`
+	findAll = `SELECT id_user, id_role, name, paternal_surname, maternal_surname, email, pasword, creation_date, edit_date, status FROM manager."THEA_USER" WHERE status=true`
 )
 
 type UserDao interface {

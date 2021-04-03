@@ -41,30 +41,145 @@
               <p class="subtitle">Llena los campos de fecha para poder generar la bitácora de accesos realizados</p>
             </div>
           </div>
-          <form class="form mt-5" action="#">
-            <div class="field-group">
-              <div class="field">
-                <label class="label">Fecha inicial</label>
-                <div class="control">
-                  <input class="input" type="date">
+          <div id="app">
+            <form class="form mt-5" ref="createReportForm">
+              {{.csrfField}}
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Fecha inicial</label>
+                  <div class="control">
+                    <input class="input" type="date" v-model="initDate">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.initDate.required">La fecha es requerida</p>
                 </div>
-                <p class="help is-danger">La fecha no es valida</p>
-                <p class="help is-danger">Esta fecha no puede ser mayor a la Fecha final</p>
-              </div>
-              <div class="field">
-                <label class="label">Fecha final</label>
-                <div class="control">
-                  <input class="input" type="date">
+                <div class="field">
+                  <label class="label">Fecha final</label>
+                  <div class="control">
+                    <input class="input" type="date" v-model="finalDate">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.finalDate.required">La fecha es requerida</p>
+                  <p class="help is-danger" v-if="!$v.finalDate.dateGreaterThan">La fecha inicial no puede ser mayor a la fecha final</p>
                 </div>
-                <p class="help is-danger">La fecha no es valida</p>
               </div>
-            </div>
-            <div class="buttons is-justify-content-flex-end mt-2">
-              <div class="button is-primary">Crear</div>
-            </div>
-          </form>
+              <div class="buttons is-justify-content-flex-end mt-2">
+                <div class="button is-primary" @click="createReport" ref="createButton">Crear</div>
+              </div>
+            </form>
+          </div>
+          
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
+    <script>
+
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs, email } = window.validators
+
+      const dateGreaterThan = (value, vm) => {
+          let finalDate = getDayByDateInputValue(value)
+          let initDate = getDayByDateInputValue(vm._data.initDate)
+          {{/*console.log("finalDate > initDate ",finalDate>initDate)*/}}
+          return finalDate>initDate
+        
+      }
+
+      const getDayByDateInputValue = (value) => {
+        if (typeof value != "string") {
+          console.log(value)
+          return
+        }
+        let splited = value.split("-")
+        let day = parseInt(splited[2])
+        let month = parseInt(splited[1]) - 1
+        let year = parseInt(splited[0])
+        return new Date(year, month, day)
+      }
+
+      let app = new Vue({
+        el: "#app",
+        delimiters: ['{%', '%}'],
+        validations: {
+          initDate: {
+            required
+          },
+          finalDate: {
+            required,
+            dateGreaterThan
+          },
+        },
+        data: {
+          initDate: "",
+          finalDate: "",
+        },
+        methods: {
+          async createReport() {
+            this.$v.$touch()
+            if(this.$v.$invalid){
+              alert("Favor de validar la información.")
+              return
+            }
+
+            this.$refs.createButton.classList.add("is-loading")
+            let inputs = this.$refs.createReportForm.querySelectorAll(".input")
+            inputs.forEach(i => {
+              i.disabled = true
+            })
+
+            let data = {
+              initDate: getDayByDateInputValue(this.initDate),
+              finalDate: getDayByDateInputValue(this.finalDate)
+            }
+
+            let res = await fetch("/admin/login_registry/create", {
+              method: "POST",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(data)
+            })
+
+
+            switch(res.status) {
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte.")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 400:
+                alert("Favor de validar que los datos esten bien llenos")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 200:
+                await this.getFileFromResponse(res)
+                alert("Descarga realizada")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break1
+            }
+          },
+          async getFileFromResponse(res) {
+            let blob = await res.blob()
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = res.headers.get("File-Name");
+            document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+            a.click();    
+            a.remove();  //afterwards we remove the element again 
+          }
+        }
+      })
+      
+    </script>
   </body>
 </html>

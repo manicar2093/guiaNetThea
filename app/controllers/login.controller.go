@@ -25,7 +25,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 
 	if e != nil {
 		if el, ok := e.(services.LoginError); ok {
-			utils.Error.Println(el.InternalMessage)
+			utils.Error.Println("Usuario:", username, "Detalles:", el.InternalMessage)
 			l.sessionHandler.AddFlashMessage(sessions.FlashMessage{Type: "danger", Value: el.ClientMessage}, w, r)
 			http.Redirect(w, r, "/index", http.StatusSeeOther)
 			return
@@ -34,7 +34,7 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 		utils.Error.Println("Hubo un error al realizar el login:", e)
 	}
 
-	utils.Info.Println("Usuario logueado?", l.sessionHandler.IsLoggedIn(w, r))
+	utils.Info.Println("Usuario", username, "logueado exitosamente")
 
 	http.Redirect(w, r, "/inicio", http.StatusSeeOther)
 

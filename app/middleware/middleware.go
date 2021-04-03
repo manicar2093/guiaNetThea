@@ -6,6 +6,8 @@ import (
 	"github.com/manicar2093/guianetThea/app/sessions"
 )
 
+type Middleware func(http.HandlerFunc) http.HandlerFunc
+
 type MiddlewareProvider interface {
 	NeedsLoggedIn(h http.HandlerFunc) http.HandlerFunc
 }
@@ -36,4 +38,18 @@ func (m MiddlewareProviderImpl) NeedsLoggedIn(h http.HandlerFunc) http.HandlerFu
 
 	})
 
+}
+
+func MultipleMiddle(h http.HandlerFunc, mid ...Middleware) http.HandlerFunc {
+	if len(mid) < 1 {
+		return h
+	}
+
+	wrapped := h
+
+	for i := len(mid) - 1; i >= 0; i-- {
+		wrapped = mid[i](wrapped)
+	}
+
+	return wrapped
 }

@@ -2,17 +2,22 @@
 package controllers
 
 import (
+	"bytes"
+	"encoding/json"
+	"testing"
+
 	"github.com/gorilla/mux"
 	"github.com/manicar2093/guianetThea/app/mocks"
 )
 
 // Mocks
 var (
-	router           *mux.Router
-	validatorService mocks.ValidatorServiceMock
-	userDao          mocks.UserDaoMock
-	passwordUtils    mocks.PasswordUtilsMock
-	catalogsService  mocks.CatalogsServiceMock
+	router               *mux.Router
+	validatorService     mocks.ValidatorServiceMock
+	userDao              mocks.UserDaoMock
+	passwordUtils        mocks.PasswordUtilsMock
+	catalogsService      mocks.CatalogsServiceMock
+	loginRegistryService mocks.LoginRegistryServiceMock
 )
 
 func setUp() {
@@ -21,4 +26,15 @@ func setUp() {
 	userDao = mocks.UserDaoMock{}
 	passwordUtils = mocks.PasswordUtilsMock{}
 	catalogsService = mocks.CatalogsServiceMock{}
+	loginRegistryService = mocks.LoginRegistryServiceMock{}
+}
+
+func serialize(t *testing.T, i interface{}) *bytes.Buffer {
+
+	jsonB, e := json.Marshal(i)
+	if e != nil {
+		t.Fatal(e)
+	}
+	return bytes.NewBuffer(jsonB)
+
 }

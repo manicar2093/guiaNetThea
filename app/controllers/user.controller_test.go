@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"bytes"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -422,14 +421,4 @@ func TestDeleteUser(t *testing.T) {
 	userDao.AssertExpectations(t)
 
 	assert.Equal(t, http.StatusOK, w.Code, "Código http incorrecto")
-}
-
-func serialize(t *testing.T, i interface{}) *bytes.Buffer {
-
-	jsonB, e := json.Marshal(i)
-	if e != nil {
-		t.Fatal(e)
-	}
-	return bytes.NewBuffer(jsonB)
-
 }

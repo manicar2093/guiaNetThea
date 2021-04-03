@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	muxSessions "github.com/gorilla/sessions"
 	"github.com/manicar2093/guianetThea/app/entities"
 	"github.com/manicar2093/guianetThea/app/models"
@@ -191,4 +192,13 @@ type LogRegistryDaoMock struct {
 func (l LogRegistryDaoMock) LogRegistrySearch(init, final time.Time) ([]entities.LoginRegistry, error) {
 	args := l.Called(init, final)
 	return args.Get(0).([]entities.LoginRegistry), args.Error(1)
+}
+
+type LoginRegistryServiceMock struct {
+	mock.Mock
+}
+
+func (l LoginRegistryServiceMock) CreateLoginRegistryXLS(init, final time.Time) (*excelize.File, error) {
+	args := l.Called(init, final)
+	return args.Get(0).(*excelize.File), args.Error(1)
 }

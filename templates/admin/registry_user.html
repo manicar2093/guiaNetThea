@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Registrar Usuario</title>
+    </head>
+  <body> 
+    <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1>Administrador</h1>
+        </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="columns">
+        <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+          <p class="menu-label">Administrador</p>
+          <ul class="menu-list">
+            <li><a href="/admin/user/all">Usuarios</a>
+              <ul> 
+                <li><a href="/admin/user/registry">Registrar</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="menu-label">Informes
+            <ul class="menu-list">
+              <li><a href="/admin/logginRegistry">Bitácora</a></li>
+            </ul>
+          </p>
+          <hr><a class="button is-light is-danger is-fullwidth" href="/logout/">Logout</a>
+        </aside>
+        <div class="column is-10 is-fullheight section is-full-touch">
+          <div class="hero is-info is-small">
+            <div class="hero-body">
+              <p class="title">Registrar Usuario</p>
+              <p class="subtitle">Llena el formulario con la información solicitada y crea un nuevo</p>
+            </div>
+          </div>
+          <div id="app">
+            <form class="form mt-5" ref="saveForm">
+              {{.csrfField}}
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Nombre(s)</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Nombres(s)" v-model="dataToSave.name">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.name.required">El nombre es requerido</p>
+                </div>
+                <div class="field">
+                  <label class="label">Apellido Paterno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Paterno" v-model="dataToSave.paternal_surename">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.paternal_surename.required">El apellido paterno es requerido</p>
+                </div>
+              </div>
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Apellido Materno</label>
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Apellido Materno" v-model="dataToSave.maternal_surename">
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Correo Electrónico</label>
+                  <div class="control">
+                    <input class="input" type="email" placeholder="correo@correo.com" v-model="dataToSave.email">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.email.required">El email es requerido</p>
+                  <p class="help is-danger" v-if="!$v.dataToSave.email.email">El email no tiene el formato correcto</p>
+                </div>
+              </div>
+              <hr>
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" placeholder="Contraseña" v-model="dataToSave.password">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.password.minLength">La contraseña debe tener 8 o más caracteres</p>
+                  <p class="help is-danger" v-if="!$v.dataToSave.password.required">La contraseña es requerida</p>
+                </div>
+                <div class="field">
+                  <label class="label">Confirma contraseña</label>
+                  <div class="control">
+                    <input class="input" type="password" placeholder="Confirma contraseña" v-model="dataToSave.password_confirm">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.password_confirm.sameAsPassword">Las contraseñas no coinciden</p>
+                </div>
+                <div class="field">
+                  <label class="label">Rol</label>
+                  <div class="select">
+                    <select class="input" v-model="dataToSave.rol_id">
+                      <option v-for="rol in roles" :key="rol.id" :value="rol.id">{% rol.description %}</option>
+                    </select>
+                  </div>
+                  <p class="help is-danger" v-if="!$v.dataToSave.rol_id.required">Debes de escoger un rol</p>
+                </div>
+              </div>
+              <div class="buttons is-justify-content-flex-end">
+                <div class="button is-primary" ref="saveButton" @click="save">Guardar</div>
+                <div class="button is-warning" ref="clearButton" @click="clear">Limpiar</div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
+    <script>
+
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs, email } = window.validators
+
+      let app = new Vue({
+        el: "#app",
+        delimiters: ['{%', '%}'],
+        validations: {
+          dataToSave: {
+            name: {
+              required
+            },
+            paternal_surename: {
+              required
+            },
+            maternal_surename: {
+
+            },
+            email: {
+              required,
+              email
+            },
+            rol_id: {
+              required
+            },
+            password: {
+              required,
+              minLength: minLength(8)
+            },
+            password_confirm: {
+              sameAsPassword: sameAs('password')  
+            }
+          }
+        },
+        data: {
+          roles: {{ .roles }},
+          dataToSave: {
+            name: "",
+            paternal_surename: "",
+            maternal_surename: "",
+            email: "",
+            rol_id: null,
+            password: "",
+            password_confirm: ""
+          }
+        },
+        methods: {
+          async save() {
+            this.$v.dataToSave.$touch()
+            if (this.$v.dataToSave.$invalid) {
+              alert("Favor de validar la información.")
+              return
+            }
+            this.$refs.saveButton.classList.add("is-loading")
+            this.$refs.clearButton.classList.add("is-loading")
+            let inputs = this.$refs.saveForm.querySelectorAll(".input")
+            inputs.forEach(i => {
+              i.disabled = true
+            })
+
+            let res = await fetch("/admin/user/registry", {
+              method: "POST",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(this.dataToSave)
+            })
+
+            const data = await res.json()
+            console.log(data)
+
+            switch(res.status) {
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte.")
+                this.$refs.saveButton.classList.remove("is-loading")
+                this.$refs.clearButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 400:
+                alert("Favor de validar que los datos esten bien llenos")
+                this.$refs.saveButton.classList.remove("is-loading")
+                this.$refs.clearButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 404:
+                alert("El usuario que desea modificar no existe")
+                location.href = "/admin/user/all"
+                break
+              case 201:
+                alert("Se ha modificado correctamente el usuario")
+                location.href = `/admin/user/${data.id}`
+                break
+            }
+
+          },
+          clear() {
+            if(confirm("¿Seguro quieres limpiar el formulario?")) {
+              this.dataToSave = {
+                name: "",
+                paternal_surename: "",
+                maternal_surename: "",
+                email: "",
+                rol_id: null,
+                password: "",
+                password_confirm: ""
+              }
+              return
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

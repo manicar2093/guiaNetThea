@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Usuarios</title>
+    </head>
+  <body>
+    
+    <div id="app">
+
+      <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <div class="navbar-item">
+            <h1>Administrador</h1>
+          </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+        </div>
+      </nav>
+  
+      <div class="modal is-clipped" ref="restore_password_form">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <h2 class="is-size-2 mb-3">Usuario {% toRestore.email %}</h2>
+            <div class="field">
+              <label class="label">Nueva contraseña</label>
+              <div class="control">
+                <input class="input" type="password" v-model="restoreData.password">
+              </div>
+              <p class="help is-danger" v-if="!$v.restoreData.password.minLength">La contraseña debe tener 8 o más caracteres</p>
+              <p class="help is-danger" v-if="!$v.restoreData.password.required">La contraseña es requerida</p>
+            </div>
+            <div class="field">
+              <label class="label">Confirma contraseña</label>
+              <div class="control">
+                <input class="input" type="password" v-model="restoreData.password_confirm">
+              </div>
+              <p class="help is-danger" v-if="!$v.restoreData.password_confirm.sameAsPassword">Las contraseñas no coinciden</p>
+            </div>
+            <div class="buttons is-justify-content-flex-end">
+              <div class="button is-success" @click="restorePass" ref="restoreAccept">Aceptar</div>
+              <div class="button is-danger is-focused" @click="cancelRestorePass" ref="restoreCancel">Cancelar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal is-clipped" ref="delete_user_form">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+          <div class="box">
+            <h2 class="is-size-2 m-5 has-text-centered">¿Seguro quieres eliminar al usuario {% toDelete.email %}?</h2>
+            <div class="buttons is-justify-content-center">
+              <div class="button is-success is-fullwidth" @click="deleteUser" ref="deleteAccept">Aceptar</div>
+              <div class="button is-danger is-fullwidth is-focused" @click="$refs.delete_user_form.classList.remove('is-active')" ref="deleteCancel">Cancelar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="container">
+        <div class="columns">
+  
+          <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+            <p class="menu-label">Administrador</p>
+            <ul class="menu-list">
+              <li><a href="/admin/user/all">Usuarios</a>
+                <ul> 
+                  <li><a href="/admin/user/registry">Registrar</a></li>
+                </ul>
+              </li>
+            </ul>
+            <p class="menu-label">Informes
+              <ul class="menu-list">
+                <li><a href="/admin/logginRegistry">Bitácora</a></li>
+              </ul>
+            </p>
+            <hr><a class="button is-light is-danger is-fullwidth" href="/logout/">Logout</a>
+          </aside>
+  
+          <div class="column is-10 is-narrow-mobile is-fullheight section is-full-touch">
+            <div class="hero is-info is-small">
+              <div class="hero-body">
+                <p class="title">Adminsitra tus usuarios</p>
+                <p class="subtitle">Aquí se encuentran todos los usuarios que tienes registrados.</p>
+              </div>
+            </div>
+  
+            <div class="registries show_overflow mt-5">
+              {{.csrfField}}
+              <div class="registry" v-for="(user, index) in userFiltered" :key="user.id">
+                <div class="registry_info">
+                  <label class="registry_label">Nombre</label>
+                  <p>{% user.name %}</p>
+                </div>
+                <div class="registry_info">
+                  <label class="registry_label">Apellido Paterno</label>
+                  <p>{% user.paternal_surename %}</p>
+                </div>
+                <div class="registry_info">
+                  <label class="registry_label">Apellido Materno</label>
+                  <p>{% user.maternal_surename %}</p>
+                </div>
+                <div class="registry_info">
+                  <label class="registry_label">Rol</label>
+                  <p>{% getRolName(user.rol_id) %}</p>
+                </div>
+                <div class="registry_info">
+                  <label class="registry_label">Correo Electrónico</label>
+                  <p>{% user.email %}</p>
+                </div>
+                <div class="registry_info">
+                  <label class="registry_label">Acciones</label>
+                  <div class="buttons is-justify-content-center">
+                    <a class="button is-info is-small" :href="'/admin/user/' + user.id">Editar</a>
+                    <a class="button is-warning is-small" @click="askRestore(index)">Reestablecer</a>
+                    <a class="button is-danger is-small" @click="askDelete(index)">Eliminar</a></div>
+                </div>
+              </div>
+  
+            </div>
+            <nav class="pagination is-centered mt-5" role="navigation" aria-label="pagination" v-if="false">
+              <a class="pagination-previous">Previous</a>
+              <a class="pagination-next">Next</a>
+              <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+                <li><a class="pagination-link" aria-label="Goto page 46">46</a></li>
+                <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+                <li><span class="pagination-ellipsis">&hellip;</span></li>
+                <li><a class="pagination-link" aria-label="Goto page 89">89</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
+    <script>
+      
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs } = window.validators
+
+      let app = new Vue({
+        el: '#app',
+        delimiters: ['{%', '%}'],
+        validations: {
+          restoreData: {
+            id: {
+              required,
+            },
+            password: {
+              minLength: minLength(8),
+              required
+            },
+            password_confirm: {
+              sameAsPassword: sameAs('password')
+            }
+          }
+        },
+        data: {
+          users: {{ .users }},
+          roles: {{ .roles }},
+          toDelete: {
+            creation_date: "",
+            email: "",
+            id: 0,
+            maternal_surename: "",
+            name: "",
+            paternal_surename: "",
+            rol_id: 1,
+            status: true,
+            update_date: "",
+          },
+          toRestore: {
+            email: "",
+            id: 0,
+          },
+          restoreData: {
+            id: 0,
+            password: "",
+            password_confirm: ""
+          }
+        },
+        methods: {
+          async restorePass() {
+            this.$v.restoreData.$touch()
+            if(this.$v.restoreData.$invalid) {
+              alert("Favor de validar la información.")
+              return
+            }
+            this.$refs.restoreAccept.classList.add("is-loading")
+            this.$refs.restoreCancel.classList.add("is-loading")
+            let res = await fetch("/admin/user/restore_password", {
+              method: "PUT",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(this.restoreData)
+            })
+
+            switch(res.status) {
+              case 400:
+                alert("Favor de validar que los datos sean correctos")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                break
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                break
+              case 200:
+                alert("Se ha reestablecido la contraseña correctamente")
+                this.$refs.restore_password_form.classList.remove("is-active")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                location.reload()
+            }
+          },
+          async deleteUser() {
+
+            this.$refs.deleteAccept.classList.add("is-loading")
+            this.$refs.deleteCancel.classList.add("is-loading")
+
+            let res = await fetch(`/admin/user/delete/${this.toDelete.id}`, {
+              method: "DELETE",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+            })
+
+            switch(res.status) {
+              case 400:
+                alert("Favor de validar que los datos sean correctos")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                break
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                break
+              case 200:
+                alert(`Se ha eliminado el usuario`)
+                this.$refs.restore_password_form.classList.remove("is-active")
+                this.$refs.restoreAccept.classList.remove("is-loading")
+                this.$refs.restoreCancel.classList.remove("is-loading")
+                location.reload()
+            }
+            
+          },
+          askRestore(index) {
+            this.toRestore = this.users[index]
+            this.restoreData.id = this.toRestore.id
+            this.$refs.restore_password_form.classList.add("is-active")
+          },
+          askDelete(index) {
+            this.toDelete = this.users[index]
+            this.$refs.delete_user_form.classList.add("is-active")
+          },
+          getRolName(rol) {
+            let roles = this.roles.filter(i => i.id == rol)
+            let description = roles[0].description.toLowerCase()
+            return `${description.charAt(0).toUpperCase()}${description.slice(1)}`
+
+          },
+          cancelRestorePass() {
+            this.$refs.restore_password_form.classList.remove("is-active")
+            this.restoreData = {
+              id: 0,
+              password: "",
+              password_confirm: ""
+            }
+          }
+        },
+        computed: {
+          userFiltered() {
+            return this.users.filter(i => i.status)
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

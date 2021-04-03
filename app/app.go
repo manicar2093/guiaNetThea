@@ -60,47 +60,58 @@ func adminHandlers(r *mux.Router) {
 
 	adminRouter.HandleFunc("/", middleware.MultipleMiddle(
 		adminController.GetAdminIndex,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 
 	adminRouter.HandleFunc("/user/all", middleware.MultipleMiddle(
 		adminController.GetGeneralUsersView,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 
 	adminRouter.HandleFunc("/user/registry", middleware.MultipleMiddle(
 		adminController.GetUserRegistry,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 
 	adminRouter.HandleFunc("/logginRegistry", middleware.MultipleMiddle(
 		adminController.GetLogRegistyView,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 
 	adminRouter.HandleFunc("/user/{idUser}", middleware.MultipleMiddle(
 		adminController.GetUpdateUserForm,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 	// User endpoints
 	adminRouter.HandleFunc("/user/registry", middleware.MultipleMiddle(
 		userController.CreateUser,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodPost)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodPost)
 
 	adminRouter.HandleFunc("/user/delete/{idUser}", middleware.MultipleMiddle(
 		userController.DeleteUser,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodDelete)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodDelete)
 
 	adminRouter.HandleFunc("/user/restore_password", middleware.MultipleMiddle(
 		userController.RestorePassword,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodPut)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodPut)
 
 	adminRouter.HandleFunc("/user/update", middleware.MultipleMiddle(
 		userController.UpdateUser,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodPut)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodPut)
 
 	adminRouter.HandleFunc("/catalogs/{catalog}", middleware.MultipleMiddle(
 		catalogsController.GetCatalog,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodGet)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodGet)
 
 	adminRouter.HandleFunc("/login_registry/create", middleware.MultipleMiddle(
 		loginRegistryContoller.LoginRegistryInform,
-		middlewareProvider.NeedsLoggedIn)).Methods(http.MethodPost)
+		middlewareProvider.NeedsLoggedIn,
+		middlewareProvider.IsAdmin)).Methods(http.MethodPost)
 
 }
 
@@ -138,6 +149,6 @@ func init() {
 	catalogsController = controllers.NewCatalogController(catalogsService)
 	loginRegistryContoller = controllers.NewLoginRegistryController(loginRegistryService, validatorService)
 
-	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session)
+	middlewareProvider = middleware.NewMiddlewareProvider(sessions.Session, roleDao, detailsHostingDao)
 	csrfMiddleware = csrf.Protect([]byte("a-key-word"))
 }

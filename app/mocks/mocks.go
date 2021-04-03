@@ -66,7 +66,7 @@ func (s SessionHandlerMock) IsLoggedIn(w http.ResponseWriter, r *http.Request) b
 	return args.Bool(0)
 }
 
-func (s SessionHandlerMock) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
+func (s SessionHandlerMock) GetSessionUUID(w http.ResponseWriter, r *http.Request) (string, error) {
 	args := s.Called(w, r)
 	return args.String(0), args.Error(1)
 }
@@ -142,6 +142,11 @@ type RolDaoMock struct {
 func (r RolDaoMock) FindAllByStatus(status bool) ([]entities.Rol, error) {
 	args := r.Called(status)
 	return args.Get(0).([]entities.Rol), args.Error(1)
+}
+
+func (r RolDaoMock) UserHasRol(userID int, rolName string) (bool, error) {
+	args := r.Called(userID, rolName)
+	return args.Bool(0), args.Error(1)
 }
 
 type UUIDGeneratorUtilsMock struct {

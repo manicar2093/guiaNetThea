@@ -11,7 +11,7 @@ import (
 func TestSessionHandler_GetUserId(t *testing.T) {
 	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
 
-	sessionUUID, e := Session.GetUserID(w, r)
+	sessionUUID, e := Session.GetSessionUUID(w, r)
 	if e != nil {
 		t.Error("No debió haber error: ", e)
 	}

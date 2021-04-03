@@ -32,7 +32,7 @@ type FlashMessage struct {
 
 type SessionHandler interface {
 	IsLoggedIn(w http.ResponseWriter, r *http.Request) bool
-	GetUserID(w http.ResponseWriter, r *http.Request) (string, error)
+	GetSessionUUID(w http.ResponseWriter, r *http.Request) (string, error)
 	GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error)
 	CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error
 	DeleteSession(w http.ResponseWriter, r *http.Request) error
@@ -47,7 +47,7 @@ type SessionHandlerImpl struct {
 
 // IsLoggedIn indica si hay una sesión activa. Aun cuando haya un error al obtener la sesión redirigira al login
 func (s *SessionHandlerImpl) IsLoggedIn(w http.ResponseWriter, r *http.Request) bool {
-	current, e := s.GetUserID(w, r)
+	current, e := s.GetSessionUUID(w, r)
 	if e != nil {
 		return false
 	}
@@ -57,8 +57,8 @@ func (s *SessionHandlerImpl) IsLoggedIn(w http.ResponseWriter, r *http.Request) 
 	return true
 }
 
-// GetUserID valida si hay una sesión activa. Si es así, regresa el ID del usuario guardado
-func (s *SessionHandlerImpl) GetUserID(w http.ResponseWriter, r *http.Request) (string, error) {
+// GetSessionUUID valida si hay una sesión activa. Si es así, regresa el UUID de la sesión
+func (s *SessionHandlerImpl) GetSessionUUID(w http.ResponseWriter, r *http.Request) (string, error) {
 	current, e := s.GetCurrentSession(w, r)
 	if e != nil {
 		return "", e

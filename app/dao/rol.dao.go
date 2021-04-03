@@ -8,10 +8,17 @@ import (
 
 const (
 	findAllByStatus = `SELECT id_role, name, code, creation_date, edit_date, status FROM manager."CTHEA_ROLE" WHERE status=$1`
+	findUserHasRol  = `SELECT
+	tuser.id_user,
+	trole.name
+	FROM manager."THEA_USER" tuser
+	INNER JOIN manager."CTHEA_ROLE" trole ON tuser.id_role = trole.id_role
+	WHERE tuser.id_user=$1 AND trole.name=$2`
 )
 
 type RolDao interface {
 	FindAllByStatus(status bool) ([]entities.Rol, error)
+	UserHasRol(userID int, rolName string) (bool, error)
 }
 
 type RolDaoImpl struct {
@@ -44,4 +51,25 @@ func (r RolDaoImpl) FindAllByStatus(status bool) (found []entities.Rol, e error)
 
 	return
 
+}
+
+func (r RolDaoImpl) UserHasRol(userID int, rolName string) (bool, error) {
+	stmt, e := r.db.Prepare(findUserHasRol)
+	if e != nil {
+		return false, e
+	}
+
+	var res struct {
+		ID  int
+		Rol string
+	}
+
+	e = stmt.QueryRow(&userID, &rolName).Scan(&res.ID, &res.Rol)
+	if e != nil {
+		if e == sql.ErrNoRows {
+			return false, nil
+		}
+		return false, e
+	}
+	return true, nil
 }

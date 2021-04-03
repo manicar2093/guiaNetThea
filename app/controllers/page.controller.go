@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -45,7 +46,12 @@ func (p *PageController) GetRequestedPage(w http.ResponseWriter, r *http.Request
 		return
 	}
 	pagePath := fmt.Sprintf("templates/%s.html", page)
-	e := p.templateUtils.RenderTemplateToResponseWriter(pagePath, w, nil)
+
+	logout := template.HTML(`<a href="/logout/" style="background-color: red; padding: .5rem; width: auto; position: fixed; z-index: 90;">LOGOUT</a>`)
+
+	e := p.templateUtils.RenderTemplateToResponseWriter(pagePath, w, map[string]interface{}{
+		"logout": logout,
+	})
 	if e != nil {
 		utils.Error.Printf("Error al ingresar a la pagina '%s'. Detalles: \n\t%v", page, e)
 	}

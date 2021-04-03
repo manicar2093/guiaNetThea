@@ -28,7 +28,7 @@ func NewRecordService(detailsEndpointAndHostingDao dao.DetailsEndpointAndHosting
 }
 
 func (r RecordServiceImpl) RegisterPageVisited(w http.ResponseWriter, req *http.Request, page string) error {
-	uuid, e := r.sessionHandler.GetUserID(w, req)
+	uuid, e := r.sessionHandler.GetSessionUUID(w, req)
 	if e != nil {
 		return e
 	}
@@ -52,7 +52,7 @@ func (r RecordServiceImpl) RegisterPageVisited(w http.ResponseWriter, req *http.
 }
 
 func (r RecordServiceImpl) RegisterManualLogout(w http.ResponseWriter, req *http.Request) error {
-	uuid, e := r.sessionHandler.GetUserID(w, req)
+	uuid, e := r.sessionHandler.GetSessionUUID(w, req)
 	if e != nil {
 		return e
 	}

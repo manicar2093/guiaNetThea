@@ -17,7 +17,7 @@ func TestRecordServiceImpl_RegisterPageVisited(t *testing.T) {
 
 	setUp()
 
-	sessionHandlerMock.On("GetUserID", w, r).Return(uuid, nil)
+	sessionHandlerMock.On("GetSessionUUID", w, r).Return(uuid, nil)
 	detailsHostingDaoMock.On("FindDetailsHostingByUUID", uuid).Return(details, nil)
 	endpointDaoMock.On("FindEndpointByName", page).Return(endpoint, nil)
 	detailsEndpointAndHostingDaoMock.On("Save", &detailsEndpoint).Return(nil)
@@ -42,7 +42,7 @@ func TestRecordServiceImpl_RegisterManualLogout(t *testing.T) {
 
 	setUp()
 
-	sessionHandlerMock.On("GetUserID", w, r).Return(uuid, nil)
+	sessionHandlerMock.On("GetSessionUUID", w, r).Return(uuid, nil)
 	detailsHostingDaoMock.On("FindDetailsHostingByUUID", uuid).Return(details, nil)
 	detailsHostingDaoMock.On("Save", mock.AnythingOfType("*entities.DetailsHosting")).Return(nil)
 

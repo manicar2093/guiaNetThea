@@ -107,3 +107,18 @@ func TestSessionHandler_NotIsLoggedIn(t *testing.T) {
 	loggedIn := Session.IsLoggedIn(w, r)
 	assert.False(t, loggedIn, "Debió ser false. No hay sesión se generó")
 }
+
+func TestSessionHandler_DeleteSession(t *testing.T) {
+	w, r := httptest.NewRecorder(), httptest.NewRequest(http.MethodGet, "/page", nil)
+
+	e := Session.CreateNewSession(w, r, "uuid")
+	assert.Nil(t, e, "No debió regresar error al crear la sesión")
+
+	e = Session.DeleteSession(w, r)
+	assert.Nil(t, e, "No debió regresar error al eliminar la sesión")
+
+	session, e := Session.GetCurrentSession(w, r)
+	assert.Nil(t, e, "No debió regresar error")
+	assert.Equal(t, -1, session.Options.MaxAge, "No se colocó la edad maxima correcta")
+
+}

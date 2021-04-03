@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/manicar2093/guianetThea/app/services"
@@ -12,10 +11,11 @@ import (
 type LoginController struct {
 	loginService   services.LoginService
 	sessionHandler sessions.SessionHandler
+	recordService  services.RecordService
 }
 
-func NewLoginController(loginService services.LoginService, sessionHandler sessions.SessionHandler) *LoginController {
-	return &LoginController{loginService, sessionHandler}
+func NewLoginController(loginService services.LoginService, sessionHandler sessions.SessionHandler, recordService services.RecordService) *LoginController {
+	return &LoginController{loginService, sessionHandler, recordService}
 }
 
 func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
@@ -41,5 +41,19 @@ func (l *LoginController) Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func (l *LoginController) Logout(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "LOGINOUT")
+	e := l.recordService.RegisterManualLogout(w, r)
+	if e != nil {
+		utils.Error.Printf("Error al registrar el cierre manual de la sesión. Detalles: \n\t%v", e)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+	e = l.sessionHandler.DeleteSession(w, r)
+	if e != nil {
+		utils.Error.Printf("Error al eliminar la sesión. Detalles: \n\t%v", e)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+	l.sessionHandler.AddFlashMessage(sessions.FlashMessage{Type: "info", Value: "Sesión terminada"}, w, r)
+	http.Redirect(w, r, "/index", http.StatusSeeOther)
+	return
 }

@@ -90,6 +90,11 @@ func (s SessionHandlerMock) GetFlashMessages(w http.ResponseWriter, r *http.Requ
 	return args.Get(0).([]interface{})
 }
 
+func (s SessionHandlerMock) DeleteSession(w http.ResponseWriter, r *http.Request) error {
+	args := s.Called(w, r)
+	return args.Error(0)
+}
+
 type EndpointDaoMock struct {
 	mock.Mock
 }

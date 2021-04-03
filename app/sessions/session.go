@@ -19,8 +19,8 @@ var SessionDuration time.Duration
 
 // SessionError es una estructura con la cual se declaran errores generales en el servicio de sesiones
 var (
-	ErrGetSession  = errors.New("Error al obtener la sessión")
-	ErrSaveSession = errors.New("Error al guardar la sessión")
+	ErrGetSession  = errors.New("error al obtener la sessión")
+	ErrSaveSession = errors.New("error al guardar la sessión")
 	sessionName    = "guianetthea"
 )
 
@@ -35,7 +35,7 @@ type SessionHandler interface {
 	GetUserID(w http.ResponseWriter, r *http.Request) (string, error)
 	GetCurrentSession(w http.ResponseWriter, r *http.Request) (*sessions.Session, error)
 	CreateNewSession(w http.ResponseWriter, r *http.Request, uuid string) error
-	//DeleteSession(w http.ResponseWriter, r *http.Request) error
+	DeleteSession(w http.ResponseWriter, r *http.Request) error
 	AddFlashMessage(message FlashMessage, w http.ResponseWriter, r *http.Request)
 	GetFlashMessages(w http.ResponseWriter, r *http.Request) []interface{}
 }
@@ -121,6 +121,20 @@ func (s *SessionHandlerImpl) GetFlashMessages(w http.ResponseWriter, r *http.Req
 	flashes := session.Flashes()
 	session.Save(r, w)
 	return flashes
+}
+
+func (s *SessionHandlerImpl) DeleteSession(w http.ResponseWriter, r *http.Request) error {
+	session, e := s.GetCurrentSession(w, r)
+	if e != nil {
+		return e
+	}
+
+	session.Options.MaxAge = -1
+	e = s.session.Save(r, w, session)
+	if e != nil {
+		return e
+	}
+	return nil
 }
 
 func init() {

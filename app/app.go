@@ -51,6 +51,7 @@ func webHandlers(r *mux.Router) {
 	r.HandleFunc("/{page}", middlewareProvider.NeedsLoggedIn(pageController.GetRequestedPage)).Methods(http.MethodGet)
 
 	r.HandleFunc("/login", loginController.Login).Methods(http.MethodPost)
+	r.HandleFunc("/logout/", loginController.Logout).Methods(http.MethodGet)
 }
 
 func adminHandlers(r *mux.Router) {
@@ -102,7 +103,7 @@ func init() {
 	loginRegistryService = services.NewLoginRegistryService(loginRegistryDao)
 
 	pageController = controllers.NewPageController(sessions.Session, recordService, templateUtils)
-	loginController = controllers.NewLoginController(loginService, sessions.Session)
+	loginController = controllers.NewLoginController(loginService, sessions.Session, recordService)
 	adminController = controllers.NewAdminController(templateUtils, userDao, catalogsService)
 	userController = controllers.NewUserController(userDao, validatorService, passwordUtils)
 	catalogsController = controllers.NewCatalogController(catalogsService)

@@ -8,6 +8,10 @@ import (
 	"github.com/manicar2093/guianetThea/app/dao"
 )
 
+const (
+	dateFormat = "2006-01-02 15:04:05"
+)
+
 var (
 	letterA     = rune(65)
 	sheetName   = "Reporte"
@@ -63,9 +67,9 @@ func (l LoginRegistryServiceImpl) CreateLoginRegistryXLS(init, final time.Time) 
 		letter++
 		res.SetCellValue(sheetName, fmt.Sprintf("%s%d", string(letter), counter), v.TypeLogOut)
 		letter++
-		res.SetCellValue(sheetName, fmt.Sprintf("%s%d", string(letter), counter), init)
+		res.SetCellValue(sheetName, fmt.Sprintf("%s%d", string(letter), counter), v.SessionInit.Format(dateFormat))
 		letter++
-		res.SetCellValue(sheetName, fmt.Sprintf("%s%d", string(letter), counter), final)
+		res.SetCellValue(sheetName, fmt.Sprintf("%s%d", string(letter), counter), v.SessionFinish.Format(dateFormat))
 		counter++
 		letter = letterA
 	}

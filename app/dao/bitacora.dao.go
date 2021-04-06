@@ -13,7 +13,9 @@ const loginRegistryByDate = `SELECT CONCAT (tuser.name,' ',tuser.paternal_surnam
 	(session_closure-session_start) As time,
 	ths.host AS host,
 	ths.type_log_out AS type_log_out,
-	ctep.name page 
+	ctep.name page,
+	ths.session_start as session_init,
+	ths.session_closure as session_finish
 FROM manager."THEA_DETAILS_HOSTING" ths
 	INNER JOIN manager."THEA_USER" tuser ON tuser.id_user = ths.id_user
 	INNER JOIN manager."CTHEA_ROLE" trole ON tuser.id_role = trole.id_role
@@ -46,7 +48,7 @@ func (l LoginRegistryDaoImpl) LogRegistrySearch(init, final time.Time) (res []en
 
 	for r.Next() {
 		var temp entities.LoginRegistry
-		if e = r.Scan(&temp.Name, &temp.Email, &temp.Rol, &temp.Time, &temp.Host, &temp.TypeLogOut, &temp.Page); e != nil {
+		if e = r.Scan(&temp.Name, &temp.Email, &temp.Rol, &temp.Time, &temp.Host, &temp.TypeLogOut, &temp.Page, &temp.SessionInit, &temp.SessionFinish); e != nil {
 			return
 		}
 		res = append(res, temp)

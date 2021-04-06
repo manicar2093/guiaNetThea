@@ -52,6 +52,94 @@ go build
 Servidor iniciado
 ```
 
+## Endpoints
+
+Este sistema cuenta con varios endpoints que a continuación se describen:
+
+**WEB**
+
+* _/_ _GET_
+Este endpoint renderiza el template on_dev.html
+
+* _/index_ _GET_
+Renderiza el template login.html
+
+* _/{page}_ _GET_
+Dependiendo de la página que se solicite renderiza el html que corresponda
+
+* _/login_ _POST_
+Endpoint para realizar el login al sistema
+
+* _/logout/_ _GET_
+Realiza la salida de sistema
+
+**ADMIN**
+
+**NOTA: Todos comienzan con _/admin_**
+
+* _/ GET_
+Renderiza el index del administrador
+
+* _/user/all GET_
+Renderiza el template users.html
+
+* _/user/registry GET_
+Renderiza el template registry_user.html
+
+* _/logginRegistry GET_
+Renderiza el template bitacora.html
+
+* _/user/{idUser} GET_
+Renderiza el template edit_user.html
+
+* _/user/registry POST_
+Realiza el registro de un usuario. Detalles del JSON para el request:
+```
+RolID            int32  `json:"rol_id" validate:"required"`
+Name             string `json:"name" validate:"required"`
+PaternalSureName string `json:"paternal_surename" validate:"required"`
+MaternalSureName string `json:"maternal_surename"`
+Email            string `json:"email" validate:"required,email"`
+Password         string `json:"password" validate:"required"`
+PasswordConfirm  string `json:"password_confirm" validate:"required,eqfield=Password"`
+```
+
+* _/user/delete/{idUser} DELETE_
+Pone en status false al usuario que se solicite
+
+* _/user/restore_password PUT_
+Realiza el cambio de contraseña de un usuario. Detalles del JSON para el request:
+```
+ID              int32  `json:"id" validate:"required"`
+Password        string `json:"password" validate:"required"`
+PasswordConfirm string `json:"password_confirm" validate:"required,eqfield=Password"`
+```
+
+* _/user/update PUT_
+Realiza la actualización de un usuario, menos su contraseña. Detalles del JSON para el request:
+```
+ID               int32  `json:"id" validate:"required"`
+RolID            int32  `json:"rol_id" validate:"required"`
+Name             string `json:"name" validate:"required"`
+PaternalSureName string `json:"paternal_surename" validate:"required"`
+MaternalSureName string `json:"maternal_surename"`
+Email            string `json:"email" validate:"required,email"`
+```
+
+* _/catalogs/{catalog} GET_
+Obtiene los datos de los catalogos registrados. Todos contienen la siguiente información:
+```
+ID          int    `json:"id"`
+Description string `json:"description"`
+```
+
+* _/login_registry/create POST_
+Crea un .xlsx con la información del logueo de los usuarios a la plataforma. Detalles del JSON para el request:
+```
+InitDate  time.Time `json:"initDate" validate:"required"`
+FinalDate time.Time `json:"finalDate" validate:"required"`
+```
+
 ## Variables de entorno
 
 - **DB_URL**: Indica la url de la base de datos en la que se guardará la información. Esta contempla el siguiente formato:

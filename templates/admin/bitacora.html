@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/css/admin/style.css">
+      <script src="/scripts/admin/menu.js"> </script>
+      <title>Bitácora</title>
+    </head>
+  <body>
+    <nav class="navbar has-shadow is-justify-content-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1>Administrador</h1>
+        </div><a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="menuAdmin"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="columns">
+        <aside class="aside column is-2 is-fullheight section invisible-on-touch is-full-touch" id="menuAdmin">
+          <p class="menu-label">Administrador</p>
+          <ul class="menu-list">
+            <li><a href="/admin/user/all">Usuarios</a>
+              <ul> 
+                <li><a href="/admin/user/registry">Registrar</a></li>
+              </ul>
+            </li>
+          </ul>
+          <p class="menu-label">Informes
+            <ul class="menu-list">
+              <li><a href="/admin/logginRegistry">Bitácora</a></li>
+            </ul>
+          </p>
+          <hr><a class="button is-light is-danger is-fullwidth" href="/logout/">Logout</a>
+        </aside>
+        <div class="column is-10 is-fullheight section is-full-touch">
+          <div class="hero is-info is-small">
+            <div class="hero-body">
+              <p class="title">Bitácora</p>
+              <p class="subtitle">Llena los campos de fecha para poder generar la bitácora de accesos realizados</p>
+            </div>
+          </div>
+          <div id="app">
+            <form class="form mt-5" ref="createReportForm">
+              {{.csrfField}}
+              <div class="field-group">
+                <div class="field">
+                  <label class="label">Fecha inicial</label>
+                  <div class="control">
+                    <input class="input" type="date" v-model="initDate">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.initDate.required">La fecha es requerida</p>
+                </div>
+                <div class="field">
+                  <label class="label">Fecha final</label>
+                  <div class="control">
+                    <input class="input" type="date" v-model="finalDate">
+                  </div>
+                  <p class="help is-danger" v-if="!$v.finalDate.required">La fecha es requerida</p>
+                  <p class="help is-danger" v-if="!$v.finalDate.dateGreaterThan">La fecha inicial no puede ser mayor a la fecha final</p>
+                </div>
+              </div>
+              <div class="buttons is-justify-content-flex-end mt-2">
+                <div class="button is-primary" @click="createReport" ref="createButton">Crear</div>
+              </div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="/scripts/admin/vuelidate.min.js"></script>
+    <script src="/scripts/admin/validators.min.js"></script>
+    <script>
+
+      Vue.use(window.vuelidate.default)
+      const { required, minLength, sameAs, email } = window.validators
+
+      const dateGreaterThan = (value, vm) => {
+          let finalDate = getDayByDateInputValue(value)
+          let initDate = getDayByDateInputValue(vm._data.initDate)
+          {{/*console.log("finalDate > initDate ",finalDate>initDate)*/}}
+          return finalDate>initDate
+        
+      }
+
+      const getDayByDateInputValue = (value) => {
+        if (typeof value != "string") {
+          console.log(value)
+          return
+        }
+        let splited = value.split("-")
+        let day = parseInt(splited[2])
+        let month = parseInt(splited[1]) - 1
+        let year = parseInt(splited[0])
+        return new Date(year, month, day)
+      }
+
+      let app = new Vue({
+        el: "#app",
+        delimiters: ['{%', '%}'],
+        validations: {
+          initDate: {
+            required
+          },
+          finalDate: {
+            required,
+            dateGreaterThan
+          },
+        },
+        data: {
+          initDate: "",
+          finalDate: "",
+        },
+        methods: {
+          async createReport() {
+            this.$v.$touch()
+            if(this.$v.$invalid){
+              alert("Favor de validar la información.")
+              return
+            }
+
+            this.$refs.createButton.classList.add("is-loading")
+            let inputs = this.$refs.createReportForm.querySelectorAll(".input")
+            inputs.forEach(i => {
+              i.disabled = true
+            })
+
+            let data = {
+              initDate: getDayByDateInputValue(this.initDate),
+              finalDate: getDayByDateInputValue(this.finalDate)
+            }
+
+            let res = await fetch("/admin/login_registry/create", {
+              method: "POST",
+              headers: {
+                "X-CSRF-Token": document.getElementsByName("gorilla.csrf.Token")[0].value
+              },
+              body: JSON.stringify(data)
+            })
+
+
+            switch(res.status) {
+              case 500:
+                alert("Hubo un error interno. Favor de contactar a soporte.")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 400:
+                alert("Favor de validar que los datos esten bien llenos")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break
+              case 200:
+                await this.getFileFromResponse(res)
+                alert("Descarga realizada")
+                this.$refs.createButton.classList.remove("is-loading")
+                inputs.forEach(i => {
+                  i.disabled = false
+                })
+                break1
+            }
+          },
+          async getFileFromResponse(res) {
+            let blob = await res.blob()
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = res.headers.get("File-Name");
+            document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+            a.click();    
+            a.remove();  //afterwards we remove the element again 
+          }
+        }
+      })
+      
+    </script>
+  </body>
+</html>

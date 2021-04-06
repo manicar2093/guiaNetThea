@@ -70,11 +70,13 @@ type DetailsEndpointAndHosting struct {
 }
 
 type LoginRegistry struct {
-	Name       string
-	Email      string
-	Rol        string
-	Time       string
-	Host       string
-	TypeLogOut string
-	Page       string
+	Name          string
+	Email         string
+	Rol           string
+	Time          string
+	Host          string
+	TypeLogOut    string
+	Page          string
+	SessionInit   time.Time
+	SessionFinish time.Time
 }
